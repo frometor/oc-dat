@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="searchTerm">Search for Keywords</label>
+  <input [(ngModel)]="inputValue" id="searchTerm" type="text" class="form-control" placeholder="type keywords..."
+         (ngModelChange)="onInputSelect()" ngDefaultControl name="searchInput">
+</div>
+
+<!--<div class="col-md-12">
+  <select2 [data]="exampleData" [width]="300" [options]="options"></select2>
+  <select2 [(data)]="data" [width]="300" [options]="options" name="searchInput" (ngModelChange)="onInputSelect()"  (keyup.enter)="onKeyUp()" ngDefaultControl></select2>
+  <select2 [(ngModel)]="exampleData" (keyup.enter)="onKeyUp()" name="searchInput"></select2>
+</div>-->

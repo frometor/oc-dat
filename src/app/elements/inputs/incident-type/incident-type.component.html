@@ -1,0 +1,19 @@
+<label for="typeofincident-group">Select type of incidents</label>
+<div id="typeofincident-group" class="btn-group" data-toggle="buttons">
+  <label class="col-xs-12" [class.active]="model.all">
+    <input type="checkbox" [(ngModel)]="model.all" (ngModelChange)="onInputSelect('all')"> All
+  </label>
+  <label class="col-xs-4" [class.active]="model.theft">
+    <input type="checkbox" [(ngModel)]="model.theft" (ngModelChange)="onInputSelect($event)"> Theft
+  </label>
+  <label class="col-xs-4" [class.active]="model.riot">
+    <input type="checkbox" [(ngModel)]="model.riot" (ngModelChange)="onInputSelect($event)"> Riot
+  </label>
+  <label class="col-xs-4" [class.active]="model.fire">
+    <input type="checkbox" [(ngModel)]="model.fire" (ngModelChange)="onInputSelect($event)"> Fire
+  </label>
+</div>
+<!--
+<hr>
+<pre>{{models | json}}</pre>
+-->

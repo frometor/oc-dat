@@ -1,0 +1,16 @@
+<div id="dateRangePicker">
+  <div class="form-group">
+    <label for="formGroupExampleInput">Pick Start and Enddate</label>
+    <ng-daterangepicker id="formGroupExampleInput" [(ngModel)]="datePickerValue" [options]="options" name="daterangepicker"
+                      (ngModelChange)="onChangeDate()"></ng-daterangepicker>
+  </div>
+</div>
+
+
+<!--    <div class="input-field col s12">
+      <label for="endDate">Enddate</label>
+      <input id="endDate" [(ngModel)]="endDate" name="endDate"
+             materialize="pickadate"
+             [materializeParams]="dateTimePickerEndParams"
+             type="text"/>
+    </div>-->
