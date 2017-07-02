@@ -13,11 +13,14 @@ import { Select2Module } from 'ng2-select2';
 import { ResultTableComponent } from './elements/result-table/result-table.component';
 import { SearchComponent } from './elements/inputs/search/search.component';
 import { IncidentTypeComponent } from './elements/inputs/incident-type/incident-type.component';
-import { FilterComponent } from './elements/filter/filter.component';
-import { FilterDataComponent } from './elements/filter-data/filter-data.component';
-import { ResultVisualiationsComponent } from './elements/result-visualiations/result-visualiations.component';
+import { ResultVisualiationsComponent } from './elements/result-visualisations/result-visualiations.component';
 import { D3Service } from 'd3-ng2-service';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { LineChartComponent } from './elements/result-visualisations/line-chart/line-chart.component';
+import { BarChartComponent } from './elements/result-visualisations/bar-chart/bar-chart.component';
+import { PieChartComponent } from './elements/result-visualisations/pie-chart/pie-chart.component';
+import { MonthlyFilterComponent } from './elements/monthly-filter/monthly-filter.component';
 
 
 @NgModule({
@@ -29,9 +32,11 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     ResultTableComponent,
     SearchComponent,
     IncidentTypeComponent,
-    FilterComponent,
-    FilterDataComponent,
-    ResultVisualiationsComponent
+    ResultVisualiationsComponent,
+    LineChartComponent,
+    BarChartComponent,
+    PieChartComponent,
+    MonthlyFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     BrowserAnimationsModule,
     NgDateRangePickerModule,
     Select2Module,
-    NgxChartsModule
+    NgxChartsModule,
+    NgxDatatableModule
   ],
   providers: [D3Service],
   bootstrap: [AppComponent]

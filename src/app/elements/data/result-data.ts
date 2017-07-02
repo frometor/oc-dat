@@ -60,3 +60,46 @@ export var multi = [
     ]
   }
 ];
+
+export var months = [
+  {
+    "name": "January",
+    "value": 45
+  },
+  {
+    "name": "February",
+    "value": 31
+  },
+  {
+    "name": "March",
+    "value": 12
+  },
+  {
+    "name": "April",
+    "value": 31
+  },{
+    "name": "May",
+    "value": 2
+  },{
+    "name": "June",
+    "value": 31
+  },{
+    "name": "July",
+    "value": 48
+  },{
+    "name": "August",
+    "value": 28
+  },{
+    "name": "September",
+    "value": 83
+  },{
+    "name": "October",
+    "value": 13
+  },{
+    "name": "November",
+    "value": 42
+  },{
+    "name": "December",
+    "value": 12
+  }
+];

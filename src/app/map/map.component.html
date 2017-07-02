@@ -4,9 +4,13 @@
      [leafletCenter]="center"
      [leafletFitBounds]="fitBounds"
      [leafletBaseLayers]="baseLayers"
-     [leafletLayersControlOptions]="layersControlOptions">
-</div>
+     [leafletLayersControlOptions]="layersControlOptions"
 
+     (leafletMapReady)="onMapReady($event)">
+</div>
+<!-- [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+       (leafletMarkerClusterReady)="markerClusterReady($event)"-->
 <!--<div class="map" leaflet style="height: 800px; width: 800px; z-index: -1;"
      [leafletOptions]="mapOptions"
      [leafletBaseLayers]="baseLayers"
