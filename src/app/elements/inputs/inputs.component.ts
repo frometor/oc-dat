@@ -1,4 +1,5 @@
-import { Component, } from '@angular/core';
+import {Component,} from '@angular/core';
+import {IncidentsService} from "../../services/incidents.service";
 
 @Component({
   selector: 'app-inputs',
@@ -7,5 +8,24 @@ import { Component, } from '@angular/core';
 })
 export class InputsComponent {
 
+  resultIncidents: any[] = [];
+  inputValues:Object={}
 
+  constructor(private incidentsService: IncidentsService) {
+  }
+
+  searchIncidents(searchData: Object) {
+
+    this.incidentsService.getSearchIncidents(this.inputValues).subscribe(data => {
+        this.resultIncidents = data;
+      },
+      console.error);
+
+    /*this.incidentsService.getAllIncidents().subscribe(data => {
+     this.resultIncidents = data;
+     console.log("Result: ", this.resultIncidents)
+
+     });*/
+    console.log("clicked");
+  }
 }

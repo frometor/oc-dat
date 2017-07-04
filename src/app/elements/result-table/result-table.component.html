@@ -2,8 +2,18 @@
   result-table works!
 </p>
 <div>
-  <ngx-datatable
+   <ngx-datatable
+    class="material selection-cell"
     [rows]="rows"
-    [columns]="columns">
+    [columnMode]="'force'"
+    [columns]="columns"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="10"
+    [selected]="selected"
+    [selectionType]="'single'"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)">
   </ngx-datatable>
 </div>

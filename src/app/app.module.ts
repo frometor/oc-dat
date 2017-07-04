@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -21,6 +21,8 @@ import { LineChartComponent } from './elements/result-visualisations/line-chart/
 import { BarChartComponent } from './elements/result-visualisations/bar-chart/bar-chart.component';
 import { PieChartComponent } from './elements/result-visualisations/pie-chart/pie-chart.component';
 import { MonthlyFilterComponent } from './elements/monthly-filter/monthly-filter.component';
+import {SelectModule} from 'ng2-select';
+import {IncidentsService} from './services/incidents.service'
 
 
 @NgModule({
@@ -42,14 +44,16 @@ import { MonthlyFilterComponent } from './elements/monthly-filter/monthly-filter
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     LeafletModule,
     BrowserAnimationsModule,
     NgDateRangePickerModule,
     Select2Module,
     NgxChartsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    SelectModule
   ],
-  providers: [D3Service],
+  providers: [D3Service,IncidentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

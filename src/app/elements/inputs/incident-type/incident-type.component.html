@@ -1,4 +1,27 @@
-<label for="typeofincident-group">Select type of incidents</label>
+<!--<div style="width: 300px; margin-bottom: 20px;">-->
+  <div class="form-group" style="margin-bottom: 20px;">
+    <label for="selectTypeOfIncident">Select Type of Incident</label>
+    <ng-select id="selectTypeOfIncident"
+               [multiple]="true"
+               [items]="items"
+               [disabled]="disabled"
+               (data)="refreshValue($event)"
+               (selected)="selected($event)"
+               (removed)="removed($event)"
+               placeholder="Please Select"></ng-select>
+    <!--<pre>{{itemsToString(value)}}</pre>-->
+
+    </div>
+
+  <!--<pre>{{itemsToString(value)}}</pre>-->
+  <!--<div>
+    <button type="button" class="btn btn-primary"
+            [(ngModel)]="disabledV" btnCheckbox
+            btnCheckboxTrue="1" btnCheckboxFalse="0">
+      {{disabled === '1' ? 'Enable' : 'Disable'}}
+    </button>
+  </div>-->
+<!--<label for="typeofincident-group">Select type of incidents</label>
 <div id="typeofincident-group" class="btn-group" data-toggle="buttons">
   <label class="col-xs-12" [class.active]="model.all">
     <input type="checkbox" [(ngModel)]="model.all" (ngModelChange)="onInputSelect('all')"> All
@@ -12,7 +35,7 @@
   <label class="col-xs-4" [class.active]="model.fire">
     <input type="checkbox" [(ngModel)]="model.fire" (ngModelChange)="onInputSelect($event)"> Fire
   </label>
-</div>
+</div>-->
 <!--
 <hr>
 <pre>{{models | json}}</pre>

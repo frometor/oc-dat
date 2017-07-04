@@ -83,13 +83,10 @@ export class MapComponent implements OnInit {
     this.typesArray=[];
 
     for (let incidentPol of this.incidentPolygons) {
-      console.log("incident polygons:",incidentPol.location.coordinates[0][0]);
+      //console.log("incident polygons:",incidentPol.location.coordinates[0][0]);
      //swaps lat with lng because leaflet is other way round than normal
-      for (let latLng of incidentPol.location.coordinates[0] ){
-        let tmp = latLng[0];
-        latLng[0]=latLng[1];
-        latLng[1]=tmp;
-      }
+      this.swapLatLng(incidentPol);
+
       this.typesArray=[];
       for(let incidentType of incidentPol.types){
         this.typesArray.push(incidentType.type);
@@ -106,9 +103,9 @@ export class MapComponent implements OnInit {
     }
 
     for (let incident of this.incidentPoints) {
-      console.log("incidnet", incident);
+     // console.log("incidnet", incident);
    //   if (incident.location.type == "Point" && incident.types[0] != null) {
-        console.log("sth", incident.types[0].type);
+      //  console.log("sth", incident.types[0].type);
         this.typesArray=[];
 
         for(let incidentType of incident.types){
@@ -129,6 +126,14 @@ export class MapComponent implements OnInit {
     /*   L.marker([51.5, -0.09],{icon: this.customIcon}).addTo(map)
      .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
      .openPopup();*/
+  }
+
+  private swapLatLng(incidentPol: any) {
+    for (let latLng of incidentPol.location.coordinates[0] ){
+      let tmp = latLng[0];
+      latLng[0]=latLng[1];
+      latLng[1]=tmp;
+    }
   }
 
 /*  markerClusterReady(markerCluster: L.MarkerClusterGroup) {
