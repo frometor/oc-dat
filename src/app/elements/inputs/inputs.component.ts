@@ -9,7 +9,7 @@ import {IncidentsService} from "../../services/incidents.service";
 export class InputsComponent {
 
   resultIncidents: any[] = [];
-  inputValues:Object={}
+  inputValues:Object={};
 
   constructor(private incidentsService: IncidentsService) {
   }

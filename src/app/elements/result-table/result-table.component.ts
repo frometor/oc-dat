@@ -42,23 +42,28 @@ export class ResultTableComponent implements OnInit {
 
   ngOnInit() {
 
-   // this.allIncidents$ = this.incidentsService.incidents$.map(data => data !== EMPTY_INCIDENT);
-   this.incidentsService.getAllIncidents().subscribe(data => {
+     this.allIncidents$ = this.incidentsService.incidents$.map(data => {this.fillColums(data)});
+    /*this.incidentsService.getSearchIncidents({}).subscribe(data => {
       this.allIncidents = data;
-      this.fillColums(this.allIncidents);
+      console.log("this.allIncidents", this.allIncidents);
+      if (this.allIncidents != null) {
+        this.fillColums(this.allIncidents);
+      }
       console.log("SERVICE: ", this.allIncidents)
-    });
-
-    console.log("SERVICE: ", this.allIncidents);
+    });*/
   }
 
-  private fillColums(mAllIncidents:any) {
-    console.log("resultsTable", mAllIncidents);
-    for (let incidentRow of mAllIncidents.incidents) {
-      console.log(incidentRow);
+  private fillColums(mAllIncidents: any) {
+    let typesOfIncidentString;
+    for (let incidentRow of mAllIncidents.hits.hits) {
+      let typesOfIncidentString = '';
+      for (let typesOfIncident of incidentRow._source.types) {
+        console.log(typesOfIncident.type);
+        typesOfIncidentString += " " + typesOfIncident.type;
+      }
       this.rows.push({
-        state: incidentRow.state,
-        types: incidentRow.types
+        state: incidentRow._source.state,
+        types: typesOfIncidentString
       });
     }
   }
