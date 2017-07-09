@@ -2,22 +2,16 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {Subject} from 'rxjs/Subject';
-import {incidents} from "../elements/data/incident";
-
-export const EMPTY_INCIDENT: any = {};
 
 @Injectable()
 export class IncidentsService {
 
-  private subject = new BehaviorSubject(EMPTY_INCIDENT);
-
-  incidents$: Observable<any> = this.subject.asObservable();
-
   //url: string = './assets/data/incidents.json';
   //url: string = 'http://localhost:9200/incidents/_search/?pretty=1';
   url: string = 'http://localhost:9200/incidents/incident/_search';
-  //postData: any = {};
+  /*postData: any = {
+
+   };*/
   postData: any = {
     "size": 10000,
     "aggs": {
@@ -28,50 +22,76 @@ export class IncidentsService {
       }
     }
   };
+
+  EMPTY_SEARCH: any = {
+    "took": 3,
+    "timed_out": false,
+    "_shards": {
+      "total": 5,
+      "successful": 5,
+      "failed": 0
+    },
+    "hits": {
+      "total": 4,
+      "max_score": 1,
+      "hits": []
+    },
+    "aggregations": {
+      "types_of_incident": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": []
+      }
+    }
+  };
+
+  private subject = new BehaviorSubject(this.EMPTY_SEARCH);
+
   /*
-   curl -XPOST "http://localhost:9200/incidents/incident/_search" -d'
-   {
-   "query": {
-   "term": {"state": "closed"}
-   }
-   }'
-   */
+   private subject = new BehaviorSubject({"took": 3,
+   "timed_out": false,
+   "_shards": {
+   "total": 5,
+   "successful": 5,
+   "failed": 0
+   },
+   "hits": {},
+   });*/
+
+  incidents$: Observable<any> = this.subject.asObservable();
 
   constructor(private http: Http) {
+
   }
 
-  getAllIncidents() {
-    // return incidents;
-    return this.http.request('./assets/data/incidents.json')
-      .map((res: Response) => res.json());
-  }
-
-  getAllIncidentsPost() {
-
+  getIncidents(): Observable<any> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Acces-Control-Allow-Origin', '*');
-    // return this.http.post(this.url, this.postData,headers)
-    return this.http.get(this.url, this.postData)
-      .map(res => res.json());
-    /*.subscribe(
-     data => {
-     this.subject.next(data)
-     }
-     )*/
-  }
 
-  getSearchIncidents(searchInput: Object): Observable<any> {
-
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let options = new RequestOptions({headers: headers}); // Create a request option
-    return this.http.post(this.url, this.postData, options)
+    /*  return this.http.get(this.url)
+     .map(res => res.json())
+     .do(res => {console.log("RES: ", res)})
+     .do(incident=> this.subject.next(incident));
+     */
+    return this.http.post(this.url, this.postData, headers)
       .map(res => res.json())
-      .do(data => console.log(data))
-      .do(data => this.subject.next(data))
-      .publishLast().refCount();
-    //publish only once
+      .do(res => {
+        console.log("from elasticsearch: ", res)
+      })
+      .do(incident => this.subject.next(incident));
+    // .publishLast().refCount();
+  }
+
+  resetSearch() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(this.url, this.postData, headers)
+      .map(res => res.json())
+      .do(res => {
+        console.log("from elasticsearch: ", res)
+      })
+      .do(incident => this.subject.next(this.EMPTY_SEARCH));
   }
 
 }

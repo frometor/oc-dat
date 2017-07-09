@@ -1,18 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import {single} from '../../data/result-data';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {IncidentsService} from "../../../services/incidents.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
+  styleUrls: ['./bar-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarChartComponent implements OnInit {
 
-  ngOnInit(): void {
+  allIncidents: any;
+  incidentValues: any;
+
+  constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
   }
 
-  single: any[];
-  multi: any[];
+  ngOnInit(): void {
+
+    this.incidentService.incidents$.subscribe(
+      incidents => {
+        this.allIncidents = incidents;
+        this.fillColums(incidents);
+        //this.cd.markForCheck(); // marks path
+       // console.log("result table subscribed");
+      }
+    );
+  }
 
   view: any[];
 
@@ -30,13 +44,32 @@ export class BarChartComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-
-  constructor() {
-    Object.assign(this, {single});
-  }
-
   onSelect(event) {
     console.log(event);
   }
 
+  private fillColums(incidents: any) {
+    console.log("BAR_CHART", incidents.aggregations.types_of_incident.buckets);
+
+    this.incidentValues = this.lodashMapKeys(incidents.aggregations.types_of_incident.buckets);
+
+    //console.log("RESULT: ", this.incidentValues);
+    //console.log("BAR_CHART", incidents.aggregations.types_of_incident.buckets);
+    this.cd.markForCheck(); // marks path
+  }
+
+  //changes the elasticsearch key names to names that the component understands
+  private lodashMapKeys(buckets: Array<any>) {
+    let returnValue;
+    var keyMap = {
+      doc_count: 'value',
+      key: 'name'
+    };
+    returnValue = buckets.map(function (obj) {
+      return _.mapKeys(obj, function (value, key) {
+        return keyMap[key];
+      });
+    });
+    return returnValue;
+  }
 }
