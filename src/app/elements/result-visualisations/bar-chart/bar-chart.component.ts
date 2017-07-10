@@ -49,7 +49,7 @@ export class BarChartComponent implements OnInit {
   }
 
   private fillColums(incidents: any) {
-    console.log("BAR_CHART", incidents.aggregations.types_of_incident.buckets);
+   // console.log("BAR_CHART", incidents.aggregations.types_of_incident.buckets);
 
     this.incidentValues = this.lodashMapKeys(incidents.aggregations.types_of_incident.buckets);
 

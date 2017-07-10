@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { LeafletModule } from '@asymmetrik/angular2-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/angular2-leaflet-markercluster';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -46,6 +47,7 @@ import {IncidentsService} from './services/incidents.service'
     HttpModule,
     JsonpModule,
     LeafletModule,
+    LeafletMarkerClusterModule,
     BrowserAnimationsModule,
     NgDateRangePickerModule,
     Select2Module,

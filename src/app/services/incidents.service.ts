@@ -76,7 +76,7 @@ export class IncidentsService {
     return this.http.post(this.url, this.postData, headers)
       .map(res => res.json())
       .do(res => {
-        console.log("from elasticsearch: ", res)
+       // console.log("from elasticsearch: ", res)
       })
       .do(incident => this.subject.next(incident));
     // .publishLast().refCount();

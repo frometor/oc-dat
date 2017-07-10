@@ -1,15 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import * as L from 'leaflet';
-import {incidents} from '../elements/data/incident';
+import 'leaflet.markercluster';
+//import {incidents} from '../elements/data/incident';
 import LatLngExpression = L.LatLngExpression;
 import LatLngLiteral = L.LatLngLiteral;
+import * as _ from "lodash";
+import {IncidentsService} from "../services/incidents.service";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent implements OnInit {
+
+  //markerGroup
+  markerLayer;
+  markerLayerGroup;
+  polygonLayerGroup;
+
+  // Marker cluster stuff
+  markerClusterGroup: L.MarkerClusterGroup;
+  markerClusterData: any[] = [];
+  markerClusterOptions: L.MarkerClusterGroupOptions;
 
   Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -38,6 +52,7 @@ export class MapComponent implements OnInit {
 
 // Values to bind to Leaflet Directive
   layersControlOptions = {position: 'topright'};
+
   baseLayers = {
     'Open Street Map': this.LAYER_OSM.layer,
     'Open Cycle Map': this.LAYER_OCM.layer
@@ -56,43 +71,100 @@ export class MapComponent implements OnInit {
   });
 
   incidents: any[];
-  incidentPoints:any[]=[];
-  incidentPolygons:any[]=[];
+  incidentPoints: any[] = [];
+  incidentPolygons: any[] = [];
 
   private typesArray: any[];
 
-  constructor() {
-    Object.assign(this, {incidents});
+  constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
+    // Object.assign(this, {incidents});
   }
 
   onMapReady(map: L.Map) {
 
-    for (let incidentP of incidents) {
-      //filter out points
-      if (incidentP.location.type == "Point" && incidentP.types[0] != null) {
-        this.incidentPoints.push(incidentP);
+    this.incidentService.incidents$.subscribe(
+      data => {
+        if (this.markerLayerGroup != null) {
+          map.removeLayer(this.markerLayerGroup);
+          //map.removeLayer(this.markerClusterGroup);
+          this.cd.markForCheck(); // forces redraw
+        }
+        if (this.markerLayerGroup != null) {
+          map.removeLayer(this.polygonLayerGroup);
+          this.cd.markForCheck(); // forces redraw
+        }
+        this.incidents = data.hits.hits;
+        console.log("MAP: INCIDENTS: ", this.incidents);
+        this.drawMarker(this.incidents, map);
+        //this.cd.markForCheck(); // marks path
       }
-      else if(incidentP.location.type == "Polygon" && incidentP.types[0] != null){
-        this.incidentPolygons.push(incidentP);
+    );
+
+  }
+
+  markerClusterReady(group: L.MarkerClusterGroup) {
+    // Do stuff with group
+    console.log("MARKERCLUSTER READY");
+    //this.markerClusterGroup = group;
+  }
+
+  private swapLatLng(incidentPol: any) {
+    for (let latLng of incidentPol.location.coordinates[0]) {
+      let tmp = latLng[0];
+      latLng[0] = latLng[1];
+      latLng[1] = tmp;
+    }
+  }
+
+  /*  markerClusterReady(markerCluster: L.MarkerClusterGroup) {
+   // Do stuff with group
+   }*/
+
+  ngOnInit() {
+
+  }
+
+  private drawMarker(incidents: any, map: L.Map) {
+
+    this.incidentPoints = [];
+    this.incidentPolygons = [];
+
+    for (let incidentP of incidents) {
+      //console.log("incidentP: ", incidentP);
+      //filter out points
+      if (!(incidentP._source.hasOwnProperty("location"))) {
+        console.log("theft")
+      }
+      else if (!(incidentP._source.hasOwnProperty("types"))) {
+        console.log("type is missing");
+      }
+      else if (incidentP._source.location.type == "Point" && incidentP._source.types[0] != null) {
+        this.incidentPoints.push(incidentP._source);
+      }
+      else if (incidentP._source.location.type == "Polygon" && incidentP._source.types[0] != null) {
+        this.incidentPolygons.push(incidentP._source);
       }
     }
 
+    // var markers=L.markerClusterGroup();
 
-   // var markers=L.markerClusterGroup();
-
-    this.typesArray=[];
+    this.typesArray = [];
+    let dataPointsPolygon: any[] = [];
 
     for (let incidentPol of this.incidentPolygons) {
       //console.log("incident polygons:",incidentPol.location.coordinates[0][0]);
-     //swaps lat with lng because leaflet is other way round than normal
+      //swaps lat with lng because leaflet is other way round than normal
       this.swapLatLng(incidentPol);
 
-      this.typesArray=[];
-      for(let incidentType of incidentPol.types){
+      this.typesArray = [];
+      for (let incidentType of incidentPol.types) {
         this.typesArray.push(incidentType.type);
       }
-      L.polygon(incidentPol.location.coordinates[0]).bindPopup("Types:" +  this.typesArray).addTo(map);
-    //  var polygon = L.polygon([[9.470214843750002,52.51736993382123],[10.316162109375002,52.51736993382123],[10.316162109375002,52.05365163550058],[9.470214843750002,52.05365163550058],[9.470214843750002,52.51736993382123]]).addTo(map);
+      ///  L.polygon(incidentPol.location.coordinates[0]).bindPopup("Types:" + this.typesArray).addTo(map);
+
+      dataPointsPolygon.push(L.polygon(incidentPol.location.coordinates[0]).bindPopup("Types:" + this.typesArray));
+
+      //  var polygon = L.polygon([[9.470214843750002,52.51736993382123],[10.316162109375002,52.51736993382123],[10.316162109375002,52.05365163550058],[9.470214843750002,52.05365163550058],[9.470214843750002,52.51736993382123]]).addTo(map);
 
       /*var polygon = L.polygon([
        [51.509, -0.08],
@@ -101,47 +173,42 @@ export class MapComponent implements OnInit {
        ]).addTo(map);
        */
     }
+    //let dataPoints: any[] = [];
+    let markers = [];
+
+    let dataPointsMarker: any[] = [];
 
     for (let incident of this.incidentPoints) {
-     // console.log("incidnet", incident);
-   //   if (incident.location.type == "Point" && incident.types[0] != null) {
+
+      // console.log("incidnet", incident);
+      //   if (incident.location.type == "Point" && incident.types[0] != null) {
       //  console.log("sth", incident.types[0].type);
-        this.typesArray=[];
+      this.typesArray = [];
 
-        for(let incidentType of incident.types){
-          this.typesArray.push(incidentType.type);
-        }
+      for (let incidentType of incident.types) {
+        this.typesArray.push(incidentType.type);
+      }
 
-        let thelatlong={lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
-        L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:"+incident.location.coordinates[1]+" | Lng: "+ incident.location.coordinates[0]+"<br>Types:" +  this.typesArray).addTo(map);
-        //L.marker({"lat":incident.location.coordinates[1],"lng": incident.location.coordinates[0]}, {icon: this.customIcon}).bindPopup("Types:" +  this.typesArray).addTo(map)
+      let thelatlong = {lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
 
-     // }
+
+      dataPointsMarker.push(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+
+
+      //this.markerClusterGroup.addLayer(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+      /// L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray).addTo(map);
+      //L.marker({"lat":incident.location.coordinates[1],"lng": incident.location.coordinates[0]}, {icon: this.customIcon}).bindPopup("Types:" +  this.typesArray).addTo(map)
+
+      // }
 
     }
+    //this.markerClusterGroup.addTo(map);
+    this.markerLayerGroup = new L.LayerGroup(dataPointsMarker).addTo(map);
+    this.polygonLayerGroup = new L.LayerGroup(dataPointsPolygon).addTo(map);
+//    map.addLayer(new L.LayerGroup(dataPoints));
+    //this.markerClusterData = dataPoints;
+    this.cd.markForCheck(); // forces redraw
 
-
-
-    // Do stuff with map
-    /*   L.marker([51.5, -0.09],{icon: this.customIcon}).addTo(map)
-     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-     .openPopup();*/
-  }
-
-  private swapLatLng(incidentPol: any) {
-    for (let latLng of incidentPol.location.coordinates[0] ){
-      let tmp = latLng[0];
-      latLng[0]=latLng[1];
-      latLng[1]=tmp;
-    }
-  }
-
-/*  markerClusterReady(markerCluster: L.MarkerClusterGroup) {
-    // Do stuff with group
-  }*/
-
-  ngOnInit() {
 
   }
-
 }

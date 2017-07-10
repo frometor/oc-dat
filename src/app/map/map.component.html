@@ -1,12 +1,14 @@
-<div class="map" leaflet style="height: 400px;z-index:1;"
+<div leaflet class="map" style="height: 400px;z-index:1;"
      [leafletOptions]="mapOptions"
      [leafletZoom]="zoom"
      [leafletCenter]="center"
      [leafletFitBounds]="fitBounds"
      [leafletBaseLayers]="baseLayers"
      [leafletLayersControlOptions]="layersControlOptions"
-
-     (leafletMapReady)="onMapReady($event)">
+     (leafletMapReady)="onMapReady($event)"
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+     (leafletMarkerClusterReady)="markerClusterReady($event)">
 </div>
 <!-- [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"

@@ -67,7 +67,7 @@ export class MonthlyFilterComponent implements OnInit {
       incidents => {
         this.allIncidents = incidents;
        // this.fillColums(incidents);
-        console.log("monthly filter subscribed");
+      //  console.log("monthly filter subscribed");
       }
     );
   }

@@ -42,7 +42,7 @@ export class ResultTableComponent implements OnInit {
         this.allIncidents = incidents;
         this.fillColums(incidents);
         //this.cd.markForCheck(); // marks path
-        console.log("result table subscribed");
+        //console.log("result table subscribed");
       }
     );
     /*
