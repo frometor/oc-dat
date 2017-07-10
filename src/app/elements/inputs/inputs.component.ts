@@ -47,7 +47,7 @@ export class InputsComponent {
     this.incidentService.resetSearch()
       .subscribe(
         (data) => {
-          console.log("Resetted")
+          //console.log("Resetted")
         }
       )
   }

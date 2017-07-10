@@ -17,7 +17,8 @@ export class IncidentsService {
     "aggs": {
       "types_of_incident": {
         "terms": {
-          "field": "types.type.keyword"
+          "field": "types.type.keyword",
+          "size" : 30
         }
       }
     }

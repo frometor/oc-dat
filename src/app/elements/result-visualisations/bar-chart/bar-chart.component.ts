@@ -21,6 +21,7 @@ export class BarChartComponent implements OnInit {
     this.incidentService.incidents$.subscribe(
       incidents => {
         this.allIncidents = incidents;
+        //console.log("BARCHART",incidents.aggregations.types_of_incident.buckets);
         this.fillColums(incidents);
         //this.cd.markForCheck(); // marks path
        // console.log("result table subscribed");
