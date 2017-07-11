@@ -21,7 +21,7 @@ export class BarChartComponent implements OnInit {
     this.incidentService.incidents$.subscribe(
       incidents => {
         this.allIncidents = incidents.hits;
-        console.log("BARCHART", incidents);
+       // console.log("BARCHART", incidents);
         //console.log("BARCHART",incidents.aggregations.types_of_incident.buckets);
         this.fillColums(incidents);
         //this.cd.markForCheck(); // marks path
@@ -51,12 +51,12 @@ export class BarChartComponent implements OnInit {
   }
 
   private fillColums(incidents: any) {
-    console.log("BARCHART FILL COLUMNS", incidents);
+    //console.log("BARCHART FILL COLUMNS", incidents);
     // console.log("BAR_CHART", incidents.aggregations.types_of_incident.buckets);
     this.incidentValues = this.lodashMapKeys(incidents.aggregations.types_of_incidents.number_of_incident.buckets);
 
     //console.log("RESULT: ", this.incidentValues);
-    console.log("BAR_CHART", incidents.aggregations.types_of_incidents.number_of_incident.buckets);
+    //console.log("BAR_CHART", incidents.aggregations.types_of_incidents.number_of_incident.buckets);
     this.cd.markForCheck(); // marks path
   }
 

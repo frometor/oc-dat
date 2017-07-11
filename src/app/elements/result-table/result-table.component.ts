@@ -2,9 +2,7 @@ import {
   Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input,
   ChangeDetectorRef
 } from '@angular/core';
-import Promise = promise.Promise;
-import {Observable, Observer} from "rxjs";
-import {promise} from "selenium-webdriver";
+import {Observable, Observer, Subscription} from "rxjs";
 import * as _ from "lodash";
 import {IncidentsService} from "../../services/incidents.service";
 
@@ -21,6 +19,10 @@ export class ResultTableComponent implements OnInit {
   @Input() incidents$: Observable<any>;
 
 
+  message: any;
+  subscription: Subscription;
+
+
   rows: any[] = [];
   allIncidents: any;
   allIncidents$: Observable<any>;
@@ -32,10 +34,14 @@ export class ResultTableComponent implements OnInit {
   ];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
+   // this.subscription = this.incidentService.getMessage().subscribe(message => { this.message = message; console.log("message",message)});
 
   }
 
   ngOnInit() {
+
+    // subscribe to home component messages
+    this.subscription = this.incidentService.getMessage().subscribe(message => { this.message = message; console.log("message",this.message)});
 
     this.incidentService.incidents$.subscribe(
       incidents => {
@@ -55,6 +61,11 @@ export class ResultTableComponent implements OnInit {
    // console.log("result-table on Init", this.allIncidents);
     // console.log("result-table on Init", this.allIncidents$);
 
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 
   private fillColums(mAllIncidents: any) {

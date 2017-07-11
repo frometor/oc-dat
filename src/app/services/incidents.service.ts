@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import * as _ from "lodash";
 
 
@@ -58,26 +58,33 @@ export class IncidentsService {
   };
 
   private subject = new BehaviorSubject(this.EMPTY_SEARCH);
+  private subjectMapTable = new BehaviorSubject({});
 
-  /*
-   private subject = new BehaviorSubject({"took": 3,
-   "timed_out": false,
-   "_shards": {
-   "total": 5,
-   "successful": 5,
-   "failed": 0
-   },
-   "hits": {},
-   });*/
+  private subject2 = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
+  mapTableCommunication$: Observable<any> = this.subjectMapTable.asObservable();
+
 
   constructor(private http: Http) {
 
   }
 
+
+  sendMessage(message: string):void {
+    this.subject2.next({ text: message });
+  }
+
+  clearMessage() {
+    this.subject2.next();
+  }
+
+  getMessage(): Observable<any> {
+    return this.subject2.asObservable();
+  }
+
+
   getIncidents(payload: any): Observable<any> {
-    console.log("payload!!!", payload);
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
 
@@ -121,10 +128,8 @@ export class IncidentsService {
       //if (payload.hasOwnProperty("typesOfIncident")) {
       // console.log("payload.typesOfIncident[0] != null", payload.typesOfIncident);
       for (let i = 0; i < payload.typesOfIncident.length; i++) {
-        console.log("###############", payload.typesOfIncident[i].id);
         postDataType.query.nested.query.bool.should.push({"match": {"types.type.keyword": payload.typesOfIncident[i].id}});
       }
-      console.log("postDataType", postDataType);
 
       return this.http.post(this.url, postDataType, headers)
         .map(res => res.json())
@@ -133,8 +138,6 @@ export class IncidentsService {
         })
         .do(incident => this.subject.next(incident));
     } else {
-
-      console.log("payload.typesOfIncident[0] == null", payload.typesOfIncident);
       return this.http.post(this.url, this.postData, headers)
         .map(res => res.json())
         .do(res => {
@@ -155,6 +158,15 @@ export class IncidentsService {
         // console.log("from elasticsearch: ", res)
       })
       .do(incident => this.subject.next(this.EMPTY_SEARCH));
+  }
+
+  /*===================================================*/
+  /* Communication between Map and table*/
+  sendCommunicateMapTable(payload: any) {
+    this.subjectMapTable.next(payload);
+  }
+  getCommunicateMapTable(): Observable<any> {
+    return this.subjectMapTable.asObservable();
   }
 
 }

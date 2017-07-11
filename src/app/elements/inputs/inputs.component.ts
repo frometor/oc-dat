@@ -9,8 +9,6 @@ import {Observable, Subscription} from "rxjs";
 })
 export class InputsComponent {
 
-  @Input() typeOfIncidentChanged: any;
-
   typeofIncidents;
   resultIncidents: any[] = [];
   inputValues: Object = {};
@@ -21,11 +19,8 @@ export class InputsComponent {
   }
 
   searchIncidents(searchData: Object) {
-    console.log("this.typeofIncidents: ", this.typeofIncidents);
-    //  console.log("searchData: ", this.typeofIncidents);
-    // this.allIncidents$ = this.incidentService.incidents$;
-
-    this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
+    //console.log("this.typeofIncidents: ", this.typeofIncidents);
+        this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
       .subscribe(
         (data) => {
           this.resultIncidents = data;
