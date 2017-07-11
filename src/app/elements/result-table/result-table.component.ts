@@ -28,7 +28,7 @@ export class ResultTableComponent implements OnInit {
   columns: any[] = [
     {prop: 'state'},
     {prop: 'types'},
-    {name: 'Gender'}
+    {prop: 'id'}
   ];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
@@ -69,7 +69,8 @@ export class ResultTableComponent implements OnInit {
       incidentTypes = _.map(incidentRow._source.types, 'type').join(', ');
       this.rows.push({
         "state": incidentRow._source.state,
-        "types": incidentTypes
+        "types": incidentTypes,
+        "id":incidentRow._source.id
       })
     }
     /*
@@ -90,6 +91,7 @@ export class ResultTableComponent implements OnInit {
      }*/
 
     //  this.change.emit();
+
     this.cd.markForCheck(); // marks path
 
   }
@@ -102,6 +104,7 @@ export class ResultTableComponent implements OnInit {
 
   onActivate(event) {
     console.log('Event: activate', event);
+
   }
   getRowHeight(row) {
     if(!row) return 50;

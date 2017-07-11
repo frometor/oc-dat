@@ -6,6 +6,7 @@ import LatLngExpression = L.LatLngExpression;
 import LatLngLiteral = L.LatLngLiteral;
 import * as _ from "lodash";
 import {IncidentsService} from "../services/incidents.service";
+import map = L.map;
 
 @Component({
   selector: 'app-map',
@@ -94,7 +95,7 @@ export class MapComponent implements OnInit {
           this.cd.markForCheck(); // forces redraw
         }
         this.incidents = data.hits.hits;
-        console.log("MAP: INCIDENTS: ", this.incidents);
+       // console.log("MAP: INCIDENTS: ", this.incidents);
         this.drawMarker(this.incidents, map);
         //this.cd.markForCheck(); // marks path
       }
@@ -104,7 +105,7 @@ export class MapComponent implements OnInit {
 
   markerClusterReady(group: L.MarkerClusterGroup) {
     // Do stuff with group
-    console.log("MARKERCLUSTER READY");
+   // console.log("MARKERCLUSTER READY");
     //this.markerClusterGroup = group;
   }
 
@@ -133,10 +134,10 @@ export class MapComponent implements OnInit {
       //console.log("incidentP: ", incidentP);
       //filter out points
       if (!(incidentP._source.hasOwnProperty("location"))) {
-        console.log("theft")
+        //console.log("theft")
       }
       else if (!(incidentP._source.hasOwnProperty("types"))) {
-        console.log("type is missing");
+       // console.log("type is missing");
       }
       else if (incidentP._source.location.type == "Point" && incidentP._source.types[0] != null) {
         this.incidentPoints.push(incidentP._source);
@@ -192,7 +193,7 @@ export class MapComponent implements OnInit {
       let thelatlong = {lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
 
 
-      dataPointsMarker.push(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+      dataPointsMarker.push(L.marker(thelatlong, {icon: this.customIcon,title:incident.id}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
 
 
       //this.markerClusterGroup.addLayer(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
@@ -203,12 +204,20 @@ export class MapComponent implements OnInit {
 
     }
     //this.markerClusterGroup.addTo(map);
-    this.markerLayerGroup = new L.LayerGroup(dataPointsMarker).addTo(map);
+    this.markerLayerGroup =  L.featureGroup(dataPointsMarker).addTo(map);
     this.polygonLayerGroup = new L.LayerGroup(dataPointsPolygon).addTo(map);
+    this.markerLayerGroup.on("click", function (event) {
+      let clickedMarker = event.layer;
+      // do some stuff…
+      console.log("Clicked",clickedMarker.options.title);
+      map.setView(clickedMarker._latlng,map.getZoom())
+
+    });
 //    map.addLayer(new L.LayerGroup(dataPoints));
     //this.markerClusterData = dataPoints;
     this.cd.markForCheck(); // forces redraw
 
 
   }
+
 }

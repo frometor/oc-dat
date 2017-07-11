@@ -1,6 +1,6 @@
-import {Component,} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {IncidentsService} from "../../services/incidents.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-inputs',
@@ -9,6 +9,9 @@ import {Observable} from "rxjs";
 })
 export class InputsComponent {
 
+  @Input() typeOfIncidentChanged: any;
+
+  typeofIncidents;
   resultIncidents: any[] = [];
   inputValues: Object = {};
   allIncidents$: Observable<any>;
@@ -18,29 +21,16 @@ export class InputsComponent {
   }
 
   searchIncidents(searchData: Object) {
-
+    console.log("this.typeofIncidents: ", this.typeofIncidents);
+    //  console.log("searchData: ", this.typeofIncidents);
     // this.allIncidents$ = this.incidentService.incidents$;
 
-    this.incidentService.getIncidents()
+    this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
       .subscribe(
         (data) => {
           this.resultIncidents = data;
-          // console.log("changed!: ",this.resultIncidents)
         }
       );
-
-    //console.log("inputs component clicked");
-    /*
-     this.incidentsService.getSearchIncidents(this.inputValues).subscribe(data => {
-     this.resultIncidents = data;
-     },
-     console.error);
-     */
-    /*this.incidentsService.getAllIncidents().subscribe(data => {
-     this.resultIncidents = data;
-     console.log("Result: ", this.resultIncidents)
-
-     });*/
   }
 
   resetSearch() {
@@ -50,5 +40,10 @@ export class InputsComponent {
           //console.log("Resetted")
         }
       )
+  }
+
+  parentFunction(event) {
+    console.log("event", event);
+    this.typeofIncidents = event;
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
 import {incidents} from '../../data/incident';
 
 @Component({
@@ -10,6 +10,9 @@ export class IncidentTypeComponent implements OnInit {
 
   uniqueTypeOfIncidents: any[] = [];
 
+  @Output()
+  typeOfIncidentChanged: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() {
     Object.assign(this, {incidents});
   }
@@ -20,11 +23,13 @@ export class IncidentTypeComponent implements OnInit {
     for (let typeOfIncident of incidents) {
       for (let singleTypesOfIncident of typeOfIncident.types) {
         // console.log(singleTypesOfIncident.type);
-        if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type.toLowerCase())) {
+        //if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type.toLowerCase())) {
+        if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type)) {
 
           //its already in uniqueTypeOfIncidents array
         } else {
-          this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type.toLowerCase());
+        //  this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type.toLowerCase());
+          this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
         }
       }
     }
@@ -35,8 +40,9 @@ export class IncidentTypeComponent implements OnInit {
 
   private value: any = ['Theft'];
 
-  public selected(value: any): void {
+  public selected(value: any) {
     console.log('Selected value is: ', value);
+    //this.eventInChild.emit(value);
   }
 
   public removed(value: any): void {
@@ -45,7 +51,8 @@ export class IncidentTypeComponent implements OnInit {
 
   public refreshValue(value: any): void {
     this.value = value;
-    console.log(value);
+    console.log("refreshValue: ",value);
+    this.typeOfIncidentChanged.emit(value);
   }
 
   public itemsToString(value: Array<any> = []): string {

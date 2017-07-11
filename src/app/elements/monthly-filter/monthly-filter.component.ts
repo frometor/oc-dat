@@ -58,7 +58,6 @@ export class MonthlyFilterComponent implements OnInit {
   monthValues: any[] = this.EMPTY_MONTH_VALUES;
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
-    Object.assign(this, {single, months});
   }
 
   ngOnInit(): void {
@@ -93,12 +92,13 @@ export class MonthlyFilterComponent implements OnInit {
 
   private fillColums(incidents: any) {
 
-    console.log("fillCOlumns Monthly filter", incidents);
+   // console.log("fillCOlumns Monthly filter", incidents);
     this.monthValues =_.cloneDeep(this.EMPTY_MONTH_VALUES);
     let incidentDate;
     for (let i = 0; i < incidents.length; i++) {
 
       //filters those incidents out that dont have a report OR have reports without created date
+      //TODO: add those that dont have reports (like alerts!!)
       if (incidents[i]._source.reports[0] != null && incidents[i]._source.reports[0].src.created != null) {
         //console.log("Single incident", incidents[i]._source.reports[0]);
         //console.log("Single incident", incidents[i]._source.reports[0].src.created);
@@ -145,7 +145,7 @@ export class MonthlyFilterComponent implements OnInit {
 
       }
     }
-    console.log("this.monthValues ",this.monthValues );
+   // console.log("this.monthValues ",this.monthValues );
     this.cd.markForCheck(); // forces redraw of component
     /*
      this.monthValues = this.EMPTY_MONTH_VALUES;
