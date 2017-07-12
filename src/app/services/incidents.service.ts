@@ -33,6 +33,14 @@ export class IncidentsService {
     }
   };
 
+  FILTER_HTTP_REUQUEST_FAILURE = {
+    "query": {
+      "match": {
+        "tags.keyword": "_http_request_failure"
+      }
+    }
+  };
+
   EMPTY_SEARCH: any = {
     "took": 3,
     "timed_out": false,
@@ -71,8 +79,9 @@ export class IncidentsService {
   }
 
 
-  sendMessage(message: string):void {
-    this.subject2.next({ text: message });
+  sendMessage(message: any): void {
+    console.log("incident Service: send Message");
+    this.subject2.next(message);
   }
 
   clearMessage() {
@@ -85,6 +94,14 @@ export class IncidentsService {
 
 
   getIncidents(payload: any): Observable<any> {
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post("http://localhost:9200/incidents/_delete_by_query'", this.FILTER_HTTP_REUQUEST_FAILURE, headers)
+      .do(res => {
+        console.log("Filtered HTTP_REQUEST_FAILURE")
+      });
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
 
@@ -117,8 +134,6 @@ export class IncidentsService {
       }
     };
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
 
     //console.log("payload", payload);
     // console.log("this.postdata", postDataType);
@@ -165,6 +180,7 @@ export class IncidentsService {
   sendCommunicateMapTable(payload: any) {
     this.subjectMapTable.next(payload);
   }
+
   getCommunicateMapTable(): Observable<any> {
     return this.subjectMapTable.asObservable();
   }

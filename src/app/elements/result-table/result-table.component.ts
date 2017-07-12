@@ -18,7 +18,7 @@ export class ResultTableComponent implements OnInit {
 
   @Input() incidents$: Observable<any>;
 
-
+//communication between map and table
   message: any;
   subscription: Subscription;
 
@@ -34,8 +34,9 @@ export class ResultTableComponent implements OnInit {
   ];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
+  //  this.singleSelectCheck = this.singleSelectCheck.bind(this);
    // this.subscription = this.incidentService.getMessage().subscribe(message => { this.message = message; console.log("message",message)});
-
+    this.singleSelectCheck = this.singleSelectCheck.bind(this);
   }
 
   ngOnInit() {
@@ -57,10 +58,6 @@ export class ResultTableComponent implements OnInit {
      this.fillColums(data);
      this.rows = data
      });*/
-
-   // console.log("result-table on Init", this.allIncidents);
-    // console.log("result-table on Init", this.allIncidents$);
-
   }
 
   ngOnDestroy() {
@@ -108,14 +105,19 @@ export class ResultTableComponent implements OnInit {
   }
 
   onSelect(event) {
-   /* console.log('Event: select', event, this.selected);
-    console.log("RESULT TABLE this.allIncidents):", this.allIncidents);
+    console.log('Event: select', event, this.selected);
+    this.incidentService.sendMessage(event);
+    /* console.log("RESULT TABLE this.allIncidents):", this.allIncidents);
     console.log("$: ", this.allIncidents$)*/
+  }
+
+
+  singleSelectCheck (row:any) {
+    return this.selected.indexOf(row) === -1;
   }
 
   onActivate(event) {
     console.log('Event: activate', event);
-
   }
   getRowHeight(row) {
     if(!row) return 50;

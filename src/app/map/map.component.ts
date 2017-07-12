@@ -7,6 +7,7 @@ import LatLngLiteral = L.LatLngLiteral;
 import * as _ from "lodash";
 import {IncidentsService} from "../services/incidents.service";
 import map = L.map;
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-map',
@@ -16,12 +17,16 @@ import map = L.map;
 })
 export class MapComponent implements OnInit {
 
+
+  message: any;
+  subscription: Subscription;
+
   communicationTableMap: any;
   //markerGroup
   markerLayer;
   markerLayerGroup;
   polygonLayerGroup;
-  clickedMarker:any;
+  clickedMarker: any;
 
   // Marker cluster stuff
   markerClusterGroup: L.MarkerClusterGroup;
@@ -62,7 +67,7 @@ export class MapComponent implements OnInit {
   };
   mapOptions = {
     zoom: 10,
-    center: L.latLng([52, 0])
+    center: L.latLng([50.83, 4.33])
   };
 
   customIcon = L.icon({
@@ -109,24 +114,39 @@ export class MapComponent implements OnInit {
           let clickedMarker = event.layer;
           console.log("Clicked", clickedMarker);
           map.setView(clickedMarker._latlng, map.getZoom());
-          self.incidentService.sendMessage("Message to you");
+
+          self.incidentService.sendMessage(clickedMarker);
 
           // this.cd.markForCheck(); // forces redraw
           //this.incidentService.sendCommunicateMapTable(clickedMarker);
-
-
         });
       }
-
     );
 
-
-    this.incidentService.mapTableCommunication$.subscribe(
-      comunication => {
-        console.log("comunication:", comunication);
+    this.subscription = this.incidentService.getMessage().subscribe(message => {
+      this.message = message;
+      console.log("message", this.message);
+      if (!(this.message.hasOwnProperty("row"))) {
+        console.log("row Clicked");
+        this.markerLayerGroup.eachLayer(function (layer) {
+          if (layer.options.title == self.message.selected[0].id) {
+            console.log(layer);
+            layer.openPopup();
+            map.setView(layer._latlng, map.getZoom());
+          }
+        });
+      }else{
+        console.log("marker Clicked");
       }
-    );
+    });
 
+
+    /*  this.incidentService.mapTableCommunication$.subscribe(
+     comunication => {
+     console.log("comunication:", comunication);
+     }
+     );
+     */
 
   }
 
@@ -210,7 +230,7 @@ export class MapComponent implements OnInit {
       }).on('click',
         (data) => {
           console.log("I have a click.")
-        } ).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+        }).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
 
 
       //this.markerClusterGroup.addLayer(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
@@ -225,20 +245,20 @@ export class MapComponent implements OnInit {
     this.polygonLayerGroup = L.featureGroup(dataPointsPolygon).addTo(map);
 
     //marker
-   /* this.markerLayerGroup.on("click", function (event) {
-      let clickedMarker = event.layer;
-      console.log("Clicked", clickedMarker);
-      map.setView(clickedMarker._latlng, map.getZoom());
+    /* this.markerLayerGroup.on("click", function (event) {
+     let clickedMarker = event.layer;
+     console.log("Clicked", clickedMarker);
+     map.setView(clickedMarker._latlng, map.getZoom());
 
-      console.log("####################");
+     console.log("####################");
 
-      this.incidentService.sendMessage("Message to you");
+     this.incidentService.sendMessage("Message to you");
 
-      this.cd.markForCheck(); // forces redraw
-      //this.incidentService.sendCommunicateMapTable(clickedMarker);
+     this.cd.markForCheck(); // forces redraw
+     //this.incidentService.sendCommunicateMapTable(clickedMarker);
 
 
-    });*/
+     });*/
 
     // Polygons
     this.polygonLayerGroup.on("click", function (event) {

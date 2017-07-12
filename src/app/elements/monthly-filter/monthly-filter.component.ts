@@ -99,6 +99,7 @@ export class MonthlyFilterComponent implements OnInit {
 
       //filters those incidents out that dont have a report OR have reports without created date
       //TODO: add those that dont have reports (like alerts!!)
+      console.log("incidents[i]:",incidents[i]);
       if (incidents[i]._source.reports[0] != null && incidents[i]._source.reports[0].src.created != null) {
         //console.log("Single incident", incidents[i]._source.reports[0]);
         //console.log("Single incident", incidents[i]._source.reports[0].src.created);
