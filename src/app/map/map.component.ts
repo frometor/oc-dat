@@ -126,8 +126,14 @@ export class MapComponent implements OnInit {
     this.subscription = this.incidentService.getMessage().subscribe(message => {
       this.message = message;
       console.log("message", this.message);
-      if (!(this.message.hasOwnProperty("row"))) {
+      if (this.message.hasOwnProperty("row")) {
+        console.log("marker Clicked");
+
+
+      }else{
         console.log("row Clicked");
+
+        // own scope >> eachlayer
         this.markerLayerGroup.eachLayer(function (layer) {
           if (layer.options.title == self.message.selected[0].id) {
             console.log(layer);
@@ -135,8 +141,6 @@ export class MapComponent implements OnInit {
             map.setView(layer._latlng, map.getZoom());
           }
         });
-      }else{
-        console.log("marker Clicked");
       }
     });
 

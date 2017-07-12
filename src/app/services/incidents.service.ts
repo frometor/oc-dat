@@ -130,6 +130,36 @@ export class IncidentsService {
               }
             }
           }
+        },
+        "incidents_per_day": {
+          "nested": {
+            "path": "reports"
+          },
+          "aggs": {
+            "dayOfWeek": {
+              "terms": {
+                "script": {
+                  "lang": "painless",
+                  "inline": "doc['reports.src.created'].date.dayOfWeek"
+                }
+              }
+            }
+          }
+        },
+        "incidents_per_month": {
+          "nested": {
+            "path": "reports"
+          },
+          "aggs": {
+            "dayOfWeek": {
+              "terms": {
+                "script": {
+                  "lang": "painless",
+                  "inline": "doc['reports.src.created'].date.monthOfYear"
+                }
+              }
+            }
+          }
         }
       }
     };

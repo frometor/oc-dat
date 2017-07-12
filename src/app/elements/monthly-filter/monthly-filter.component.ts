@@ -92,14 +92,14 @@ export class MonthlyFilterComponent implements OnInit {
 
   private fillColums(incidents: any) {
 
-   // console.log("fillCOlumns Monthly filter", incidents);
-    this.monthValues =_.cloneDeep(this.EMPTY_MONTH_VALUES);
+    // console.log("fillCOlumns Monthly filter", incidents);
+    this.monthValues = _.cloneDeep(this.EMPTY_MONTH_VALUES);
     let incidentDate;
     for (let i = 0; i < incidents.length; i++) {
 
       //filters those incidents out that dont have a report OR have reports without created date
       //TODO: add those that dont have reports (like alerts!!)
-      console.log("incidents[i]:",incidents[i]);
+      // console.log("incidents[i]:",incidents[i]);
       if (incidents[i]._source.reports[0] != null && incidents[i]._source.reports[0].src.created != null) {
         //console.log("Single incident", incidents[i]._source.reports[0]);
         //console.log("Single incident", incidents[i]._source.reports[0].src.created);
@@ -144,9 +144,15 @@ export class MonthlyFilterComponent implements OnInit {
             break;
         }
 
+      } else if (incidents[i]._source["alerts"] != null && incidents[i]._source.alerts.length > 0) {
+        console.log("one alert");
+        //TODO: ALERT:where to get a date from???
       }
+      console.log("dateValues", this.dateValues);
+      this.cd.markForCheck(); // forces redraw of component
+
     }
-   // console.log("this.monthValues ",this.monthValues );
+    // console.log("this.monthValues ",this.monthValues );
     this.cd.markForCheck(); // forces redraw of component
     /*
      this.monthValues = this.EMPTY_MONTH_VALUES;
@@ -246,15 +252,8 @@ export class MonthlyFilterComponent implements OnInit {
 
      // console.log(new Date(incident._source.reports[0].src.created).getMonth());
 
-
-     } else if (incident._source["alerts"] != null && incident._source.alerts.length > 0) {
-     console.log("one alarm");
-     //TODO: where to get a date from???
-     }
-     });
-     console.log("dateValues", this.dateValues);
-     this.cd.markForCheck(); // forces redraw of component
      */
+
   }
 
   onSelect(event) {
