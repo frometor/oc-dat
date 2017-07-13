@@ -115,43 +115,30 @@ export class MapComponent implements OnInit {
           console.log("Clicked", clickedMarker);
           map.setView(clickedMarker._latlng, map.getZoom());
 
-          self.incidentService.sendMessage(clickedMarker);
-
+          self.incidentService.sendMessageFromMap2Table(clickedMarker);
+          console.log("MAP:SENDmessage: ", clickedMarker);
           // this.cd.markForCheck(); // forces redraw
           //this.incidentService.sendCommunicateMapTable(clickedMarker);
         });
       }
     );
 
-    this.subscription = this.incidentService.getMessage().subscribe(message => {
+    this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => {
       this.message = message;
-      console.log("message", this.message);
-      if (this.message.hasOwnProperty("row")) {
-        console.log("marker Clicked");
-
-
-      }else{
-        console.log("row Clicked");
-
+      console.log("MAP:Getmessage:", this.message);
+      if (this.message.selected.length > 0) {
         // own scope >> eachlayer
         this.markerLayerGroup.eachLayer(function (layer) {
           if (layer.options.title == self.message.selected[0].id) {
-            console.log(layer);
+            //   console.log(layer);
             layer.openPopup();
             map.setView(layer._latlng, map.getZoom());
           }
         });
+      } else {
+
       }
     });
-
-
-    /*  this.incidentService.mapTableCommunication$.subscribe(
-     comunication => {
-     console.log("comunication:", comunication);
-     }
-     );
-     */
-
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
@@ -167,10 +154,6 @@ export class MapComponent implements OnInit {
       latLng[1] = tmp;
     }
   }
-
-  /*  markerClusterReady(markerCluster: L.MarkerClusterGroup) {
-   // Do stuff with group
-   }*/
 
   ngOnInit() {
   }
@@ -256,7 +239,7 @@ export class MapComponent implements OnInit {
 
      console.log("####################");
 
-     this.incidentService.sendMessage("Message to you");
+     this.incidentService.sendMessageFromTable2Map("Message to you");
 
      this.cd.markForCheck(); // forces redraw
      //this.incidentService.sendCommunicateMapTable(clickedMarker);

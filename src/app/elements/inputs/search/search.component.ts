@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {IncidentsService} from "../../../services/incidents.service";
 
 @Component({
   selector: 'app-search',
@@ -11,7 +12,7 @@ export class SearchComponent implements OnInit {
   public options: Select2Options;
   data;
 
-  constructor() {
+  constructor(private incidentService: IncidentsService) {
   }
 
   ngOnInit() {
@@ -25,7 +26,7 @@ export class SearchComponent implements OnInit {
   }
 
   onKeyUp() {
-    this.data.push({id:"sth",text:"sth"});
+    this.data.push({id: "sth", text: "sth"});
 
     console.log("Changed", this.data);
 
@@ -33,7 +34,7 @@ export class SearchComponent implements OnInit {
 
   onInputSelect() {
     console.log(this.inputValue);
-
+    this.incidentService.sendMessageInputSearch(this.inputValue);
   }
 
 }

@@ -68,30 +68,17 @@ export class IncidentsService {
   private subject = new BehaviorSubject(this.EMPTY_SEARCH);
   private subjectMapTable = new BehaviorSubject({});
 
-  private subject2 = new Subject<any>();
+  private subjectfromTable2Map = new Subject<any>();
+  private subjectfromMap2Table = new Subject<any>();
+  private subjectfromTable2LineChart = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
   mapTableCommunication$: Observable<any> = this.subjectMapTable.asObservable();
-
+  private searchTerm: String = null;
 
   constructor(private http: Http) {
 
   }
-
-
-  sendMessage(message: any): void {
-    console.log("incident Service: send Message");
-    this.subject2.next(message);
-  }
-
-  clearMessage() {
-    this.subject2.next();
-  }
-
-  getMessage(): Observable<any> {
-    return this.subject2.asObservable();
-  }
-
 
   getIncidents(payload: any): Observable<any> {
 
@@ -105,77 +92,110 @@ export class IncidentsService {
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
 
-    let postDataType = {
-      "query": {
-        "nested": {
-          "path": "types",
-          "query": {
-            "bool": {
-              "should": []
-            }
-          }
-        }
-
-      },
-      "aggs": {
-        "types_of_incidents": {
-          "nested": {
-            "path": "types"
-          },
-          "aggs": {
-            "number_of_incident": {
-              "terms": {
-                "field": "types.type.keyword",
-                "size": 30
+    let postDataType: any =
+      {
+        "size": 10000,
+        "query": {
+          "bool": {
+            "should": [
+              {
+                "nested": {
+                  "path": "types",
+                  "query": {
+                    "bool": {
+                      "should": []
+                    }
+                  }
+                }
               }
-            }
+            ]
           }
         },
-        "incidents_per_day": {
-          "nested": {
-            "path": "reports"
+        "aggs": {
+          "types_of_incidents": {
+            "nested": {
+              "path": "types"
+            },
+            "aggs": {
+              "number_of_incident": {
+                "terms": {
+                  "field": "types.type.keyword",
+                  "size": 30
+                }
+              }
+            }
           },
-          "aggs": {
-            "dayOfWeek": {
-              "terms": {
-                "script": {
-                  "lang": "painless",
-                  "inline": "doc['reports.src.created'].date.dayOfWeek"
+          "incidents_per_day": {
+            "nested": {
+              "path": "reports"
+            },
+            "aggs": {
+              "dayOfWeek": {
+                "terms": {
+                  "script": {
+                    "lang": "painless",
+                    "inline": "doc['reports.src.created'].date.dayOfWeek"
+                  }
+                }
+              }
+            }
+          },
+          "incidents_per_month": {
+            "nested": {
+              "path": "reports"
+            },
+            "aggs": {
+              "dayOfWeek": {
+                "terms": {
+                  "script": {
+                    "lang": "painless",
+                    "inline": "doc['reports.src.created'].date.monthOfYear"
+                  }
                 }
               }
             }
           }
-        },
-        "incidents_per_month": {
-          "nested": {
-            "path": "reports"
-          },
-          "aggs": {
-            "dayOfWeek": {
-              "terms": {
-                "script": {
-                  "lang": "painless",
-                  "inline": "doc['reports.src.created'].date.monthOfYear"
-                }
-              }
-            }
-          }
         }
-      }
-    };
+      };
 
 
     //console.log("payload", payload);
     // console.log("this.postdata", postDataType);
+
+    if ((this.searchTerm != "") && (this.searchTerm != null)) {
+      console.log("this.searchTerm", this.searchTerm);
+      //postDataType.query.bool.should[1].nested.query.bool.should.push({"match": {"reports.source.description": this.searchTerm}});
+      postDataType.query.bool.should.push({
+        "nested": {
+          "path": "reports",
+          "query": {
+            "bool": {
+              "should": [
+                {
+                  "match": {
+                    "reports.src.description": this.searchTerm
+                  }
+                }
+              ]
+            }
+          }
+        }
+      });
+
+      postDataType.query.bool.should[0].nested.query.bool.should.push({"match": {"types.type": this.searchTerm}});
+
+    }
+
+    //.hits.hits["0"]._source.reports["0"].src.description
 
     if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
 
       //if (payload.hasOwnProperty("typesOfIncident")) {
       // console.log("payload.typesOfIncident[0] != null", payload.typesOfIncident);
       for (let i = 0; i < payload.typesOfIncident.length; i++) {
-        postDataType.query.nested.query.bool.should.push({"match": {"types.type.keyword": payload.typesOfIncident[i].id}});
+        postDataType.query.bool.should[0].nested.query.bool.should.push({"match": {"types.type": payload.typesOfIncident[i].id}});
       }
-
+      console.log("1: this.searchTerm", postDataType);
       return this.http.post(this.url, postDataType, headers)
         .map(res => res.json())
         .do(res => {
@@ -183,7 +203,9 @@ export class IncidentsService {
         })
         .do(incident => this.subject.next(incident));
     } else {
-      return this.http.post(this.url, this.postData, headers)
+      console.log("2: this.searchTerm", postDataType);
+      // return this.http.post(this.url, this.postData, headers)
+      return this.http.post(this.url, postDataType, headers)
         .map(res => res.json())
         .do(res => {
           console.log("from elasticsearch: ", res)
@@ -207,12 +229,82 @@ export class IncidentsService {
 
   /*===================================================*/
   /* Communication between Map and table*/
-  sendCommunicateMapTable(payload: any) {
-    this.subjectMapTable.next(payload);
+
+  sendMessageFromTable2Map(message: any): void {
+    this.subjectfromTable2Map.next(message);
   }
 
-  getCommunicateMapTable(): Observable<any> {
-    return this.subjectMapTable.asObservable();
+  clearMessageFromTable2Map() {
+    this.subjectfromTable2Map.next();
   }
 
+  getMessageFromTable2Map(): Observable<any> {
+    return this.subjectfromTable2Map.asObservable();
+  }
+
+  sendMessageFromMap2Table(message: any): void {
+    console.log("incident Service: send Message");
+    this.subjectfromMap2Table.next(message);
+  }
+
+  clearMessageFromMap2Table() {
+    this.subjectfromMap2Table.next();
+  }
+
+  getMessageFromMap2Table(): Observable<any> {
+    return this.subjectfromMap2Table.asObservable();
+  }
+
+  /*===================================================*/
+  /*Input of search field*/
+  sendMessageInputSearch(message: any): void {
+    console.log("IncidentService:sendMessageInputSearch", message);
+    this.searchTerm = message;
+    ///  this.subjectfromTable2Map.next(message);
+  }
+
+  /*===================================================*/
+  /*Communication from table to linechart*/
+  sendMessageFromTable2lineChart(hit: any):Observable<any> {
+    console.log("sendMessageFromTable2lineChart");
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let postDataLinechart = {
+      "query": {
+        "match": {
+          "id": hit._id
+        }
+
+      },
+      "aggs": {
+        "incidents_per_month": {
+          "nested": {
+            "path": "reports"
+          },
+          "aggs": {
+            "incident_month": {
+              "date_histogram": {
+                "field": "reports.src.created",
+                "interval": "year"
+              }
+            }
+          }
+        }
+      }
+    };
+    console.log("sendMessageFromTable2lineChart2222");
+
+    return this.http.post(this.url, postDataLinechart, headers)
+      .map(res => res.json())
+      .do(res=>{console.log("HDBASD")})
+      .do(res => {
+        console.log("POST for Linechart ", res)
+      })
+      .do(incident => this.subjectfromTable2LineChart.next(incident));
+  }
+
+  getMessageFromTable2LineChart(): Observable<any> {
+    return this.subjectfromTable2LineChart.asObservable();
+  }
 }

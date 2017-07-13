@@ -23,13 +23,13 @@ export class IncidentTypeComponent implements OnInit {
     for (let typeOfIncident of incidents) {
       for (let singleTypesOfIncident of typeOfIncident.types) {
         // console.log(singleTypesOfIncident.type);
-        //if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type.toLowerCase())) {
-        if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type)) {
+        if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type.toLowerCase())) {
+        //if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type)) {
 
           //its already in uniqueTypeOfIncidents array
         } else {
-        //  this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type.toLowerCase());
-          this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
+          this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type.toLowerCase());
+         // this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
         }
       }
     }

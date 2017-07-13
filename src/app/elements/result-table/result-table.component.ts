@@ -34,15 +34,19 @@ export class ResultTableComponent implements OnInit {
   ];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
-  //  this.singleSelectCheck = this.singleSelectCheck.bind(this);
-   // this.subscription = this.incidentService.getMessage().subscribe(message => { this.message = message; console.log("message",message)});
+    //  this.singleSelectCheck = this.singleSelectCheck.bind(this);
+    // this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => { this.message = message; console.log("message",message)});
     this.singleSelectCheck = this.singleSelectCheck.bind(this);
   }
 
   ngOnInit() {
 
     // subscribe to home component messages
-    this.subscription = this.incidentService.getMessage().subscribe(message => { this.message = message; console.log("message",this.message)});
+    this.subscription = this.incidentService.getMessageFromMap2Table().subscribe(message => {
+      this.message = message;
+      console.log("RESULT TABLE: GET MESSAGE", this.message);
+
+    });
 
     this.incidentService.incidents$.subscribe(
       incidents => {
@@ -67,9 +71,9 @@ export class ResultTableComponent implements OnInit {
 
   private fillColums(mAllIncidents: any) {
     this.rows = [];
-    var incidentTypes;
+    let incidentTypes;
     this.allIncidents = mAllIncidents;
-   // console.log("FILLCOLUMNS: mAllIncidents", mAllIncidents);
+    // console.log("FILLCOLUMNS: mAllIncidents", mAllIncidents);
     //console.log("FILLCOLUMNS: this.allIncidents", this.allIncidents);
     for (let incidentRow of this.allIncidents.hits.hits) {
 
@@ -78,7 +82,7 @@ export class ResultTableComponent implements OnInit {
       this.rows.push({
         "state": incidentRow._source.state,
         "types": incidentTypes,
-        "id":incidentRow._source.id
+        "id": incidentRow._source.id
       })
     }
     /*
@@ -105,23 +109,37 @@ export class ResultTableComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log('Event: select', event, this.selected);
-    this.incidentService.sendMessage(event);
+    //console.log('Event: select', event, this.selected);
+    this.incidentService.sendMessageFromTable2Map(event);
+    console.log("RESULT TABLE: SEND MESSAGE", event);
+    console.log("RESULT TABLE: this.allIncidents[i]", this.allIncidents);
+
+    for (let i = 0; i < this.allIncidents.hits.hits.length; i++) {
+      if (event.selected[0].id == this.allIncidents.hits.hits[i]._id) {
+        this.incidentService.sendMessageFromTable2lineChart(this.allIncidents.hits.hits[i])
+          .subscribe(  (data) => {
+
+            console.log("FOUND!");
+          });
+
+      }
+    }
     /* console.log("RESULT TABLE this.allIncidents):", this.allIncidents);
-    console.log("$: ", this.allIncidents$)*/
+     console.log("$: ", this.allIncidents$)*/
   }
 
 
-  singleSelectCheck (row:any) {
+  singleSelectCheck(row: any) {
     return this.selected.indexOf(row) === -1;
   }
 
   onActivate(event) {
-    console.log('Event: activate', event);
+    //  console.log('Event: activate', event);
   }
+
   getRowHeight(row) {
-    if(!row) return 50;
-    if(row.height === undefined) return 50;
+    if (!row) return 50;
+    if (row.height === undefined) return 50;
     return row.height;
   }
 

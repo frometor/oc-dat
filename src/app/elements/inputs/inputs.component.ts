@@ -20,12 +20,19 @@ export class InputsComponent {
 
   searchIncidents(searchData: Object) {
     //console.log("this.typeofIncidents: ", this.typeofIncidents);
-        this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
+    this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
       .subscribe(
         (data) => {
           this.resultIncidents = data;
+          this.printEachIncident(this.resultIncidents);
         }
       );
+  }
+
+  private printEachIncident(resultIncidents: any) {
+    for (let i = 0; i < resultIncidents.hits.hits.length; i++) {
+      console.log(resultIncidents.hits.hits[i]._source.theft)
+    }
   }
 
   resetSearch() {
