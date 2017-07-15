@@ -81,6 +81,7 @@ export class IncidentsService {
   }
 
   getIncidents(payload: any): Observable<any> {
+    let incidentTypeString = "";
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -92,127 +93,174 @@ export class IncidentsService {
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
 
-    let postDataType: any =
-      {
-        "size": 10000,
-        "query": {
-          "bool": {
-            "should": [
-              {
-                "nested": {
-                  "path": "types",
-                  "query": {
-                    "bool": {
-                      "should": []
-                    }
-                  }
-                }
+    let postDataType: any = {
+      size: 10000,
+      "query": {
+        "query_string": {
+          "query": ""
+
+        }
+      },
+      "aggs": {
+        "types_of_incidents": {
+          "nested": {
+            "path": "types"
+          },
+          "aggs": {
+            "number_of_incident": {
+              "terms": {
+                "field": "types.type.keyword",
+                "size": 30
               }
-            ]
+            }
           }
         },
-        "aggs": {
-          "types_of_incidents": {
-            "nested": {
-              "path": "types"
-            },
-            "aggs": {
-              "number_of_incident": {
-                "terms": {
-                  "field": "types.type.keyword",
-                  "size": 30
+        "incidents_per_day": {
+          "nested": {
+            "path": "reports"
+          },
+          "aggs": {
+            "dayOfWeek": {
+              "terms": {
+                "script": {
+                  "lang": "painless",
+                  "inline": "doc['reports.src.created'].date.dayOfWeek"
                 }
               }
             }
+          }
+        },
+        "incidents_per_month": {
+          "nested": {
+            "path": "reports"
           },
-          "incidents_per_day": {
-            "nested": {
-              "path": "reports"
-            },
-            "aggs": {
-              "dayOfWeek": {
-                "terms": {
-                  "script": {
-                    "lang": "painless",
-                    "inline": "doc['reports.src.created'].date.dayOfWeek"
-                  }
-                }
-              }
-            }
-          },
-          "incidents_per_month": {
-            "nested": {
-              "path": "reports"
-            },
-            "aggs": {
-              "dayOfWeek": {
-                "terms": {
-                  "script": {
-                    "lang": "painless",
-                    "inline": "doc['reports.src.created'].date.monthOfYear"
-                  }
+          "aggs": {
+            "dayOfWeek": {
+              "terms": {
+                "script": {
+                  "lang": "painless",
+                  "inline": "doc['reports.src.created'].date.monthOfYear"
                 }
               }
             }
           }
         }
-      };
+      }
+    }
+    /* {
+     "size": 10000,
+     "query": {
+     "bool": {
+     "should": [
+     {
+     "nested": {
+     "path": "types",
+     "query": {
+     "bool": {
+     "should": []
+     }
+     }
+     }
+     }
+     ]
+     }
+     },
+     "aggs": {
+     "types_of_incidents": {
+     "nested": {
+     "path": "types"
+     },
+     "aggs": {
+     "number_of_incident": {
+     "terms": {
+     "field": "types.type.keyword",
+     "size": 30
+     }
+     }
+     }
+     },
+     "incidents_per_day": {
+     "nested": {
+     "path": "reports"
+     },
+     "aggs": {
+     "dayOfWeek": {
+     "terms": {
+     "script": {
+     "lang": "painless",
+     "inline": "doc['reports.src.created'].date.dayOfWeek"
+     }
+     }
+     }
+     }
+     },
+     "incidents_per_month": {
+     "nested": {
+     "path": "reports"
+     },
+     "aggs": {
+     "dayOfWeek": {
+     "terms": {
+     "script": {
+     "lang": "painless",
+     "inline": "doc['reports.src.created'].date.monthOfYear"
+     }
+     }
+     }
+     }
+     }
+     }
+     };*/
 
-
-    //console.log("payload", payload);
-    // console.log("this.postdata", postDataType);
-
+    //search term from searchInput is not empty or undefined
     if ((this.searchTerm != "") && (this.searchTerm != null)) {
-      console.log("this.searchTerm", this.searchTerm);
-      //postDataType.query.bool.should[1].nested.query.bool.should.push({"match": {"reports.source.description": this.searchTerm}});
-      postDataType.query.bool.should.push({
-        "nested": {
-          "path": "reports",
-          "query": {
-            "bool": {
-              "should": [
-                {
-                  "match": {
-                    "reports.src.description": this.searchTerm
-                  }
-                }
-              ]
-            }
-          }
-        }
-      });
+      //search term from searchInput AND typesOfIncident are not empty or undefined
+      if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
+        incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
+        incidentTypeString +="~ "+ this.searchTerm + "~";
+        console.log("2B:",incidentTypeString);
+        postDataType.query.query_string.query = (incidentTypeString);
 
-      postDataType.query.bool.should[0].nested.query.bool.should.push({"match": {"types.type": this.searchTerm}});
+
+      } else {
+        //searchTerm is not empty BUT typesOf Incidents is
+        let searchtermArray=this.searchTerm.split(" ");
+       let searchTermString= searchtermArray.join("~ ");
+        //incidentTypeString = _.map(searchtermArray, 'text').join('~ ');
+
+        postDataType.query.query_string.query = searchTermString;
+        console.log("2A:",searchTermString);
+
+      }
 
     }
+    else if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
 
-    //.hits.hits["0"]._source.reports["0"].src.description
+      incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
+      postDataType.query.query_string.query = (incidentTypeString);
+      console.log("1B:",incidentTypeString);
 
-    if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
-
-      //if (payload.hasOwnProperty("typesOfIncident")) {
-      // console.log("payload.typesOfIncident[0] != null", payload.typesOfIncident);
-      for (let i = 0; i < payload.typesOfIncident.length; i++) {
-        postDataType.query.bool.should[0].nested.query.bool.should.push({"match": {"types.type": payload.typesOfIncident[i].id}});
-      }
-      console.log("1: this.searchTerm", postDataType);
+/*
       return this.http.post(this.url, postDataType, headers)
         .map(res => res.json())
         .do(res => {
           console.log("from TYPES OF INCIDENT: ", res)
         })
-        .do(incident => this.subject.next(incident));
+        .do(incident => this.subject.next(incident));*/
     } else {
-      console.log("2: this.searchTerm", postDataType);
-      // return this.http.post(this.url, this.postData, headers)
-      return this.http.post(this.url, postDataType, headers)
-        .map(res => res.json())
-        .do(res => {
-          console.log("from elasticsearch: ", res)
-        })
-        .do(incident => this.subject.next(incident));
+      // BOTH Values are null or undefined
+      //Returns an empty saerch result from Elasticsearch
+      console.log("1A:");
+
+
       // .publishLast().refCount();
     }
+    return this.http.post(this.url, postDataType, headers)
+      .map(res => res.json())
+      .do(res => {
+        console.log("from elasticsearch: ", res)
+      })
+      .do(incident => this.subject.next(incident));
   }
 
   resetSearch() {
@@ -265,7 +313,7 @@ export class IncidentsService {
 
   /*===================================================*/
   /*Communication from table to linechart*/
-  sendMessageFromTable2lineChart(hit: any):Observable<any> {
+  sendMessageFromTable2lineChart(hit: any): Observable<any> {
     console.log("sendMessageFromTable2lineChart");
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -297,7 +345,9 @@ export class IncidentsService {
 
     return this.http.post(this.url, postDataLinechart, headers)
       .map(res => res.json())
-      .do(res=>{console.log("HDBASD")})
+      .do(res => {
+        console.log("HDBASD")
+      })
       .do(res => {
         console.log("POST for Linechart ", res)
       })
