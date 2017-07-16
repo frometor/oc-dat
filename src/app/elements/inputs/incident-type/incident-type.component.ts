@@ -20,7 +20,7 @@ export class IncidentTypeComponent implements OnInit {
 
   uniqueTypeOfIncidents: any[] = [];
   postData: any = {
-    "size": 0,
+    "size": 100,
     "aggs": {
       "types_of_incidents": {
         "nested": {
@@ -51,7 +51,7 @@ export class IncidentTypeComponent implements OnInit {
     // subscribe to home component messages
     this.subscription = this.incidentService.onInitGetTypesOfIncident(this.postData).subscribe(message => {
       this.message = message;
-      console.log("RESULT TABLE: GET MESSAGE", this.message);
+     // console.log("RESULT TABLE: GET MESSAGE", this.message);
       this.fillSelectTypes(this.message);
     });
   }
@@ -60,7 +60,7 @@ export class IncidentTypeComponent implements OnInit {
     //TODO: GET TYPES FROM ELASTICSEARCH
     //filters the types of incident to be unique
     for (let typeOfIncident of message.aggregations.types_of_incidents.number_of_incident.buckets) {
-      console.log("TYPE:", typeOfIncident);
+    //  console.log("TYPE:", typeOfIncident);
 
       if (this.uniqueTypeOfIncidents.includes(typeOfIncident.key.toLowerCase())) {
         //if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type)) {
@@ -71,7 +71,7 @@ export class IncidentTypeComponent implements OnInit {
         // this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
       }
     }
-    console.log("############", this.uniqueTypeOfIncidents);
+   // console.log("############", this.uniqueTypeOfIncidents);
     this.items = this.uniqueTypeOfIncidents;
     this.cd.markForCheck(); // marks path
   }

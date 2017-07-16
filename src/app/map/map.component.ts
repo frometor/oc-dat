@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   //markerGroup
   markerLayer;
   markerLayerGroup;
+  reportsMarkerLayerGroup;
   polygonLayerGroup;
   clickedMarker: any;
 
@@ -77,6 +78,13 @@ export class MapComponent implements OnInit {
     iconAnchor: [12, 41],
     popupAnchor: [0, -41],
   });
+  customIcon2 = L.icon({
+    iconUrl: 'assets/marker-icon2.png',
+    shadowUrl: 'assets/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41],
+  });
 
   incidents: any[];
   incidentPoints: any[] = [];
@@ -92,12 +100,27 @@ export class MapComponent implements OnInit {
   onMapReady(map: L.Map) {
 
     let self = this;
+    map.on("click", function (event) {
+      console.log("CLICKED ON MAP1");
+      console.log("CLICKED ON MAP2", self.reportsMarkerLayerGroup);
+
+      if (self.reportsMarkerLayerGroup != null) {
+
+        map.removeLayer(self.reportsMarkerLayerGroup);
+        self.cd.markForCheck(); // forces redraw
+        console.log("CLICKED ON MAP#########", self.reportsMarkerLayerGroup);
+
+      }
+      console.log("CLICKED ON MAP3", self.reportsMarkerLayerGroup);
+    });
+
 
     this.incidentService.incidents$.subscribe(
       data => {
-       // console.log("data:", data);
+        // console.log("data:", data);
         if (this.markerLayerGroup != null) {
           map.removeLayer(this.markerLayerGroup);
+          console.log("##################################################");
           //map.removeLayer(this.markerClusterGroup);
           this.cd.markForCheck(); // forces redraw
         }
@@ -108,24 +131,49 @@ export class MapComponent implements OnInit {
         this.incidents = data.hits.hits;
         this.drawMarker(this.incidents, map);
         //this.cd.markForCheck(); // marks path
-
+        let self = this
         //marker
         this.markerLayerGroup.on("click", function (event) {
-          let clickedMarker = event.layer;
-       //   console.log("Clicked", clickedMarker);
-          map.setView(clickedMarker._latlng, map.getZoom());
 
+          if (self.reportsMarkerLayerGroup != null) {
+            map.removeLayer(self.reportsMarkerLayerGroup);
+            console.log("========================0");
+            //map.removeLayer(this.markerClusterGroup);
+            self.cd.markForCheck(); // forces redraw
+          }
+          let reportText: String = "";
+          let reportsPointsMarker: any[] = [];
+          let clickedMarker = event.layer;
+          //   console.log("Clicked", clickedMarker);
+          map.setView(clickedMarker._latlng, map.getZoom());
+          for (let i = 0; i < self.incidents.length; i++) {
+            if (self.incidents[i]._id == clickedMarker.options.title) {
+              console.log("FOUNDFOUND", self.incidents[i]._source.reports);
+              for (let j = 0; j < self.incidents[i]._source.reports.length; j++) {
+                console.log("REPORTS!!!!!!!!", self.incidents[i]._source.reports[j]);
+                console.log("self.incidents[i]._source.reports[j].src.description", self.incidents[i]._source.reports[j].src.description);
+                reportText = self.incidents[i]._source.reports[j].src.description;
+                reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
+                  icon: self.customIcon2,
+                }).bindPopup("Report: " + reportText));
+
+              }
+              self.reportsMarkerLayerGroup = L.featureGroup(reportsPointsMarker).on('click',
+                (data) => {
+                  map.fitBounds(self.reportsMarkerLayerGroup.getBounds());
+                }).addTo(map);
+            }
+          }
           self.incidentService.sendMessageFromMap2Table(clickedMarker);
-       //   console.log("MAP:SENDmessage: ", clickedMarker);
-          // this.cd.markForCheck(); // forces redraw
-          //this.incidentService.sendCommunicateMapTable(clickedMarker);
+          self.cd.markForCheck(); // forces redraw
+
         });
       }
     );
 
     this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => {
       this.message = message;
-     // console.log("MAP:Getmessage:", this.message);
+      // console.log("MAP:Getmessage:", this.message);
       if (this.message.selected.length > 0) {
         // own scope >> eachlayer
         this.markerLayerGroup.eachLayer(function (layer) {
@@ -216,7 +264,7 @@ export class MapComponent implements OnInit {
         title: incident.id
       }).on('click',
         (data) => {
-         // console.log("I have a click.")
+          // console.log("I have a click.")
         }).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
 
 
@@ -237,10 +285,6 @@ export class MapComponent implements OnInit {
      console.log("Clicked", clickedMarker);
      map.setView(clickedMarker._latlng, map.getZoom());
 
-     console.log("####################");
-
-     this.incidentService.sendMessageFromTable2Map("Message to you");
-
      this.cd.markForCheck(); // forces redraw
      //this.incidentService.sendCommunicateMapTable(clickedMarker);
 
@@ -250,7 +294,7 @@ export class MapComponent implements OnInit {
     // Polygons
     this.polygonLayerGroup.on("click", function (event) {
       let clickedMarker = event.layer;
-     // console.log("Clicked", clickedMarker);
+      // console.log("Clicked", clickedMarker);
       map.setView(clickedMarker._latlngs[0][0], map.getZoom());
       // this.incidentService.sendCommunicateMapTable(clickedMarker);
     });

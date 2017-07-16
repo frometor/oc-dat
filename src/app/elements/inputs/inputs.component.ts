@@ -31,7 +31,7 @@ export class InputsComponent {
 
   private printEachIncident(resultIncidents: any) {
     for (let i = 0; i < resultIncidents.hits.hits.length; i++) {
-      console.log(resultIncidents.hits.hits[i]._source.theft)
+     // console.log(resultIncidents.hits.hits[i]._source.theft)
     }
   }
 

@@ -90,14 +90,14 @@ export class IncidentsService {
 
   getIncidents(payload: any): Observable<any> {
     let incidentTypeString = "";
-    console.log("GETINCIDENTS: this.startDate", this.startDate);
-    console.log("GETINCIDENTS: this.endDate", this.endDate);
+   // console.log("GETINCIDENTS: this.startDate", this.startDate);
+   // console.log("GETINCIDENTS: this.endDate", this.endDate);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     this.http.post("http://localhost:9200/incidents/_delete_by_query'", this.FILTER_HTTP_REUQUEST_FAILURE, headers)
       .do(res => {
-        console.log("Filtered HTTP_REQUEST_FAILURE")
+       // console.log("Filtered HTTP_REQUEST_FAILURE")
       });
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
@@ -357,7 +357,7 @@ export class IncidentsService {
       if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
         incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
         incidentTypeString += "~ " + this.searchTerm + "~";
-        console.log("2B:", incidentTypeString);
+     //   console.log("2B:", incidentTypeString);
         //postDataType.query.bool.must.query_string.query = (incidentTypeString);
         postDataType.query.bool.must = {
           "query_string": {
@@ -381,7 +381,7 @@ export class IncidentsService {
           }
 
         };
-        console.log("2A:", searchTermString);
+      //  console.log("2A:", searchTermString);
       }
     }
     //ST == null but ToI != null
@@ -395,14 +395,14 @@ export class IncidentsService {
           "query": incidentTypeString
         }
       };
-      console.log("1B:", incidentTypeString);
+    //  console.log("1B:", incidentTypeString);
 
     } else {
       // BOTH Values are null or undefined
       //Returns an empty saerch result from Elasticsearch
-      console.log("1A:");
+   //   console.log("1A:");
     }
-    console.log("postDataType: ", postDataType);
+  //  console.log("postDataType: ", postDataType);
     return this.http.post(this.url, postDataType, headers)
       .map(res => res.json())
       .do(res => {
@@ -439,7 +439,7 @@ export class IncidentsService {
   }
 
   sendMessageFromMap2Table(message: any): void {
-    console.log("incident Service: send Message");
+   // console.log("incident Service: send Message");
     this.subjectfromMap2Table.next(message);
   }
 
@@ -454,7 +454,7 @@ export class IncidentsService {
   /*===================================================*/
   /*Input of search field*/
   sendMessageInputSearch(message: any): void {
-    console.log("IncidentService:sendMessageInputSearch", message);
+   // console.log("IncidentService:sendMessageInputSearch", message);
     this.searchTerm = message;
     ///  this.subjectfromTable2Map.next(message);
   }
@@ -463,8 +463,8 @@ export class IncidentsService {
   /* Input of start and end Date*/
   sendMessageStartEndDate(startDate: number, endDate: number) {
 
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
+    //console.log("startDate", startDate);
+   // console.log("endDate", endDate);
     this.startDate = startDate;
     this.endDate = endDate;
     if ((startDate != null || startDate != 0) && (endDate != null || endDate != 0)) {
@@ -514,7 +514,7 @@ export class IncidentsService {
       .do(res => {
       })
       .do(res => {
-        console.log("POST for Linechart ", res)
+       // console.log("POST for Linechart ", res)
       })
       .do(incident => this.subjectfromTable2LineChart.next(incident));
   }
@@ -532,7 +532,7 @@ export class IncidentsService {
       .do(res => {
       })
       .do(res => {
-        console.log("POST for ONINIT TYPES ", res)
+      //  console.log("POST for ONINIT TYPES ", res)
       })
       .do(incident => this.subjectOnInitTypesOfIncident.next(incident));
   }
