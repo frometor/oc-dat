@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {IncidentsService} from "../../services/incidents.service";
-import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-inputs',
@@ -11,15 +10,11 @@ export class InputsComponent {
 
   typeofIncidents;
   resultIncidents: any[] = [];
-  inputValues: Object = {};
-  allIncidents$: Observable<any>;
-
 
   constructor(private incidentService: IncidentsService) {
   }
 
   searchIncidents(searchData: Object) {
-    //console.log("this.typeofIncidents: ", this.typeofIncidents);
     this.incidentService.getIncidents({"typesOfIncident": this.typeofIncidents})
       .subscribe(
         (data) => {
@@ -31,7 +26,6 @@ export class InputsComponent {
 
   private printEachIncident(resultIncidents: any) {
     for (let i = 0; i < resultIncidents.hits.hits.length; i++) {
-     // console.log(resultIncidents.hits.hits[i]._source.theft)
     }
   }
 
@@ -39,7 +33,6 @@ export class InputsComponent {
     this.incidentService.resetSearch()
       .subscribe(
         (data) => {
-          //console.log("Resetted")
         }
       )
   }

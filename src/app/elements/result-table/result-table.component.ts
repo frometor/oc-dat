@@ -54,7 +54,6 @@ export class ResultTableComponent implements OnInit {
         this.allIncidents = incidents;
         this.fillColums(incidents);
         //this.cd.markForCheck(); // marks path
-        //console.log("result table subscribed");
       }
     );
     /*
@@ -81,7 +80,6 @@ export class ResultTableComponent implements OnInit {
     this.rows = [];
 
     for (let incidentRow of this.allIncidents.hits.hits) {
-//      console.log("FILLCOLUMNS: incidentRow", incidentRow);
 
       rowReports = [];
       rowAlerts = [];
@@ -104,12 +102,12 @@ export class ResultTableComponent implements OnInit {
 
 
       let incidentDate = new Date(incidentRow._source.reports[0].src.created)
-      let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+    //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
 
       this.rows.push({
         "state": incidentRow._source.state,
         "types": incidentTypes,
-        "date": incidentDataString,
+        "date": incidentDate,
         "id": incidentRow._source.id,
         "reports": rowReports,
         "alerts": rowAlerts,
@@ -121,24 +119,6 @@ export class ResultTableComponent implements OnInit {
      // console.log("REPORTS", this.rows);
 
     }
-    /*
-     this.rows.push({state: "sth"});*/
-
-    /* let typesOfIncidentString;
-     for (let incidentRow of mAllIncidents.hits.hits) {
-     let typesOfIncidentString = '';
-     for (let typesOfIncident of incidentRow._source.types) {
-     console.log(typesOfIncident.type);
-     typesOfIncidentString += " " + typesOfIncident.type;
-     }
-     this.rows.push({
-     state: incidentRow._source.state,
-     types: typesOfIncidentString
-     });
-     console.log("PUSHED");
-     }*/
-
-    //  this.change.emit();
 
     this.cd.markForCheck(); // marks path
 
@@ -164,10 +144,7 @@ export class ResultTableComponent implements OnInit {
       //todo: reset elements
     }
 
-    /* console.log("RESULT TABLE this.allIncidents):", this.allIncidents);
-     console.log("$: ", this.allIncidents$)*/
   }
-
 
   singleSelectCheck(row: any) {
     return this.selected.indexOf(row) === -1;
@@ -193,10 +170,5 @@ export class ResultTableComponent implements OnInit {
   //  console.log('Detail Toggled', event);
   }
 
-  getRowHeight(row) {
-    if (!row) return 50;
-    if (row.height === undefined) return 50;
-    return row.height;
-  }
 
 }

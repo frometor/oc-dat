@@ -1,44 +1,11 @@
-<my-date-range-picker [options]="myDateRangePickerOptions"
-                      (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
-
-
-<!--<div id="dateRangePicker">
-  <div class="form-group">
-    <label for="formGroupExampleInput">Pick Start and Enddate</label>
-    <ng-daterangepicker id="formGroupExampleInput" [(ngModel)]="datePickerValue" [options]="options"
-                        name="daterangepicker"
-                        (ngModelChange)="onChangeDate()"></ng-daterangepicker>
-  </div>
-</div>-->
-<!--
 <div>
-  <form [formGroup]="formStart">
-    <date-picker [(ngModel)]="datePickerValueStart" formControlName="date"
-                 (ngModelChange)="onChangeDateStart()"></date-picker>
-  </form>
+  <b>Date Range</b>
 </div>
-<div>
-  <form [formGroup]="formEnd">
-    <date-picker [(ngModel)]="datePickerValueEnd" formControlName="date"
-                 (ngModelChange)="onChangeDateEnd()"></date-picker>
-  </form>
-</div>-->
-<!--
-<div>
-<form #form="ngForm">
-  <date-picker ngModel name="date"></date-picker>
+<!--<my-date-range-picker [options]="myDateRangePickerOptions"
+                      (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>-->
+
+<form [formGroup]="myForm" novalidate>
+  <my-date-range-picker name="ngModelDateRange" [options]="myDateRangePickerOptions" (dateRangeChanged)="onDateRangeChanged($event)"
+                        formControlName="myDateRange" [(ngModel)]="model"></my-date-range-picker>
+  <!-- other controls are here... -->
 </form>
-</div>
--->
-<!--
-<div>
-  <button (click)="resetDate()">RESET</button>
-
-</div>-->
-<!--    <div class="input-field col s12">
-      <label for="endDate">Enddate</label>
-      <input id="endDate" [(ngModel)]="endDate" name="endDate"
-             materialize="pickadate"
-             [materializeParams]="dateTimePickerEndParams"
-             type="text"/>
-    </div>-->

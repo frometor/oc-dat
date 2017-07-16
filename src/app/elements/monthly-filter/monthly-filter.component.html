@@ -4,19 +4,42 @@
 <div>
   {{allIncidents.hits.hits.length}} Incidents found
 </div>
-<div style="height: 300px;">
-  <ngx-charts-bar-vertical
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="monthValues"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical>
+<div *ngIf="toggleMonthDayBool; else elseBlock">
+  <div style="height: 300px;">
+    <ngx-charts-bar-vertical
+      [view]="mview"
+      [scheme]="mcolorScheme"
+      [results]="monthValues"
+      [gradient]="mgradient"
+      [xAxis]="mshowXAxis"
+      [yAxis]="mshowYAxis"
+      [legend]="mshowLegend"
+      [showXAxisLabel]="mshowXAxisLabel"
+      [showYAxisLabel]="mshowYAxisLabel"
+      [xAxisLabel]="mxAxisLabel"
+      [yAxisLabel]="myAxisLabel"
+      (select)="onSelectMonth($event)">
+    </ngx-charts-bar-vertical>
+  </div>
 </div>
+<button class="btn btn-info" (click)="toggleMonthDay()">toggle Month/Day</button>
+
+
+<ng-template #elseBlock>
+  <div style="height: 300px;">
+    <ngx-charts-bar-vertical
+      [view]="dview"
+      [scheme]="dcolorScheme"
+      [results]="dayValues"
+      [gradient]="dgradient"
+      [xAxis]="dshowXAxis"
+      [yAxis]="dshowYAxis"
+      [legend]="dshowLegend"
+      [showXAxisLabel]="dshowXAxisLabel"
+      [showYAxisLabel]="dshowYAxisLabel"
+      [xAxisLabel]="dxAxisLabel"
+      [yAxisLabel]="dyAxisLabel"
+      (select)="onSelectDay($event)">
+    </ngx-charts-bar-vertical>
+  </div>
+</ng-template>

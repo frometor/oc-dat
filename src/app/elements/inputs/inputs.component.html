@@ -1,10 +1,7 @@
 <div>
-  <app-search></app-search>
+  <app-search class="col-md-12"></app-search>
   <app-datepicker class="col-md-12"></app-datepicker>
-  <app-incident-type (typeOfIncidentChanged)="parentFunction($event)"></app-incident-type>
-  <div class="row">
-    <button type="button" class="btn btn-success btn col-xs-6 col-md-6" (click)="searchIncidents()">Search</button>
-
-    <button type="button" class="btn btn-danger btn col-xs-6 col-md-6" (click)="resetSearch()">Reset</button>
-  </div>
+  <app-incident-type class="col-md-12" (typeOfIncidentChanged)="parentFunction($event)"></app-incident-type>
+  <button class="btn btn-success col-xs-3 col-md-5" (click)="searchIncidents()" style="margin:0 15px !important;">Search</button>
+  <button class="btn btn-danger col-xs-3 col-md-5" (click)="resetSearch()">Reset</button>
 </div>

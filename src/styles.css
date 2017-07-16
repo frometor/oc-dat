@@ -1,15 +1,7 @@
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
-/*
-.active {
-  background-color: #304FFE;
-  color: #FFF;
-}
-*/
-.ng-daterangepicker[_ngcontent-c14] .calendar[_ngcontent-c14]{
-  width: 501px !important;
-}
-.calendar .is-opened{
-  width: 501px;
+
+.mydrp {
+  width: 100% !important;
 }

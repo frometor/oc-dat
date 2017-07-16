@@ -8,12 +8,8 @@ import * as _ from "lodash";
 @Injectable()
 export class IncidentsService {
 
-  //url: string = './assets/data/incidents.json';
-  //url: string = 'http://localhost:9200/incidents/_search/?pretty=1';
   url: string = 'http://localhost:9200/incidents/incident/_search';
-  /*postData: any = {
 
-   };*/
   postData: any = {
     "size": 10000,
     "aggs": {
@@ -42,6 +38,7 @@ export class IncidentsService {
   };
 
   EMPTY_SEARCH: any = {
+    "reset":true,
     "took": 3,
     "timed_out": false,
     "_shards": {
@@ -89,26 +86,15 @@ export class IncidentsService {
   }
 
   getIncidents(payload: any): Observable<any> {
+
     let incidentTypeString = "";
-   // console.log("GETINCIDENTS: this.startDate", this.startDate);
-   // console.log("GETINCIDENTS: this.endDate", this.endDate);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     this.http.post("http://localhost:9200/incidents/_delete_by_query'", this.FILTER_HTTP_REUQUEST_FAILURE, headers)
       .do(res => {
-       // console.log("Filtered HTTP_REQUEST_FAILURE")
+        // console.log("Filtered HTTP_REQUEST_FAILURE")
       });
-    //{"match": {"types.type": "artifice"}},
-//    {"match":{"types.type": "fire"}}
-
-    /*!!!!!!!!!!!!!!
-     "must": {
-     "query_string": {
-     //"query": "graffiti~"
-     }
-     },
-     */
 
     let postDataType: any = {
       "size": 10000,
@@ -175,7 +161,7 @@ export class IncidentsService {
             "path": "reports"
           },
           "aggs": {
-            "dayOfWeek": {
+            "monthOfYear": {
               "terms": {
                 "script": {
                   "lang": "painless",
@@ -327,11 +313,13 @@ export class IncidentsService {
      }
      */
 
-    if (this.dateObject.startDate != null) {
+    if ((this.dateObject.startDate != null) && (this.dateObject.startDate != 0) && (this.dateObject.startDate != "0")) {
+      console.log("DATEOBJECT != NULL", this.dateObject.startDate);
       postDataType.query.bool.filter.bool.must["0"].nested.query.bool.must["0"].range["reports.src.created"].gt = this.dateObject.startDate;
 
     }
-    if (this.dateObject.endDate != null) {
+    if ((this.dateObject.endDate != null) && (this.dateObject.endDate != 0) && (this.dateObject.endDate != "0")) {
+      console.log("DATEOBJECT != NULL", this.dateObject.endDate);
       postDataType.query.bool.filter.bool.must["0"].nested.query.bool.must["0"].range["reports.src.created"].lte = this.dateObject.endDate;
       /*
        GET incidents/incident/_search
@@ -357,7 +345,7 @@ export class IncidentsService {
       if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
         incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
         incidentTypeString += "~ " + this.searchTerm + "~";
-     //   console.log("2B:", incidentTypeString);
+        //   console.log("2B:", incidentTypeString);
         //postDataType.query.bool.must.query_string.query = (incidentTypeString);
         postDataType.query.bool.must = {
           "query_string": {
@@ -381,7 +369,7 @@ export class IncidentsService {
           }
 
         };
-      //  console.log("2A:", searchTermString);
+        //  console.log("2A:", searchTermString);
       }
     }
     //ST == null but ToI != null
@@ -395,14 +383,14 @@ export class IncidentsService {
           "query": incidentTypeString
         }
       };
-    //  console.log("1B:", incidentTypeString);
+      //  console.log("1B:", incidentTypeString);
 
     } else {
       // BOTH Values are null or undefined
       //Returns an empty saerch result from Elasticsearch
-   //   console.log("1A:");
+      //   console.log("1A:");
     }
-  //  console.log("postDataType: ", postDataType);
+      console.log("TO ES: postDataType: ", postDataType);
     return this.http.post(this.url, postDataType, headers)
       .map(res => res.json())
       .do(res => {
@@ -439,7 +427,7 @@ export class IncidentsService {
   }
 
   sendMessageFromMap2Table(message: any): void {
-   // console.log("incident Service: send Message");
+    // console.log("incident Service: send Message");
     this.subjectfromMap2Table.next(message);
   }
 
@@ -454,7 +442,7 @@ export class IncidentsService {
   /*===================================================*/
   /*Input of search field*/
   sendMessageInputSearch(message: any): void {
-   // console.log("IncidentService:sendMessageInputSearch", message);
+    // console.log("IncidentService:sendMessageInputSearch", message);
     this.searchTerm = message;
     ///  this.subjectfromTable2Map.next(message);
   }
@@ -463,8 +451,13 @@ export class IncidentsService {
   /* Input of start and end Date*/
   sendMessageStartEndDate(startDate: number, endDate: number) {
 
-    //console.log("startDate", startDate);
-   // console.log("endDate", endDate);
+    this.dateObject = {
+      "startDate": null,
+      "endDate": null
+    };
+
+    console.log("startDate", startDate);
+    console.log("endDate", endDate);
     this.startDate = startDate;
     this.endDate = endDate;
     if ((startDate != null || startDate != 0) && (endDate != null || endDate != 0)) {
@@ -514,7 +507,7 @@ export class IncidentsService {
       .do(res => {
       })
       .do(res => {
-       // console.log("POST for Linechart ", res)
+        // console.log("POST for Linechart ", res)
       })
       .do(incident => this.subjectfromTable2LineChart.next(incident));
   }
@@ -532,7 +525,7 @@ export class IncidentsService {
       .do(res => {
       })
       .do(res => {
-      //  console.log("POST for ONINIT TYPES ", res)
+        //  console.log("POST for ONINIT TYPES ", res)
       })
       .do(incident => this.subjectOnInitTypesOfIncident.next(incident));
   }

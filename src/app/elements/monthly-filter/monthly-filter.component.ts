@@ -12,6 +12,7 @@ export class MonthlyFilterComponent implements OnInit {
 
   allIncidents: any;
   dateValues: any;
+  toggleMonthDayBool = false;
   EMPTY_MONTH_VALUES: any[] = [
     {
       "name": "January",
@@ -54,8 +55,36 @@ export class MonthlyFilterComponent implements OnInit {
       "value": 0
     }
   ];
+  EMPTY_DAY_VALUES: any[] = [
+    {
+      "name": "Sunday",
+      "value": 0
+    },
+    {
+      "name": "Monday",
+      "value": 0
+    },
+    {
+      "name": "Tuesday",
+      "value": 0
+    },
+    {
+      "name": "Wednesday",
+      "value": 0
+    }, {
+      "name": "Thursday",
+      "value": 0
+    }, {
+      "name": "Friday",
+      "value": 0
+    }, {
+      "name": "Saturday",
+      "value": 0
+    }
+  ];
 
   monthValues: any[] = this.EMPTY_MONTH_VALUES;
+  dayValues: any[] = this.EMPTY_DAY_VALUES;
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
   }
@@ -65,7 +94,8 @@ export class MonthlyFilterComponent implements OnInit {
     this.incidentService.incidents$.subscribe(
       incidents => {
         this.allIncidents = incidents;
-        this.fillColums(this.allIncidents.hits.hits);
+        this.fillColumsMonth(this.allIncidents.hits.hits);
+        this.fillColumsDaily(this.allIncidents.hits.hits);
         //  console.log("monthly filter subscribed");
       }
     );
@@ -75,22 +105,36 @@ export class MonthlyFilterComponent implements OnInit {
   months: any[];
   single: any[];
 
-  view: any[];
+  mview: any[];
   // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Month';
-  showYAxisLabel = true;
-  yAxisLabel = 'Number of Incidents';
+  mshowXAxis = true;
+  mshowYAxis = true;
+  mgradient = false;
+  mshowLegend = false;
+  mshowXAxisLabel = true;
+  mxAxisLabel = 'Month';
+  mshowYAxisLabel = true;
+  myAxisLabel = 'Number of Incidents';
 
-  colorScheme = {
+  mcolorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+  dview: any[];
+  // options
+  dshowXAxis = true;
+  dshowYAxis = true;
+  dgradient = false;
+  dshowLegend = false;
+  dshowXAxisLabel = true;
+  dxAxisLabel = 'Day';
+  dshowYAxisLabel = true;
+  dyAxisLabel = 'Number of Incidents';
+
+  dcolorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  private fillColums(incidents: any) {
+  private fillColumsMonth(incidents: any) {
 
     // console.log("fillCOlumns Monthly filter", incidents);
     this.monthValues = _.cloneDeep(this.EMPTY_MONTH_VALUES);
@@ -148,7 +192,7 @@ export class MonthlyFilterComponent implements OnInit {
         console.log("one alert");
         //TODO: ALERT:where to get a date from???
       }
-      console.log("dateValues", this.dateValues);
+      //console.log("dateValues", this.dateValues);
       this.cd.markForCheck(); // forces redraw of component
 
     }
@@ -256,7 +300,62 @@ export class MonthlyFilterComponent implements OnInit {
 
   }
 
-  onSelect(event) {
+  fillColumsDaily(incidents: any) {
+// console.log("fillCOlumns Monthly filter", incidents);
+    this.dayValues = _.cloneDeep(this.EMPTY_DAY_VALUES);
+    let incidentDate;
+    for (let i = 0; i < incidents.length; i++) {
+      if (incidents[i]._source.reports[0] != null && incidents[i]._source.reports[0].src.created != null) {
+        //console.log("Single incident", incidents[i]._source.reports[0]);
+        //console.log("Single incident", incidents[i]._source.reports[0].src.created);
+        incidentDate = new Date(incidents[i]._source.reports[0].src.created).getDay();
+
+      //  console.log("1 incidentDate: ",  new Date(incidents[i]._source.reports[0].src.created));
+       // console.log("2 incidentDate: ", incidentDate);
+
+        switch (incidentDate) {
+          case 0:
+            this.dayValues [0].value += 1;
+            break;
+          case 1:
+            this.dayValues [1].value += 1;
+            break;
+          case 2:
+            this.dayValues [2].value += 1;
+            break;
+          case 3:
+            this.dayValues [3].value += 1;
+            break;
+          case 4:
+            this.dayValues [4].value += 1;
+            break;
+          case 5:
+            this.dayValues [5].value += 1;
+            break;
+        }
+
+      } else if (incidents[i]._source["alerts"] != null && incidents[i]._source.alerts.length > 0) {
+        console.log("one alert");
+        //TODO: ALERT:where to get a date from???
+      }
+      //console.log("dateValues", this.dateValues);
+      this.cd.markForCheck(); // forces redraw of component
+
+    }
+    // console.log("this.monthValues ",this.monthValues );
+    this.cd.markForCheck(); // forces redraw of component
+
+  }
+
+  toggleMonthDay() {
+    //console.log(this.toggleMonthDayBool);
+    this.toggleMonthDayBool = !this.toggleMonthDayBool;
+  }
+
+  onSelectMonth(event) {
+    console.log(event);
+  }
+  onSelectDay(event) {
     console.log(event);
   }
 

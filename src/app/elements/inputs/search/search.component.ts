@@ -21,7 +21,19 @@ export class SearchComponent implements OnInit {
       multiple: true,
       theme: 'classic',
       closeOnSelect: false
-    }
+    };
+
+    this.incidentService.incidents$.subscribe(
+      incidents => {
+        // EMPTY_SEARCH has a "reset" value
+        if(incidents.hasOwnProperty("reset")){
+          this.inputValue=null;
+          this.incidentService.sendMessageInputSearch(this.inputValue);
+
+        }
+        console.log("SEARCH COMPONENT", incidents)
+      }
+    );
 
   }
 
