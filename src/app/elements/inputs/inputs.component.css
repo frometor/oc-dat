@@ -1,3 +1,7 @@
 md-grid-tile {
   background: #ffffff;
 }
+
+.ng-daterangepicker[_ngcontent-c14]   .calendar[_ngcontent-c14]{
+  width: 501px;
+}

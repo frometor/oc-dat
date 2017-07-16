@@ -1,44 +1,87 @@
-import {Component, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
+import {
+  Component, OnInit, Output, EventEmitter, OnChanges, ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import {incidents} from '../../data/incident';
+import {IncidentsService} from "../../../services/incidents.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-incident-type',
   templateUrl: './incident-type.component.html',
   styleUrls: ['./incident-type.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class IncidentTypeComponent implements OnInit {
 
+  message: any;
+  subscription: Subscription;
+
   uniqueTypeOfIncidents: any[] = [];
+  postData: any = {
+    "size": 0,
+    "aggs": {
+      "types_of_incidents": {
+        "nested": {
+          "path": "types"
+        },
+        "aggs": {
+          "number_of_incident": {
+            "terms": {
+              "field": "types.type.keyword",
+              "size": 30
+            }
+          }
+        }
+      }
+    }
+  };
 
   @Output()
   typeOfIncidentChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
-    Object.assign(this, {incidents});
+  constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
+    //Object.assign(this, {incidents});
   }
 
   ngOnInit(): void {
+    //this.incidentService.onInitGetTypesOfIncident(this.postData);
 
+    // subscribe to home component messages
+    this.subscription = this.incidentService.onInitGetTypesOfIncident(this.postData).subscribe(message => {
+      this.message = message;
+      console.log("RESULT TABLE: GET MESSAGE", this.message);
+      this.fillSelectTypes(this.message);
+    });
+  }
+
+  private fillSelectTypes(message: any) {
+    //TODO: GET TYPES FROM ELASTICSEARCH
     //filters the types of incident to be unique
-    for (let typeOfIncident of incidents) {
-      for (let singleTypesOfIncident of typeOfIncident.types) {
-        // console.log(singleTypesOfIncident.type);
-        if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type.toLowerCase())) {
+    for (let typeOfIncident of message.aggregations.types_of_incidents.number_of_incident.buckets) {
+      console.log("TYPE:", typeOfIncident);
+
+      if (this.uniqueTypeOfIncidents.includes(typeOfIncident.key.toLowerCase())) {
         //if (this.uniqueTypeOfIncidents.includes(singleTypesOfIncident.type)) {
 
-          //its already in uniqueTypeOfIncidents array
-        } else {
-          this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type.toLowerCase());
-         // this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
-        }
+        //its already in uniqueTypeOfIncidents array
+      } else {
+        this.uniqueTypeOfIncidents.push(typeOfIncident.key.toLowerCase());
+        // this.uniqueTypeOfIncidents.push(singleTypesOfIncident.type);
       }
     }
+    console.log("############", this.uniqueTypeOfIncidents);
+    this.items = this.uniqueTypeOfIncidents;
+    this.cd.markForCheck(); // marks path
   }
 
   //public items: Array<string> = ['Theft', 'Other'];
-  public items: Array<string> = this.uniqueTypeOfIncidents;
+  public items: Array<string>;
+  //public items: Array<string> = this.uniqueTypeOfIncidents;
 
-  private value: any = ['Theft'];
+  private value: any = [];
+  //private value: any = ['Theft'];
 
   public selected(value: any) {
     console.log('Selected value is: ', value);
@@ -51,7 +94,7 @@ export class IncidentTypeComponent implements OnInit {
 
   public refreshValue(value: any): void {
     this.value = value;
-    console.log("refreshValue: ",value);
+    console.log("refreshValue: ", value);
     this.typeOfIncidentChanged.emit(value);
   }
 

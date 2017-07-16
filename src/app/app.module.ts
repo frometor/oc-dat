@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { LeafletModule } from '@asymmetrik/angular2-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/angular2-leaflet-markercluster';
@@ -23,8 +23,13 @@ import { BarChartComponent } from './elements/result-visualisations/bar-chart/ba
 import { PieChartComponent } from './elements/result-visualisations/pie-chart/pie-chart.component';
 import { MonthlyFilterComponent } from './elements/monthly-filter/monthly-filter.component';
 import {SelectModule} from 'ng2-select';
-import {IncidentsService} from './services/incidents.service'
-
+import {IncidentsService} from './services/incidents.service';
+import { FormGroup, FormBuilder } from "@angular/forms";
+import {OverlayModule} from "@swimlane/ngx-ui";
+//import {DatePickerModule} from "angular-io-datepicker";
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MyDateRangePickerModule } from 'mydaterangepicker';
 
 @NgModule({
   declarations: [
@@ -49,11 +54,17 @@ import {IncidentsService} from './services/incidents.service'
     LeafletModule,
     LeafletMarkerClusterModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgDateRangePickerModule,
     Select2Module,
     NgxChartsModule,
     NgxDatatableModule,
-    SelectModule
+    SelectModule,
+    OverlayModule,
+    DatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    MyDateRangePickerModule
   ],
   providers: [D3Service,IncidentsService],
   bootstrap: [AppComponent]

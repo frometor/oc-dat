@@ -7,3 +7,9 @@
   color: #FFF;
 }
 */
+.ng-daterangepicker[_ngcontent-c14] .calendar[_ngcontent-c14]{
+  width: 501px !important;
+}
+.calendar .is-opened{
+  width: 501px;
+}

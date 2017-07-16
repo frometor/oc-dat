@@ -71,10 +71,18 @@ export class IncidentsService {
   private subjectfromTable2Map = new Subject<any>();
   private subjectfromMap2Table = new Subject<any>();
   private subjectfromTable2LineChart = new Subject<any>();
+  private subjectOnInitTypesOfIncident = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
   mapTableCommunication$: Observable<any> = this.subjectMapTable.asObservable();
   private searchTerm: String = null;
+  private startDate: number = null;
+  private endDate: number = null;
+  private dateObject = {
+    "startDate": null,
+    "endDate": null
+  };
+
 
   constructor(private http: Http) {
 
@@ -82,7 +90,8 @@ export class IncidentsService {
 
   getIncidents(payload: any): Observable<any> {
     let incidentTypeString = "";
-
+    console.log("GETINCIDENTS: this.startDate", this.startDate);
+    console.log("GETINCIDENTS: this.endDate", this.endDate);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -93,12 +102,43 @@ export class IncidentsService {
     //{"match": {"types.type": "artifice"}},
 //    {"match":{"types.type": "fire"}}
 
-    let postDataType: any = {
-      size: 10000,
-      "query": {
-        "query_string": {
-          "query": ""
+    /*!!!!!!!!!!!!!!
+     "must": {
+     "query_string": {
+     //"query": "graffiti~"
+     }
+     },
+     */
 
+    let postDataType: any = {
+      "size": 10000,
+      "query": {
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "nested": {
+                    "path": "reports",
+                    "query": {
+                      "bool": {
+                        "must": [
+                          {
+                            "range": {
+                              "reports.src.created": {
+                                /*"gt": 100000000000*/
+                                /*"lte":1000000*/
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
         }
       },
       "aggs": {
@@ -146,7 +186,61 @@ export class IncidentsService {
           }
         }
       }
-    }
+    };
+    /* let postDataType: any = {
+     size: 10000,
+     "query": {
+     "query_string": {
+     "query": ""
+
+     }
+     },
+     "aggs": {
+     "types_of_incidents": {
+     "nested": {
+     "path": "types"
+     },
+     "aggs": {
+     "number_of_incident": {
+     "terms": {
+     "field": "types.type.keyword",
+     "size": 30
+     }
+     }
+     }
+     },
+     "incidents_per_day": {
+     "nested": {
+     "path": "reports"
+     },
+     "aggs": {
+     "dayOfWeek": {
+     "terms": {
+     "script": {
+     "lang": "painless",
+     "inline": "doc['reports.src.created'].date.dayOfWeek"
+     }
+     }
+     }
+     }
+     },
+     "incidents_per_month": {
+     "nested": {
+     "path": "reports"
+     },
+     "aggs": {
+     "dayOfWeek": {
+     "terms": {
+     "script": {
+     "lang": "painless",
+     "inline": "doc['reports.src.created'].date.monthOfYear"
+     }
+     }
+     }
+     }
+     }
+     }
+     };*/
     /* {
      "size": 10000,
      "query": {
@@ -212,49 +306,103 @@ export class IncidentsService {
      }
      };*/
 
+
+    /*
+     //ST !=null
+     if ((this.searchTerm != "") && (this.searchTerm != null)) {
+     //date !=null
+     if (this.dateObject != null) {
+     //Type !=null
+     if(payload.typesOfIncident != null && payload.typesOfIncident[0] != null){
+
+     } else{
+     //Type==null
+     }
+     }else{
+     //date==null
+     }
+     }else{
+     //ST==null
+
+     }
+     */
+
+    if (this.dateObject.startDate != null) {
+      postDataType.query.bool.filter.bool.must["0"].nested.query.bool.must["0"].range["reports.src.created"].gt = this.dateObject.startDate;
+
+    }
+    if (this.dateObject.endDate != null) {
+      postDataType.query.bool.filter.bool.must["0"].nested.query.bool.must["0"].range["reports.src.created"].lte = this.dateObject.endDate;
+      /*
+       GET incidents/incident/_search
+       {
+       "query": {
+       "nested" : {
+       "path" : "reports",
+       "query" : {
+       "bool" : {
+       "must" : [
+       { "range" : {"reports.src.created": {"gt" : 10000000000}} }
+       ]
+       }
+       }
+       }
+       }
+       }
+       */
+    }
     //search term from searchInput is not empty or undefined
     if ((this.searchTerm != "") && (this.searchTerm != null)) {
       //search term from searchInput AND typesOfIncident are not empty or undefined
       if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
         incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
-        incidentTypeString +="~ "+ this.searchTerm + "~";
-        console.log("2B:",incidentTypeString);
-        postDataType.query.query_string.query = (incidentTypeString);
+        incidentTypeString += "~ " + this.searchTerm + "~";
+        console.log("2B:", incidentTypeString);
+        //postDataType.query.bool.must.query_string.query = (incidentTypeString);
+        postDataType.query.bool.must = {
+          "query_string": {
+            "query": incidentTypeString
+          }
 
+        };
 
       } else {
         //searchTerm is not empty BUT typesOf Incidents is
-        let searchtermArray=this.searchTerm.split(" ");
-       let searchTermString= searchtermArray.join("~ ");
+        let searchtermArray = this.searchTerm.split(" ");
+        let searchTermString = searchtermArray.join("~ ");
+        searchTermString += "~";
         //incidentTypeString = _.map(searchtermArray, 'text').join('~ ');
 
-        postDataType.query.query_string.query = searchTermString;
-        console.log("2A:",searchTermString);
+        //postDataType.query.bool.must.query_string.query = searchTermString;
+        postDataType.query.bool.must = {
 
+          "query_string": {
+            "query": searchTermString
+          }
+
+        };
+        console.log("2A:", searchTermString);
       }
-
     }
+    //ST == null but ToI != null
     else if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
 
       incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
-      postDataType.query.query_string.query = (incidentTypeString);
-      console.log("1B:",incidentTypeString);
+      //postDataType.query.bool.must.query_string.query = (incidentTypeString);
+      // postDataType.query.bool.must.query_string.query = (incidentTypeString);
+      postDataType.query.bool.must = {
+        "query_string": {
+          "query": incidentTypeString
+        }
+      };
+      console.log("1B:", incidentTypeString);
 
-/*
-      return this.http.post(this.url, postDataType, headers)
-        .map(res => res.json())
-        .do(res => {
-          console.log("from TYPES OF INCIDENT: ", res)
-        })
-        .do(incident => this.subject.next(incident));*/
     } else {
       // BOTH Values are null or undefined
       //Returns an empty saerch result from Elasticsearch
       console.log("1A:");
-
-
-      // .publishLast().refCount();
     }
+    console.log("postDataType: ", postDataType);
     return this.http.post(this.url, postDataType, headers)
       .map(res => res.json())
       .do(res => {
@@ -312,9 +460,28 @@ export class IncidentsService {
   }
 
   /*===================================================*/
+  /* Input of start and end Date*/
+  sendMessageStartEndDate(startDate: number, endDate: number) {
+
+    console.log("startDate", startDate);
+    console.log("endDate", endDate);
+    this.startDate = startDate;
+    this.endDate = endDate;
+    if ((startDate != null || startDate != 0) && (endDate != null || endDate != 0)) {
+      this.dateObject.startDate = startDate;
+      this.dateObject.endDate = endDate;
+
+    }
+
+    /*this.dateObject.push({
+     "startDate": startDate,
+     "endDate": endDate
+     });*/
+  }
+
+  /*===================================================*/
   /*Communication from table to linechart*/
   sendMessageFromTable2lineChart(hit: any): Observable<any> {
-    console.log("sendMessageFromTable2lineChart");
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -334,19 +501,17 @@ export class IncidentsService {
             "incident_month": {
               "date_histogram": {
                 "field": "reports.src.created",
-                "interval": "year"
+                "interval": "day"
               }
             }
           }
         }
       }
     };
-    console.log("sendMessageFromTable2lineChart2222");
 
     return this.http.post(this.url, postDataLinechart, headers)
       .map(res => res.json())
       .do(res => {
-        console.log("HDBASD")
       })
       .do(res => {
         console.log("POST for Linechart ", res)
@@ -356,5 +521,19 @@ export class IncidentsService {
 
   getMessageFromTable2LineChart(): Observable<any> {
     return this.subjectfromTable2LineChart.asObservable();
+  }
+
+  onInitGetTypesOfIncident(postDataTypes) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(this.url, postDataTypes, headers)
+      .map(res => res.json())
+      .do(res => {
+      })
+      .do(res => {
+        console.log("POST for ONINIT TYPES ", res)
+      })
+      .do(incident => this.subjectOnInitTypesOfIncident.next(incident));
   }
 }

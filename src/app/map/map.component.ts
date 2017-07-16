@@ -95,7 +95,7 @@ export class MapComponent implements OnInit {
 
     this.incidentService.incidents$.subscribe(
       data => {
-        console.log("data:", data);
+       // console.log("data:", data);
         if (this.markerLayerGroup != null) {
           map.removeLayer(this.markerLayerGroup);
           //map.removeLayer(this.markerClusterGroup);
@@ -112,11 +112,11 @@ export class MapComponent implements OnInit {
         //marker
         this.markerLayerGroup.on("click", function (event) {
           let clickedMarker = event.layer;
-          console.log("Clicked", clickedMarker);
+       //   console.log("Clicked", clickedMarker);
           map.setView(clickedMarker._latlng, map.getZoom());
 
           self.incidentService.sendMessageFromMap2Table(clickedMarker);
-          console.log("MAP:SENDmessage: ", clickedMarker);
+       //   console.log("MAP:SENDmessage: ", clickedMarker);
           // this.cd.markForCheck(); // forces redraw
           //this.incidentService.sendCommunicateMapTable(clickedMarker);
         });
@@ -125,7 +125,7 @@ export class MapComponent implements OnInit {
 
     this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => {
       this.message = message;
-      console.log("MAP:Getmessage:", this.message);
+     // console.log("MAP:Getmessage:", this.message);
       if (this.message.selected.length > 0) {
         // own scope >> eachlayer
         this.markerLayerGroup.eachLayer(function (layer) {
@@ -216,7 +216,7 @@ export class MapComponent implements OnInit {
         title: incident.id
       }).on('click',
         (data) => {
-          console.log("I have a click.")
+         // console.log("I have a click.")
         }).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
 
 
@@ -250,7 +250,7 @@ export class MapComponent implements OnInit {
     // Polygons
     this.polygonLayerGroup.on("click", function (event) {
       let clickedMarker = event.layer;
-      console.log("Clicked", clickedMarker);
+     // console.log("Clicked", clickedMarker);
       map.setView(clickedMarker._latlngs[0][0], map.getZoom());
       // this.incidentService.sendCommunicateMapTable(clickedMarker);
     });

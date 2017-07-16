@@ -1,12 +1,40 @@
-<div id="dateRangePicker">
+<my-date-range-picker [options]="myDateRangePickerOptions"
+                      (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
+
+
+<!--<div id="dateRangePicker">
   <div class="form-group">
     <label for="formGroupExampleInput">Pick Start and Enddate</label>
-    <ng-daterangepicker id="formGroupExampleInput" [(ngModel)]="datePickerValue" [options]="options" name="daterangepicker"
-                      (ngModelChange)="onChangeDate()"></ng-daterangepicker>
+    <ng-daterangepicker id="formGroupExampleInput" [(ngModel)]="datePickerValue" [options]="options"
+                        name="daterangepicker"
+                        (ngModelChange)="onChangeDate()"></ng-daterangepicker>
   </div>
+</div>-->
+<!--
+<div>
+  <form [formGroup]="formStart">
+    <date-picker [(ngModel)]="datePickerValueStart" formControlName="date"
+                 (ngModelChange)="onChangeDateStart()"></date-picker>
+  </form>
 </div>
+<div>
+  <form [formGroup]="formEnd">
+    <date-picker [(ngModel)]="datePickerValueEnd" formControlName="date"
+                 (ngModelChange)="onChangeDateEnd()"></date-picker>
+  </form>
+</div>-->
+<!--
+<div>
+<form #form="ngForm">
+  <date-picker ngModel name="date"></date-picker>
+</form>
+</div>
+-->
+<!--
+<div>
+  <button (click)="resetDate()">RESET</button>
 
-
+</div>-->
 <!--    <div class="input-field col s12">
       <label for="endDate">Enddate</label>
       <input id="endDate" [(ngModel)]="endDate" name="endDate"

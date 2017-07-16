@@ -1,33 +1,52 @@
-import {Component, OnInit} from '@angular/core';
-import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {NgDateRangePickerOptions} from 'ng-daterangepicker';
+import * as moment from 'moment';
+import {IMyDrpOptions, IMyDateRangeModel} from 'mydaterangepicker';
+import {IncidentsService} from "../../../services/incidents.service";
+
 
 @Component({
   selector: 'app-datepicker',
   templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.css']
+  styleUrls: ['./datepicker.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
-export class DatepickerComponent implements OnInit {
+export class DatepickerComponent {
 
-  options: NgDateRangePickerOptions;
-  datePickerValue:string;
+  private myDateRangePickerOptions: IMyDrpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+  };
+  private myForm: FormGroup;
+  private startDate: number;
+  private endDate: number;
 
-  constructor() { }
 
-  ngOnInit(): void {
-
-    this.options = {
-      theme: 'default',
-      range: 'tm',
-      dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
-      dateFormat: 'yMd',
-      outputFormat: 'DD/MM/YYYY',
-      startOfWeek: 1
-    };
-  }
-  onChangeDate(){
-    console.log("changed", this.datePickerValue);
+  constructor(private incidentService: IncidentsService) {
 
   }
+
+  // dateRangeChanged callback function called when the user apply the date range. This is
+  // mandatory callback in this option. There are also optional inputFieldChanged and
+  // calendarViewChanged callbacks.
+  onDateRangeChanged(event: IMyDateRangeModel) {
+    this.startDate=((event.beginEpoc )*1000);
+    this.endDate=((event.endEpoc )*1000);
+
+    //console.log("beginDate",event.beginDate);
+   // console.log(event.endDate);
+   // console.log(event.formatted);
+    console.log( "START",this.startDate);
+    //console.log( "START",new Date(this.startDate));
+    console.log("END",this.endDate);
+   // console.log("END",new Date(this.endDate));
+
+    // event properties are: event.beginDate, event.endDate, event.formatted,
+    // event.beginEpoc and event.endEpoc
+    this.incidentService.sendMessageStartEndDate( this.startDate,this.endDate);
+  }
+
 
 }

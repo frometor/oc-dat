@@ -1,4 +1,4 @@
-<div>
+<!--<div>
   <ngx-datatable
     class="material selection-cell"
     [rows]="rows"
@@ -13,6 +13,96 @@
     [selectCheck]="singleSelectCheck"
     (select)="onSelect($event)"
     (activate)="onActivate($event)">
+  </ngx-datatable>
+</div>-->
+<div>
+  <small>
+    <a href="#" (click)="table.rowDetail.expandAllRows()">Expand All</a> |
+    <a href="#" (click)="table.rowDetail.collapseAllRows()">Collapse All</a>
+  </small>
+  <ngx-datatable
+    #myTable
+    class='material expandable'
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="5"
+    [rows]='rows'
+    [selected]="selected"
+    [selectionType]="'single'"
+    [selectCheck]="singleSelectCheck"
+    (select)="onSelect($event)"
+    (page)="onPage($event)"
+    (activate)="onActivate($event)">
+    <!-- Row Detail Template -->
+    <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+      <ng-template let-row="row" ngx-datatable-row-detail-template>
+        <div style="padding-left:35px;">
+          <div><strong>ID</strong></div>
+          <div>{{row.id}}</div>
+          <div><strong>Types</strong></div>
+          <div>{{row.types}}</div>
+          <div *ngIf="row.reports.length>0"><strong>Reports</strong></div>
+         <div *ngFor="let report of row.reports">{{report.report}}</div>
+          <div *ngIf="row.alerts.length>0"><strong>Alerts</strong></div>
+         <div *ngFor="let alert of row.alerts">{{alert.alert}}</div>
+        </div>
+      </ng-template>
+    </ngx-datatable-row-detail>
+    <!-- Column Templates -->
+    <ngx-datatable-column
+      [width]="50"
+      [resizeable]="false"
+      [sortable]="false"
+      [draggable]="false"
+      [canAutoResize]="false">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <a
+          href="#"
+          [class.datatable-icon-right]="!row.$$expanded"
+          [class.datatable-icon-down]="row.$$expanded"
+          title="Expand/Collapse Row"
+          (click)="toggleExpandRow(row)">
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Status" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{row.state}}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Date" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{row.date }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="#Reports" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{row.numberOfReports }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="#Alerts" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{row.numberOfAlerts }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Theft" width="80">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <strong>{{row.theft }}</strong>
+      </ng-template>
+    </ngx-datatable-column>
+   <!-- <ngx-datatable-column name="Reports" width="200">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <strong>{{row.numberOfReports}}</strong>
+      </ng-template>
+    </ngx-datatable-column>-->
+<!--    <ngx-datatable-column name="Gender" width="300">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <i [innerHTML]="row['name']"></i> and <i>{{value}}</i>
+      </ng-template>
+    </ngx-datatable-column>-->
+    <!--<ngx-datatable-column name="Age"></ngx-datatable-column>-->
   </ngx-datatable>
 </div>
 
