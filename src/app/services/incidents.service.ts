@@ -67,6 +67,7 @@ export class IncidentsService {
 
   private subjectfromTable2Map = new Subject<any>();
   private subjectfromMap2Table = new Subject<any>();
+  private subjectfromMap2Table4Reports = new Subject<any>();
   private subjectfromTable2LineChart = new Subject<any>();
   private subjectOnInitTypesOfIncident = new Subject<any>();
 
@@ -438,6 +439,13 @@ export class IncidentsService {
   getMessageFromMap2Table(): Observable<any> {
     return this.subjectfromMap2Table.asObservable();
   }
+  sendMessagefromTable2Map4Reports(id: any) {
+    this.subjectfromMap2Table4Reports.next(id);
+  }
+
+  getMessagefromTable2Map4Reports(): Observable<any> {
+    return this.subjectfromMap2Table4Reports.asObservable();
+  }
 
   /*===================================================*/
   /*Input of search field*/
@@ -529,4 +537,5 @@ export class IncidentsService {
       })
       .do(incident => this.subjectOnInitTypesOfIncident.next(incident));
   }
+
 }

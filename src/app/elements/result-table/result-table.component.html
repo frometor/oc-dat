@@ -43,10 +43,14 @@
           <div>{{row.id}}</div>
           <div><strong>Types</strong></div>
           <div>{{row.types}}</div>
-          <div *ngIf="row.reports.length>0"><strong>Reports</strong></div>
-         <div *ngFor="let report of row.reports">{{report.report}}</div>
+          <div *ngIf="row.reports.length>0"><strong>Reports</strong>
+
+            <button class="btn-sm btn-info" (click)="showReports(row.id)">Show</button>
+
+          </div>
+          <div *ngFor="let report of row.reports">{{report.report}}</div>
           <div *ngIf="row.alerts.length>0"><strong>Alerts</strong></div>
-         <div *ngFor="let alert of row.alerts">{{alert.alert}}</div>
+          <div *ngFor="let alert of row.alerts">{{alert.alert}}</div>
         </div>
       </ng-template>
     </ngx-datatable-row-detail>
@@ -92,16 +96,16 @@
         <strong>{{row.theft }}</strong>
       </ng-template>
     </ngx-datatable-column>
-   <!-- <ngx-datatable-column name="Reports" width="200">
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <strong>{{row.numberOfReports}}</strong>
-      </ng-template>
-    </ngx-datatable-column>-->
-<!--    <ngx-datatable-column name="Gender" width="300">
-      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <i [innerHTML]="row['name']"></i> and <i>{{value}}</i>
-      </ng-template>
-    </ngx-datatable-column>-->
+    <!-- <ngx-datatable-column name="Reports" width="200">
+       <ng-template let-value="value" ngx-datatable-cell-template>
+         <strong>{{row.numberOfReports}}</strong>
+       </ng-template>
+     </ngx-datatable-column>-->
+    <!--    <ngx-datatable-column name="Gender" width="300">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <i [innerHTML]="row['name']"></i> and <i>{{value}}</i>
+          </ng-template>
+        </ngx-datatable-column>-->
     <!--<ngx-datatable-column name="Age"></ngx-datatable-column>-->
   </ngx-datatable>
 </div>

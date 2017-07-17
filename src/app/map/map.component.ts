@@ -20,6 +20,8 @@ export class MapComponent implements OnInit {
 
   message: any;
   subscription: Subscription;
+  messageReports: any;
+  subscriptionReports: Subscription;
 
   communicationTableMap: any;
   //markerGroup
@@ -101,17 +103,17 @@ export class MapComponent implements OnInit {
 
     let self = this;
     map.on("click", function (event) {
-     // console.log("CLICKED ON MAP1");
+      // console.log("CLICKED ON MAP1");
       //console.log("CLICKED ON MAP2", self.reportsMarkerLayerGroup);
 
       if (self.reportsMarkerLayerGroup != null) {
 
         map.removeLayer(self.reportsMarkerLayerGroup);
         self.cd.markForCheck(); // forces redraw
-    //    console.log("CLICKED ON MAP#########", self.reportsMarkerLayerGroup);
+        //    console.log("CLICKED ON MAP#########", self.reportsMarkerLayerGroup);
 
       }
-     // console.log("CLICKED ON MAP3", self.reportsMarkerLayerGroup);
+      // console.log("CLICKED ON MAP3", self.reportsMarkerLayerGroup);
     });
 
 
@@ -120,7 +122,7 @@ export class MapComponent implements OnInit {
         // console.log("data:", data);
         if (this.markerLayerGroup != null) {
           map.removeLayer(this.markerLayerGroup);
-       //   console.log("##################################################");
+          //   console.log("##################################################");
           //map.removeLayer(this.markerClusterGroup);
           this.cd.markForCheck(); // forces redraw
         }
@@ -131,13 +133,14 @@ export class MapComponent implements OnInit {
         this.incidents = data.hits.hits;
         this.drawMarker(this.incidents, map);
         //this.cd.markForCheck(); // marks path
-        let self = this
+        let self = this;
+
         //marker
         this.markerLayerGroup.on("click", function (event) {
 
           if (self.reportsMarkerLayerGroup != null) {
             map.removeLayer(self.reportsMarkerLayerGroup);
-           // console.log("========================0");
+            // console.log("========================0");
             //map.removeLayer(this.markerClusterGroup);
             self.cd.markForCheck(); // forces redraw
           }
@@ -148,10 +151,10 @@ export class MapComponent implements OnInit {
           map.setView(clickedMarker._latlng, map.getZoom());
           for (let i = 0; i < self.incidents.length; i++) {
             if (self.incidents[i]._id == clickedMarker.options.title) {
-            //  console.log("FOUNDFOUND", self.incidents[i]._source.reports);
+              //  console.log("FOUNDFOUND", self.incidents[i]._source.reports);
               for (let j = 0; j < self.incidents[i]._source.reports.length; j++) {
-               // console.log("REPORTS!!!!!!!!", self.incidents[i]._source.reports[j]);
-              //  console.log("self.incidents[i]._source.reports[j].src.description", self.incidents[i]._source.reports[j].src.description);
+                // console.log("REPORTS!!!!!!!!", self.incidents[i]._source.reports[j]);
+                //  console.log("self.incidents[i]._source.reports[j].src.description", self.incidents[i]._source.reports[j].src.description);
                 reportText = self.incidents[i]._source.reports[j].src.description;
                 reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
                   icon: self.customIcon2,
@@ -186,6 +189,46 @@ export class MapComponent implements OnInit {
       } else {
 
       }
+    });
+
+    this.subscriptionReports = this.incidentService.getMessagefromTable2Map4Reports().subscribe(message => {
+
+      if (this.reportsMarkerLayerGroup != null) {
+        map.removeLayer(this.reportsMarkerLayerGroup);
+        //map.removeLayer(this.markerClusterGroup);
+        self.cd.markForCheck(); // forces redraw
+      }
+
+      let reportsPointsMarker: any[] = [];
+      let reportText: String = "";
+
+      this.messageReports = message;
+      console.log("##########", this.messageReports);
+      console.log("##########", this.incidents);
+      for (let i = 0; i < this.incidents.length; i++) {
+        if (this.incidents[i]._id == message) {
+          console.log("FOUND!",this.incidents[i]._source.reports);
+          for (let j = 0; j < this.incidents[i]._source.reports.length; j++) {
+            console.log("FOUND!",this.incidents[i]._source.reports[j]);
+
+            reportText = this.incidents[i]._source.reports[j].src.description;
+
+            reportsPointsMarker.push(L.marker([this.incidents[i]._source.reports[j].src.location.coordinates[1], this.incidents[i]._source.reports[j].src.location.coordinates[0]], {
+              icon: self.customIcon2,
+            }).bindPopup("Report: " + reportText));
+            console.log("reportsPointsMarker",reportsPointsMarker);
+          }
+        }
+      }
+
+      this.reportsMarkerLayerGroup = L.featureGroup(reportsPointsMarker).on('click',
+        (data) => {
+          map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
+        }).addTo(map);
+
+      map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
+   //   this.incidentService.sendMessageFromMap2Table(clickedMarker);
+      this.cd.markForCheck(); // forces redraw
     });
   }
 

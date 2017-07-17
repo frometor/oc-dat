@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input,
-  ChangeDetectorRef, ViewChild
+  ChangeDetectorRef, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {Observable, Observer, Subscription} from "rxjs";
 import * as _ from "lodash";
@@ -10,6 +10,7 @@ import {IncidentsService} from "../../services/incidents.service";
   selector: 'app-result-table',
   templateUrl: './result-table.component.html',
   styleUrls: ['./result-table.component.css'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -88,21 +89,21 @@ export class ResultTableComponent implements OnInit {
 
       //REPORTS
       for (let i = 0; i < incidentRow._source.reports.length; i++) {
-        if ((incidentRow._source.reports[i].src.description != null)&&(incidentRow._source.reports[i].src.description !="")) {
+        if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
           rowReports.push({"report": incidentRow._source.reports[i].src.description});
         }
       }
 
       //ALERTS
       for (let i = 0; i < incidentRow._source.alerts.length; i++) {
-        if ((incidentRow._source.alerts[i] != null)&&(incidentRow._source.reports[i]!="")) {
-          rowAlerts.push({"alert": "Event Type: "+incidentRow._source.alerts[i].event_type+"| Note: "+incidentRow._source.alerts[i].note});
+        if ((incidentRow._source.alerts[i] != null) && (incidentRow._source.reports[i] != "")) {
+          rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + "| Note: " + incidentRow._source.alerts[i].note});
         }
       }
 
 
       let incidentDate = new Date(incidentRow._source.reports[0].src.created)
-    //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+      //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
 
       this.rows.push({
         "state": incidentRow._source.state,
@@ -113,10 +114,10 @@ export class ResultTableComponent implements OnInit {
         "alerts": rowAlerts,
         "numberOfReports": rowReports.length,
         "numberOfAlerts": rowAlerts.length,
-        "theft":incidentRow._source.theft
+        "theft": incidentRow._source.theft
       });
 
-     // console.log("REPORTS", this.rows);
+      // console.log("REPORTS", this.rows);
 
     }
 
@@ -127,15 +128,15 @@ export class ResultTableComponent implements OnInit {
   onSelect(event) {
     //console.log('Event: select', event, this.selected);
     this.incidentService.sendMessageFromTable2Map(event);
-   // console.log("RESULT TABLE: SEND MESSAGE", event);
- //   console.log("RESULT TABLE: this.allIncidents[i]", this.allIncidents);
+    // console.log("RESULT TABLE: SEND MESSAGE", event);
+    //   console.log("RESULT TABLE: this.allIncidents[i]", this.allIncidents);
     if ((event.selected.length != 0) && (event.selected != 0)) {
       for (let i = 0; i < this.allIncidents.hits.hits.length; i++) {
         if (event.selected[0].id == this.allIncidents.hits.hits[i]._id) {
           this.incidentService.sendMessageFromTable2lineChart(this.allIncidents.hits.hits[i])
             .subscribe((data) => {
 
-         //     console.log("FOUND!");
+              //     console.log("FOUND!");
             });
 
         }
@@ -154,6 +155,11 @@ export class ResultTableComponent implements OnInit {
     //  console.log('Event: activate', event);
   }
 
+  showReports(id) {
+    console.log("ID:", id);
+    this.incidentService.sendMessagefromTable2Map4Reports(id);
+  }
+
   onPage(event) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -162,12 +168,12 @@ export class ResultTableComponent implements OnInit {
   }
 
   toggleExpandRow(row) {
-  //  console.log('Toggled Expand Row!', row);
+    //  console.log('Toggled Expand Row!', row);
     this.table.rowDetail.toggleExpandRow(row);
   }
 
   onDetailToggle(event) {
-  //  console.log('Detail Toggled', event);
+    //  console.log('Detail Toggled', event);
   }
 
 

@@ -1,0 +1,4930 @@
+{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498481961,
+        "description": "stolen light lamp",
+        "location": {
+          "coordinates": [
+            11.0928166,
+            43.8798439,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "e60231d0-4b7d-4bed-90f9-5e4b81d53455",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/af154fb5-05f7-4c1d-a973-de1c11ff1c33/download"
+        },
+        "type": "unknown",
+        "incident": "68188b61-072b-4f0c-b718-105973677e95",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "e60231d0-4b7d-4bed-90f9-5e4b81d53455",
+        "description": {
+          "value": "stolen light lamp"
+        },
+        "media": {
+          "terms": [
+            "no person",
+            "one",
+            "architecture",
+            "paper",
+            "blur",
+            "sky",
+            "retro",
+            "panoramic",
+            "empty",
+            "desktop",
+            "light",
+            "old",
+            "wear",
+            "dirty",
+            "abstract",
+            "travel",
+            "simplicity",
+            "wallpaper",
+            "outdoors",
+            "indoors"
+          ],
+          "probabilities": [
+            0.9988459348678589,
+            0.9438474178314209,
+            0.9421696066856384,
+            0.9400702118873596,
+            0.9242668151855469,
+            0.9227041006088257,
+            0.9081383943557739,
+            0.8918921947479248,
+            0.8748362064361572,
+            0.8672477006912231,
+            0.8489505052566528,
+            0.8468770980834961,
+            0.8445625901222229,
+            0.8307464122772217,
+            0.830253005027771,
+            0.8208398818969727,
+            0.8189006447792053,
+            0.8178941011428833,
+            0.7977761626243591,
+            0.7968854308128357
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "e60231d0-4b7d-4bed-90f9-5e4b81d53455",
+      "state": "published",
+      "incident": "68188b61-072b-4f0c-b718-105973677e95",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "e60231d0-4b7d-4bed-90f9-5e4b81d53455",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.20000000298023224,
+      "type": "Fault in lighting"
+    },
+    {
+      "confidence": 0.1702127605676651,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Fault in lighting"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.012195121496915817,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.464Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      11.0928166,
+      43.8798439,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "68188b61-072b-4f0c-b718-105973677e95",
+  "state": "open",
+  "theft": false
+},{
+  "alerts": [
+    {
+      "severity": "minor",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "Nuernberg",
+          "contact": null,
+          "description": "Nuernberg",
+          "headline": "Nuernberg"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "Evacuation",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              10.656738281250002,
+              49.64873668378412
+            ],
+            [
+              12.491455078125002,
+              49.64873668378412
+            ],
+            [
+              12.491455078125002,
+              48.7296999395801
+            ],
+            [
+              10.656738281250002,
+              48.7296999395801
+            ],
+            [
+              10.656738281250002,
+              49.64873668378412
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "7c434d75-adbe-4bf7-ad5a-482f95403b78",
+      "incident": "de023a88-6dfa-44a5-a243-127026c56e9f",
+      "status": "test"
+    }
+  ],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497607635,
+        "description": "demonstration violence",
+        "location": {
+          "coordinates": [
+            13.3142143,
+            52.5263292,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "6cd8598a-c1b4-43f6-a6d0-a4f9916143c8",
+        "type": "unknown",
+        "incident": "de023a88-6dfa-44a5-a243-127026c56e9f",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "6cd8598a-c1b4-43f6-a6d0-a4f9916143c8",
+        "description": {
+          "value": "demonstration violence"
+        },
+        "status": "OK"
+      },
+      "id": "6cd8598a-c1b4-43f6-a6d0-a4f9916143c8",
+      "state": "published",
+      "incident": "de023a88-6dfa-44a5-a243-127026c56e9f",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "6cd8598a-c1b4-43f6-a6d0-a4f9916143c8",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497607696,
+        "description": "people rioting",
+        "location": {
+          "coordinates": [
+            13.3142143,
+            52.5263292,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "0e5ca531-8183-45aa-8194-1eaae2dfcbb3",
+        "type": "unknown",
+        "incident": "de023a88-6dfa-44a5-a243-127026c56e9f",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "0e5ca531-8183-45aa-8194-1eaae2dfcbb3",
+        "description": {
+          "value": "people rioting"
+        },
+        "status": "OK"
+      },
+      "id": "0e5ca531-8183-45aa-8194-1eaae2dfcbb3",
+      "state": "published",
+      "incident": "de023a88-6dfa-44a5-a243-127026c56e9f",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "0e5ca531-8183-45aa-8194-1eaae2dfcbb3",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "Evacuation"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.465Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      13.3142143,
+      52.5263292,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "de023a88-6dfa-44a5-a243-127026c56e9f",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497958837,
+        "description": "Something's going on just outside Starbuck's here",
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "c4e27713-1b71-4fed-b558-02eacc07222c",
+        "type": "unknown",
+        "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "c4e27713-1b71-4fed-b558-02eacc07222c",
+        "description": {
+          "value": "Something's going on just outside Starbuck's here"
+        },
+        "status": "OK"
+      },
+      "id": "c4e27713-1b71-4fed-b558-02eacc07222c",
+      "state": "published",
+      "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "c4e27713-1b71-4fed-b558-02eacc07222c",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497958961,
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "4a0c69f6-bc37-4acc-950b-6fdd3c985a64",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://www.smithsdaily.com/wp-content/uploads/2016/06/Soccer-Euro-2016-England-Russia-fans-riot-672x372.jpg"
+        },
+        "type": "unknown",
+        "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "4a0c69f6-bc37-4acc-950b-6fdd3c985a64",
+        "media": {
+          "terms": [
+            "street",
+            "people",
+            "city",
+            "crowd",
+            "many",
+            "festival",
+            "group",
+            "road",
+            "rally",
+            "police",
+            "action",
+            "parade",
+            "motion",
+            "competition",
+            "race",
+            "shopping",
+            "battle",
+            "demonstration",
+            "commerce",
+            "man"
+          ],
+          "probabilities": [
+            0.9878053665161133,
+            0.9844951629638672,
+            0.9779996871948242,
+            0.9765301942825317,
+            0.9764848947525024,
+            0.9695518612861633,
+            0.9668759107589722,
+            0.9621144533157349,
+            0.9548026323318481,
+            0.9501454830169678,
+            0.9252557754516602,
+            0.9154601097106934,
+            0.8885319232940674,
+            0.8839553594589233,
+            0.8815202713012695,
+            0.8734890222549438,
+            0.8707611560821533,
+            0.847123384475708,
+            0.8412735462188721,
+            0.8389824032783508
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "4a0c69f6-bc37-4acc-950b-6fdd3c985a64",
+      "state": "published",
+      "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "4a0c69f6-bc37-4acc-950b-6fdd3c985a64",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497959156,
+        "description": "Looks like the football idiots are out of control",
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "f50d350f-4ccb-4ec0-8597-a2b9e2e8a5ed",
+        "type": "unknown",
+        "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "f50d350f-4ccb-4ec0-8597-a2b9e2e8a5ed",
+        "description": {
+          "value": "Looks like the football idiots are out of control"
+        },
+        "status": "OK"
+      },
+      "id": "f50d350f-4ccb-4ec0-8597-a2b9e2e8a5ed",
+      "state": "published",
+      "incident": "fa821541-878d-410e-ba3f-ae799bd2b208",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "f50d350f-4ccb-4ec0-8597-a2b9e2e8a5ed",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 9.523809552192688,
+      "type": "Riot"
+    },
+    {
+      "confidence": 2.571428596973419,
+      "type": "Protest"
+    },
+    {
+      "confidence": 2.4827587008476257,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.40000002086162567,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.11538461968302727,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.465Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.362504,
+      50.856073
+    ],
+    "type": "Point"
+  },
+  "id": "fa821541-878d-410e-ba3f-ae799bd2b208",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497959390,
+        "location": {
+          "coordinates": [
+            4.366562,
+            50.853716
+          ],
+          "type": "Point"
+        },
+        "id": "e4eabd59-82bf-4eca-b03a-85aa0b72b73e",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://www.graffitizen.com/images/wuppertal-arrenberg-street-corner-with-graffiti-tags-and-2233.jpg"
+        },
+        "type": "unknown",
+        "incident": "15b4507f-069a-432d-aafa-33f8d38dc3cd",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "e4eabd59-82bf-4eca-b03a-85aa0b72b73e",
+        "status": "OK"
+      },
+      "id": "e4eabd59-82bf-4eca-b03a-85aa0b72b73e",
+      "state": "published",
+      "incident": "15b4507f-069a-432d-aafa-33f8d38dc3cd",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "e4eabd59-82bf-4eca-b03a-85aa0b72b73e",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.465Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.366562,
+      50.853716
+    ],
+    "type": "Point"
+  },
+  "id": "15b4507f-069a-432d-aafa-33f8d38dc3cd",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [
+    {
+      "severity": "severe",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "Find a safe area",
+          "contact": null,
+          "description": "Demonstration going on",
+          "headline": "Watch out"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "Demonstration",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              4.334771633148194,
+              50.83661593878427
+            ],
+            [
+              4.340393543243409,
+              50.83661593878427
+            ],
+            [
+              4.340393543243409,
+              50.8327943303806
+            ],
+            [
+              4.334771633148194,
+              50.8327943303806
+            ],
+            [
+              4.334771633148194,
+              50.83661593878427
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "b9fea6f7-1423-458d-8846-c3be6df4e37e",
+      "incident": "77804f4b-8c2a-4e09-99b0-7175ca6bfb3a",
+      "status": "actual"
+    }
+  ],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497969457,
+        "description": "",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "f96e5c01-29bc-4031-8ef4-7ee5eb48bdc1",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/87f22b21-859e-4841-9c44-a20cb5786c89/download"
+        },
+        "type": "unknown",
+        "incident": "77804f4b-8c2a-4e09-99b0-7175ca6bfb3a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "f96e5c01-29bc-4031-8ef4-7ee5eb48bdc1",
+        "media": {
+          "terms": [
+            "people",
+            "rally",
+            "rally",
+            "many",
+            "police",
+            "group",
+            "offense",
+            "street",
+            "education",
+            "action",
+            "road",
+            "festival",
+            "woman",
+            "battle",
+            "adult",
+            "soccer",
+            "crowd",
+            "wear",
+            "election",
+            "motion"
+          ],
+          "probabilities": [
+            0.9721179604530334,
+            0.9571961164474487,
+            0.9465541243553162,
+            0.9243701100349426,
+            0.9210140109062195,
+            0.9169136881828308,
+            0.9124070405960083,
+            0.8921334147453308,
+            0.8874932527542114,
+            0.8846025466918945,
+            0.8840960264205933,
+            0.8763325810432434,
+            0.8762699365615845,
+            0.873815655708313,
+            0.8726422786712646,
+            0.8567783832550049,
+            0.8564837574958801,
+            0.8530020713806152,
+            0.8527697324752808,
+            0.8509983420372009
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "f96e5c01-29bc-4031-8ef4-7ee5eb48bdc1",
+      "state": "published",
+      "incident": "77804f4b-8c2a-4e09-99b0-7175ca6bfb3a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "f96e5c01-29bc-4031-8ef4-7ee5eb48bdc1",
+        "confidence": 0.05000000074505806,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "Demonstration"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.466Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3388018,
+      50.8350204,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "77804f4b-8c2a-4e09-99b0-7175ca6bfb3a",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498565767,
+        "description": "missing coffee",
+        "location": {
+          "coordinates": [
+            16.3494682,
+            48.1952486,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "d0e47472-542f-4009-ae9e-1b96f1c517e8",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/e0684702-0557-4ac3-a292-ef1e150412bc/download"
+        },
+        "type": "unknown",
+        "incident": "33ab7c80-262f-4c29-b338-b2ecd19dedc7",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "d0e47472-542f-4009-ae9e-1b96f1c517e8",
+        "description": {
+          "value": "missing coffee"
+        },
+        "media": {
+          "terms": [
+            "no person",
+            "coffee",
+            "still life",
+            "indoors",
+            "wood",
+            "food",
+            "hot",
+            "business",
+            "cup",
+            "blur",
+            "dawn",
+            "table",
+            "conceptual",
+            "one",
+            "tea",
+            "technology",
+            "paper",
+            "drink",
+            "tableware",
+            "espresso"
+          ],
+          "probabilities": [
+            0.9925365447998047,
+            0.9411879181861877,
+            0.9266820549964905,
+            0.90411376953125,
+            0.8567389249801636,
+            0.8126729726791382,
+            0.7931042909622192,
+            0.7874284982681274,
+            0.7525511980056763,
+            0.7323445081710815,
+            0.71434485912323,
+            0.7131767272949219,
+            0.7000328302383423,
+            0.6941698789596558,
+            0.6856762170791626,
+            0.6794666647911072,
+            0.6579003930091858,
+            0.6341978311538696,
+            0.6267147064208984,
+            0.6240801215171814
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "d0e47472-542f-4009-ae9e-1b96f1c517e8",
+      "state": "published",
+      "incident": "33ab7c80-262f-4c29-b338-b2ecd19dedc7",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "d0e47472-542f-4009-ae9e-1b96f1c517e8",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.05000000074505806,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Business crime"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.03999999910593033,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.011904762126505375,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.466Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      16.3494682,
+      48.1952486,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "33ab7c80-262f-4c29-b338-b2ecd19dedc7",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497959599,
+        "location": {
+          "coordinates": [
+            4.366562,
+            50.853716
+          ],
+          "type": "Point"
+        },
+        "id": "7c7d8dc2-f5ad-40a0-ad5d-491e074adea0",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://3.bp.blogspot.com/-vBuWW07XNLQ/UwtIb-ZUn8I/AAAAAAAAEy4/mI45Rno5LMU/s1600/melted_boi_graffiti_by_one_zork-d4g6hp5.jpg"
+        },
+        "type": "unknown",
+        "incident": "0dd8506a-19e6-4bf1-ae52-66c96c9a3703",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "7c7d8dc2-f5ad-40a0-ad5d-491e074adea0",
+        "media": {
+          "terms": [
+            "graffiti",
+            "art",
+            "design",
+            "spray",
+            "color",
+            "wall",
+            "hop",
+            "dragon",
+            "creativity",
+            "artistic",
+            "bright",
+            "vandalism",
+            "culture",
+            "decoration",
+            "mural",
+            "desktop",
+            "airbrush",
+            "fun",
+            "street",
+            "illustration"
+          ],
+          "probabilities": [
+            0.9931020736694336,
+            0.9838496446609497,
+            0.967517077922821,
+            0.9646762013435364,
+            0.9600980281829834,
+            0.9454187750816345,
+            0.9430887699127197,
+            0.9429356455802917,
+            0.9427263736724854,
+            0.9413635730743408,
+            0.9379478693008423,
+            0.9355254173278809,
+            0.9343727827072144,
+            0.9326371550559998,
+            0.9146504402160645,
+            0.9098167419433594,
+            0.9082361459732056,
+            0.898935854434967,
+            0.8896501660346985,
+            0.8821897506713867
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "7c7d8dc2-f5ad-40a0-ad5d-491e074adea0",
+      "state": "published",
+      "incident": "0dd8506a-19e6-4bf1-ae52-66c96c9a3703",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "7c7d8dc2-f5ad-40a0-ad5d-491e074adea0",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.466Z",
+  "flags": 3,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.366562,
+      50.853716
+    ],
+    "type": "Point"
+  },
+  "id": "0dd8506a-19e6-4bf1-ae52-66c96c9a3703",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [
+    {
+      "severity": "minor",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "sfasfd",
+          "contact": null,
+          "description": "asfsa",
+          "headline": "fassdf"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "fsaf",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              4.3154382705688485,
+              50.83947982247983
+            ],
+            [
+              4.331617355346681,
+              50.83947982247983
+            ],
+            [
+              4.331617355346681,
+              50.83229754912553
+            ],
+            [
+              4.3154382705688485,
+              50.83229754912553
+            ],
+            [
+              4.3154382705688485,
+              50.83947982247983
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "c94da9c1-82c2-41a2-8d22-4027ec9f8853",
+      "incident": "20b17cd8-f690-4184-b6ad-a3878e2214a5",
+      "status": "test"
+    },
+    {
+      "severity": "severe",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "hi",
+          "contact": null,
+          "description": "hi",
+          "headline": "hi"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "hi",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              4.335785508155824,
+              50.83564690862127
+            ],
+            [
+              4.337180256843568,
+              50.83564690862127
+            ],
+            [
+              4.337180256843568,
+              50.83504724959291
+            ],
+            [
+              4.335785508155824,
+              50.83504724959291
+            ],
+            [
+              4.335785508155824,
+              50.83564690862127
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "d16e6c89-d8fb-43d7-95a8-78213561d60c",
+      "incident": "20b17cd8-f690-4184-b6ad-a3878e2214a5",
+      "status": "test"
+    }
+  ],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497956180,
+        "description": "test graffiti",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "e184e39f-17a1-487a-bfaf-3426854095a9",
+        "type": "unknown",
+        "incident": "20b17cd8-f690-4184-b6ad-a3878e2214a5",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "e184e39f-17a1-487a-bfaf-3426854095a9",
+        "description": {
+          "value": "test graffiti"
+        },
+        "status": "OK"
+      },
+      "id": "e184e39f-17a1-487a-bfaf-3426854095a9",
+      "state": "published",
+      "incident": "20b17cd8-f690-4184-b6ad-a3878e2214a5",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "e184e39f-17a1-487a-bfaf-3426854095a9",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "hi"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.461Z",
+  "flags": 1,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3388018,
+      50.8350204,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "20b17cd8-f690-4184-b6ad-a3878e2214a5",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293896,
+        "description": "bicycle ",
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "591eb736-efd4-40f8-bdb3-1222cf17fa73",
+        "state": "active",
+        "incident": "2b3adf36-0eac-4593-851d-01c26c09324e",
+        "lastTimeSeen": 1500293896
+      },
+      "id": "591eb736-efd4-40f8-bdb3-1222cf17fa73",
+      "state": "restricted",
+      "incident": "2b3adf36-0eac-4593-851d-01c26c09324e"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.461Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "2b3adf36-0eac-4593-851d-01c26c09324e",
+  "state": "open"
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293899,
+        "description": "bicycle ",
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "a8d6a4ef-03fe-4129-a164-a27366912619",
+        "state": "active",
+        "incident": "3c462580-cb9e-4389-bae6-b2640eed6422",
+        "lastTimeSeen": 1500293899
+      },
+      "id": "a8d6a4ef-03fe-4129-a164-a27366912619",
+      "state": "restricted",
+      "incident": "3c462580-cb9e-4389-bae6-b2640eed6422"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.461Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "3c462580-cb9e-4389-bae6-b2640eed6422",
+  "state": "open"
+}{
+  "alerts": [
+    {
+      "severity": "extreme",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "hello",
+          "contact": null,
+          "description": "hello",
+          "headline": "hannover"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "hannover",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.470214843750002,
+              52.51736993382123
+            ],
+            [
+              10.316162109375002,
+              52.51736993382123
+            ],
+            [
+              10.316162109375002,
+              52.05365163550058
+            ],
+            [
+              9.470214843750002,
+              52.05365163550058
+            ],
+            [
+              9.470214843750002,
+              52.51736993382123
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "ec9b0c9e-0bd3-421b-bdf7-55fe69c1d049",
+      "incident": "ec1139b8-f153-4056-a3ed-2e6157269894",
+      "status": "actual"
+    }
+  ],
+  "reports": [],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "hannover"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.461Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      [
+        [
+          9.470214843750002,
+          52.51736993382123
+        ],
+        [
+          10.316162109375002,
+          52.51736993382123
+        ],
+        [
+          10.316162109375002,
+          52.05365163550058
+        ],
+        [
+          9.470214843750002,
+          52.05365163550058
+        ],
+        [
+          9.470214843750002,
+          52.51736993382123
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "id": "ec1139b8-f153-4056-a3ed-2e6157269894",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [
+    {
+      "severity": "minor",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "test",
+          "contact": null,
+          "description": "test",
+          "headline": "test"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "test",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              12.832031250000002,
+              51.66361190795317
+            ],
+            [
+              16.787109375000004,
+              51.66361190795317
+            ],
+            [
+              16.787109375000004,
+              50.699502122439924
+            ],
+            [
+              12.832031250000002,
+              50.699502122439924
+            ],
+            [
+              12.832031250000002,
+              51.66361190795317
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "fded1996-f9e0-4ee1-8d0f-f91dfc1271fa",
+      "incident": "3241a0b0-e5e6-4d8e-9975-9ff77e758da1",
+      "status": "system"
+    }
+  ],
+  "reports": [],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "test"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.462Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      [
+        [
+          12.832031250000002,
+          51.66361190795317
+        ],
+        [
+          16.787109375000004,
+          51.66361190795317
+        ],
+        [
+          16.787109375000004,
+          50.699502122439924
+        ],
+        [
+          12.832031250000002,
+          50.699502122439924
+        ],
+        [
+          12.832031250000002,
+          51.66361190795317
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "id": "3241a0b0-e5e6-4d8e-9975-9ff77e758da1",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497970838,
+        "description": "",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "1387907c-b236-4b6f-8beb-4d0b52f8ae40",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/acf2b6c4-20e4-47df-a02a-ff017aee123d/download"
+        },
+        "type": "unknown",
+        "incident": "e171b69d-8b8c-48f0-bc01-e15c859c96d8",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "1387907c-b236-4b6f-8beb-4d0b52f8ae40",
+        "media": {
+          "terms": [
+            "police",
+            "people",
+            "rally",
+            "offense",
+            "law enforcement",
+            "street",
+            "battle",
+            "many",
+            "rally",
+            "city",
+            "action",
+            "force",
+            "crowd",
+            "group",
+            "road",
+            "military",
+            "motion",
+            "education",
+            "festival",
+            "rebellion"
+          ],
+          "probabilities": [
+            0.9839958548545837,
+            0.9706807136535645,
+            0.9664525985717773,
+            0.9547019004821777,
+            0.9533908367156982,
+            0.9458445310592651,
+            0.9379498958587646,
+            0.9332056045532227,
+            0.9317717552185059,
+            0.9275048971176147,
+            0.9146296977996826,
+            0.9106587171554565,
+            0.9029062390327454,
+            0.9014309644699097,
+            0.8990999460220337,
+            0.8957719802856445,
+            0.8804398775100708,
+            0.8797080516815186,
+            0.8792711496353149,
+            0.8696163892745972
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "1387907c-b236-4b6f-8beb-4d0b52f8ae40",
+      "state": "published",
+      "incident": "e171b69d-8b8c-48f0-bc01-e15c859c96d8",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "1387907c-b236-4b6f-8beb-4d0b52f8ae40",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497973824,
+        "description": "lots of violent people around here",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "404fd7ee-fa06-4d05-a5fd-82729279b7fe",
+        "type": "unknown",
+        "incident": "e171b69d-8b8c-48f0-bc01-e15c859c96d8",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "404fd7ee-fa06-4d05-a5fd-82729279b7fe",
+        "description": {
+          "value": "lots of violent people around here"
+        },
+        "status": "OK"
+      },
+      "id": "404fd7ee-fa06-4d05-a5fd-82729279b7fe",
+      "state": "published",
+      "incident": "e171b69d-8b8c-48f0-bc01-e15c859c96d8",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "404fd7ee-fa06-4d05-a5fd-82729279b7fe",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 6.167533797012469,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 3.229347783492545,
+      "type": "Protest"
+    },
+    {
+      "confidence": 3.1140137770277434,
+      "type": "Riot"
+    },
+    {
+      "confidence": 0.42761425979336004,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.06035533995869201,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.462Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3388018,
+      50.8350204,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "e171b69d-8b8c-48f0-bc01-e15c859c96d8",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [
+    {
+      "severity": "minor",
+      "note": "",
+      "@class": "Alert",
+      "languages": {
+        "en": {
+          "web": null,
+          "instruction": "hello",
+          "contact": null,
+          "description": "hello",
+          "headline": "hamburg"
+        }
+      },
+      "default_language": "en",
+      "sent": 0,
+      "event_type": "fire",
+      "scope": "public",
+      "provider_id": "crisks",
+      "msg_type": "alert",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.448242187500002,
+              53.84402013588602
+            ],
+            [
+              10.656738281250002,
+              53.84402013588602
+            ],
+            [
+              10.656738281250002,
+              53.15130019426279
+            ],
+            [
+              9.448242187500002,
+              53.15130019426279
+            ],
+            [
+              9.448242187500002,
+              53.84402013588602
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "b49f1189-912e-453f-a4af-f84bd7360409",
+      "incident": "2ef95887-a19a-457b-8d14-61c515643944",
+      "status": "test"
+    }
+  ],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497606410,
+        "description": "",
+        "location": {
+          "coordinates": [
+            13.3142143,
+            52.5263292,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "819e27ca-a691-410b-9f70-4876965f440a",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/38444b95-63d6-4b7f-8003-5ebac01634d0/download"
+        },
+        "type": "unknown",
+        "incident": "2ef95887-a19a-457b-8d14-61c515643944",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "819e27ca-a691-410b-9f70-4876965f440a",
+        "media": {
+          "terms": [
+            "no person",
+            "one",
+            "still life",
+            "indoors",
+            "container",
+            "people",
+            "two",
+            "interior design",
+            "glass",
+            "glazed",
+            "adult",
+            "grow",
+            "blur",
+            "electricity",
+            "wear",
+            "kitchenware",
+            "mammal",
+            "cutout",
+            "action",
+            "tableware"
+          ],
+          "probabilities": [
+            0.9971026182174683,
+            0.9947012662887573,
+            0.953602135181427,
+            0.9412897229194641,
+            0.929058313369751,
+            0.9031648635864258,
+            0.8876112699508667,
+            0.8621604442596436,
+            0.8583148717880249,
+            0.8530488014221191,
+            0.8504230976104736,
+            0.8460923433303833,
+            0.8425740599632263,
+            0.8393608331680298,
+            0.8380715847015381,
+            0.8304426670074463,
+            0.8297905921936035,
+            0.8147834539413452,
+            0.8045511245727539,
+            0.7997781038284302
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "819e27ca-a691-410b-9f70-4876965f440a",
+      "state": "published",
+      "incident": "2ef95887-a19a-457b-8d14-61c515643944",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "819e27ca-a691-410b-9f70-4876965f440a",
+        "confidence": 0.043478261679410934,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.462Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      13.3142143,
+      52.5263292,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "2ef95887-a19a-457b-8d14-61c515643944",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500294195,
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "8a81a291-f560-4c72-a241-48fa0effb544",
+        "state": "active",
+        "incident": "94cf9d61-6761-4664-b43f-a835eefec202",
+        "lastTimeSeen": 1500294195
+      },
+      "id": "8a81a291-f560-4c72-a241-48fa0effb544",
+      "state": "restricted",
+      "incident": "94cf9d61-6761-4664-b43f-a835eefec202"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [
+    {
+      "@class": "NormalizedSighting",
+      "location": {
+        "geometry": {
+          "coordinates": [
+            13.41,
+            52.52
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "precision": 64.0,
+          "timestamp": 1464103770
+        }
+      },
+      "id": "EE:04:D4:1A:9C:16",
+      "time": 1464103770,
+      "signal": 64.0
+    },
+    {
+      "@class": "NormalizedSighting",
+      "location": {
+        "geometry": {
+          "coordinates": [
+            13.41,
+            52.52
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "precision": 64.0,
+          "timestamp": 1464103770
+        }
+      },
+      "id": "EE:04:D4:1A:9C:16",
+      "time": 1464103770,
+      "signal": 64.0
+    },
+    {
+      "@class": "NormalizedSighting",
+      "location": {
+        "geometry": {
+          "coordinates": [
+            13.41,
+            52.52
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "precision": 64.0,
+          "timestamp": 1464103770
+        }
+      },
+      "id": "EE:04:D4:1A:9C:16",
+      "time": 1464103770,
+      "signal": 64.0
+    },
+    {
+      "@class": "NormalizedSighting",
+      "location": {
+        "geometry": {
+          "coordinates": [
+            13.41,
+            52.52
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "precision": 64.0,
+          "timestamp": 1464103770
+        }
+      },
+      "id": "EE:04:D4:1A:9C:16",
+      "time": 1464103770,
+      "signal": 64.0
+    },
+    {
+      "@class": "NormalizedSighting",
+      "location": {
+        "geometry": {
+          "coordinates": [
+            13.41,
+            52.52
+          ],
+          "type": "Point"
+        },
+        "type": "Feature",
+        "properties": {
+          "precision": 64.0,
+          "timestamp": 1464103770
+        }
+      },
+      "id": "EE:04:D4:1A:9C:16",
+      "time": 1464103770,
+      "signal": 64.0
+    }
+  ],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.463Z",
+  "@version": "1",
+  "location": {
+    "geometries": [
+      {
+        "coordinates": [
+          [
+            [
+              13.410000000000005,
+              52.52057540347568
+            ],
+            [
+              13.410184486373725,
+              52.520564347115815
+            ],
+            [
+              13.410361882769855,
+              52.520531602942285
+            ],
+            [
+              13.410525371715694,
+              52.520478429341765
+            ],
+            [
+              13.410668670269994,
+              52.520406869815474
+            ],
+            [
+              13.410786271495972,
+              52.52031967443798
+            ],
+            [
+              13.410873656098174,
+              52.52022019416074
+            ],
+            [
+              13.410927466088108,
+              52.520112252024624
+            ],
+            [
+              13.410945633806717,
+              52.519999996231874
+            ],
+            [
+              13.41092746134847,
+              52.51988774072595
+            ],
+            [
+              13.410873647340456,
+              52.51977979940665
+            ],
+            [
+              13.410786260053458,
+              52.519680320351895
+            ],
+            [
+              13.410668657884683,
+              52.519593126416396
+            ],
+            [
+              13.41052536027318,
+              52.51952156833211
+            ],
+            [
+              13.410361874012136,
+              52.51946839595406
+            ],
+            [
+              13.410184481634086,
+              52.51943565259735
+            ],
+            [
+              13.410000000000005,
+              52.51942459652432
+            ],
+            [
+              13.409815518365923,
+              52.51943565259735
+            ],
+            [
+              13.409638125987852,
+              52.51946839595406
+            ],
+            [
+              13.409474639726808,
+              52.51952156833211
+            ],
+            [
+              13.409331342115301,
+              52.519593126416396
+            ],
+            [
+              13.409213739946527,
+              52.519680320351895
+            ],
+            [
+              13.409126352659532,
+              52.51977979940665
+            ],
+            [
+              13.409072538651515,
+              52.51988774072595
+            ],
+            [
+              13.40905436619327,
+              52.519999996231874
+            ],
+            [
+              13.409072533911877,
+              52.520112252024624
+            ],
+            [
+              13.40912634390181,
+              52.52022019416074
+            ],
+            [
+              13.409213728504012,
+              52.52031967443798
+            ],
+            [
+              13.40933132973002,
+              52.520406869815474
+            ],
+            [
+              13.40947462828429,
+              52.520478429341765
+            ],
+            [
+              13.40963811723013,
+              52.520531602942285
+            ],
+            [
+              13.40981551362626,
+              52.520564347115815
+            ],
+            [
+              13.410000000000005,
+              52.52057540347568
+            ],
+            [
+              13.410000000000005,
+              52.52057540347568
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      {
+        "coordinates": [
+          [
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410198899571292,
+              52.52060843672216
+            ],
+            [
+              13.410390155230097,
+              52.52057313437567
+            ],
+            [
+              13.410566416862915,
+              52.52051580653612
+            ],
+            [
+              13.410720910656444,
+              52.52043865636112
+            ],
+            [
+              13.410847699438499,
+              52.520344648784025
+            ],
+            [
+              13.410941910849678,
+              52.52023739655865
+            ],
+            [
+              13.41099992457586,
+              52.52012102140875
+            ],
+            [
+              13.411019511447863,
+              52.5199999956201
+            ],
+            [
+              13.410999919066704,
+              52.519878970164854
+            ],
+            [
+              13.410941900670098,
+              52.519762595964394
+            ],
+            [
+              13.41084768613826,
+              52.51965534515996
+            ],
+            [
+              13.410720896260338,
+              52.51956133925897
+            ],
+            [
+              13.410566403562651,
+              52.519484190760096
+            ],
+            [
+              13.410390145050515,
+              52.51942686434149
+            ],
+            [
+              13.41019889406214,
+              52.51939156294443
+            ],
+            [
+              13.410000000000005,
+              52.51937964312779
+            ],
+            [
+              13.409801105937847,
+              52.51939156294443
+            ],
+            [
+              13.40960985494947,
+              52.51942686434149
+            ],
+            [
+              13.409433596437362,
+              52.519484190760096
+            ],
+            [
+              13.409279103739648,
+              52.51956133925897
+            ],
+            [
+              13.409152313861753,
+              52.51965534515996
+            ],
+            [
+              13.40905809932989,
+              52.519762595964394
+            ],
+            [
+              13.40900008093328,
+              52.519878970164854
+            ],
+            [
+              13.408980488552121,
+              52.5199999956201
+            ],
+            [
+              13.409000075424153,
+              52.52012102140875
+            ],
+            [
+              13.409058089150331,
+              52.52023739655865
+            ],
+            [
+              13.409152300561486,
+              52.520344648784025
+            ],
+            [
+              13.409279089343567,
+              52.52043865636112
+            ],
+            [
+              13.409433583137094,
+              52.52051580653612
+            ],
+            [
+              13.409609844769914,
+              52.52057313437567
+            ],
+            [
+              13.409801100428695,
+              52.52060843672216
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      {
+        "coordinates": [
+          [
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410198899571292,
+              52.52060843672216
+            ],
+            [
+              13.410390155230097,
+              52.52057313437567
+            ],
+            [
+              13.410566416862915,
+              52.52051580653612
+            ],
+            [
+              13.410720910656444,
+              52.52043865636112
+            ],
+            [
+              13.410847699438499,
+              52.520344648784025
+            ],
+            [
+              13.410941910849678,
+              52.52023739655865
+            ],
+            [
+              13.41099992457586,
+              52.52012102140875
+            ],
+            [
+              13.411019511447863,
+              52.5199999956201
+            ],
+            [
+              13.410999919066704,
+              52.519878970164854
+            ],
+            [
+              13.410941900670098,
+              52.519762595964394
+            ],
+            [
+              13.41084768613826,
+              52.51965534515996
+            ],
+            [
+              13.410720896260338,
+              52.51956133925897
+            ],
+            [
+              13.410566403562651,
+              52.519484190760096
+            ],
+            [
+              13.410390145050515,
+              52.51942686434149
+            ],
+            [
+              13.41019889406214,
+              52.51939156294443
+            ],
+            [
+              13.410000000000005,
+              52.51937964312779
+            ],
+            [
+              13.409801105937847,
+              52.51939156294443
+            ],
+            [
+              13.40960985494947,
+              52.51942686434149
+            ],
+            [
+              13.409433596437362,
+              52.519484190760096
+            ],
+            [
+              13.409279103739648,
+              52.51956133925897
+            ],
+            [
+              13.409152313861753,
+              52.51965534515996
+            ],
+            [
+              13.40905809932989,
+              52.519762595964394
+            ],
+            [
+              13.40900008093328,
+              52.519878970164854
+            ],
+            [
+              13.408980488552121,
+              52.5199999956201
+            ],
+            [
+              13.409000075424153,
+              52.52012102140875
+            ],
+            [
+              13.409058089150331,
+              52.52023739655865
+            ],
+            [
+              13.409152300561486,
+              52.520344648784025
+            ],
+            [
+              13.409279089343567,
+              52.52043865636112
+            ],
+            [
+              13.409433583137094,
+              52.52051580653612
+            ],
+            [
+              13.409609844769914,
+              52.52057313437567
+            ],
+            [
+              13.409801100428695,
+              52.52060843672216
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      {
+        "coordinates": [
+          [
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410198899571292,
+              52.52060843672216
+            ],
+            [
+              13.410390155230097,
+              52.52057313437567
+            ],
+            [
+              13.410566416862915,
+              52.52051580653612
+            ],
+            [
+              13.410720910656444,
+              52.52043865636112
+            ],
+            [
+              13.410847699438499,
+              52.520344648784025
+            ],
+            [
+              13.410941910849678,
+              52.52023739655865
+            ],
+            [
+              13.41099992457586,
+              52.52012102140875
+            ],
+            [
+              13.411019511447863,
+              52.5199999956201
+            ],
+            [
+              13.410999919066704,
+              52.519878970164854
+            ],
+            [
+              13.410941900670098,
+              52.519762595964394
+            ],
+            [
+              13.41084768613826,
+              52.51965534515996
+            ],
+            [
+              13.410720896260338,
+              52.51956133925897
+            ],
+            [
+              13.410566403562651,
+              52.519484190760096
+            ],
+            [
+              13.410390145050515,
+              52.51942686434149
+            ],
+            [
+              13.41019889406214,
+              52.51939156294443
+            ],
+            [
+              13.410000000000005,
+              52.51937964312779
+            ],
+            [
+              13.409801105937847,
+              52.51939156294443
+            ],
+            [
+              13.40960985494947,
+              52.51942686434149
+            ],
+            [
+              13.409433596437362,
+              52.519484190760096
+            ],
+            [
+              13.409279103739648,
+              52.51956133925897
+            ],
+            [
+              13.409152313861753,
+              52.51965534515996
+            ],
+            [
+              13.40905809932989,
+              52.519762595964394
+            ],
+            [
+              13.40900008093328,
+              52.519878970164854
+            ],
+            [
+              13.408980488552121,
+              52.5199999956201
+            ],
+            [
+              13.409000075424153,
+              52.52012102140875
+            ],
+            [
+              13.409058089150331,
+              52.52023739655865
+            ],
+            [
+              13.409152300561486,
+              52.520344648784025
+            ],
+            [
+              13.409279089343567,
+              52.52043865636112
+            ],
+            [
+              13.409433583137094,
+              52.52051580653612
+            ],
+            [
+              13.409609844769914,
+              52.52057313437567
+            ],
+            [
+              13.409801100428695,
+              52.52060843672216
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      {
+        "coordinates": [
+          [
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410198899571292,
+              52.52060843672216
+            ],
+            [
+              13.410390155230097,
+              52.52057313437567
+            ],
+            [
+              13.410566416862915,
+              52.52051580653612
+            ],
+            [
+              13.410720910656444,
+              52.52043865636112
+            ],
+            [
+              13.410847699438499,
+              52.520344648784025
+            ],
+            [
+              13.410941910849678,
+              52.52023739655865
+            ],
+            [
+              13.41099992457586,
+              52.52012102140875
+            ],
+            [
+              13.411019511447863,
+              52.5199999956201
+            ],
+            [
+              13.410999919066704,
+              52.519878970164854
+            ],
+            [
+              13.410941900670098,
+              52.519762595964394
+            ],
+            [
+              13.41084768613826,
+              52.51965534515996
+            ],
+            [
+              13.410720896260338,
+              52.51956133925897
+            ],
+            [
+              13.410566403562651,
+              52.519484190760096
+            ],
+            [
+              13.410390145050515,
+              52.51942686434149
+            ],
+            [
+              13.41019889406214,
+              52.51939156294443
+            ],
+            [
+              13.410000000000005,
+              52.51937964312779
+            ],
+            [
+              13.409801105937847,
+              52.51939156294443
+            ],
+            [
+              13.40960985494947,
+              52.51942686434149
+            ],
+            [
+              13.409433596437362,
+              52.519484190760096
+            ],
+            [
+              13.409279103739648,
+              52.51956133925897
+            ],
+            [
+              13.409152313861753,
+              52.51965534515996
+            ],
+            [
+              13.40905809932989,
+              52.519762595964394
+            ],
+            [
+              13.40900008093328,
+              52.519878970164854
+            ],
+            [
+              13.408980488552121,
+              52.5199999956201
+            ],
+            [
+              13.409000075424153,
+              52.52012102140875
+            ],
+            [
+              13.409058089150331,
+              52.52023739655865
+            ],
+            [
+              13.409152300561486,
+              52.520344648784025
+            ],
+            [
+              13.409279089343567,
+              52.52043865636112
+            ],
+            [
+              13.409433583137094,
+              52.52051580653612
+            ],
+            [
+              13.409609844769914,
+              52.52057313437567
+            ],
+            [
+              13.409801100428695,
+              52.52060843672216
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ],
+            [
+              13.410000000000005,
+              52.520620356872215
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      }
+    ],
+    "type": "GeometryCollection"
+  },
+  "id": "94cf9d61-6761-4664-b43f-a835eefec202",
+  "state": "open"
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498565860,
+        "description": "premature wine",
+        "location": {
+          "coordinates": [
+            16.3497085,
+            48.1950177,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "53991728-f050-4e8a-b56c-7873fd231678",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/4fdb994d-60b4-44dc-a93a-1ce2c7443fa6/download"
+        },
+        "type": "unknown",
+        "incident": "613ea6fd-c291-4716-b575-aec09bbe9de5",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "53991728-f050-4e8a-b56c-7873fd231678",
+        "description": {
+          "value": "premature wine"
+        },
+        "media": {
+          "terms": [
+            "fruit",
+            "food",
+            "grow",
+            "juicy",
+            "vine",
+            "bunch",
+            "no person",
+            "pasture",
+            "grape",
+            "health",
+            "healthy",
+            "leaf",
+            "summer",
+            "berry",
+            "wine",
+            "confection",
+            "nature",
+            "agriculture",
+            "cluster",
+            "nutrition"
+          ],
+          "probabilities": [
+            0.999681830406189,
+            0.9984138011932373,
+            0.9978244304656982,
+            0.997627854347229,
+            0.9968773722648621,
+            0.995208203792572,
+            0.9919861555099487,
+            0.9917058944702148,
+            0.9904826879501343,
+            0.9872397184371948,
+            0.9858840703964233,
+            0.9841750264167786,
+            0.983818769454956,
+            0.9805974960327148,
+            0.9760960340499878,
+            0.9736789464950562,
+            0.9723954796791077,
+            0.9642573595046997,
+            0.9637628793716431,
+            0.9629972577095032
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "53991728-f050-4e8a-b56c-7873fd231678",
+      "state": "published",
+      "incident": "613ea6fd-c291-4716-b575-aec09bbe9de5",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "53991728-f050-4e8a-b56c-7873fd231678",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.012195121496915817,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.009999999776482582,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.464Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      16.3497085,
+      48.1950177,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "613ea6fd-c291-4716-b575-aec09bbe9de5",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498043438,
+        "description": "",
+        "location": {
+          "coordinates": [
+            4.3603933,
+            50.8562334,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "a95599a7-9bf5-4a71-ad14-348f5f13b1e4",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/15698782-799b-465a-ab4b-d236723b2c64/download"
+        },
+        "type": "unknown",
+        "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "a95599a7-9bf5-4a71-ad14-348f5f13b1e4",
+        "media": {
+          "terms": [
+            "police",
+            "rally",
+            "offense",
+            "law enforcement",
+            "street",
+            "people",
+            "action",
+            "city",
+            "road",
+            "competition",
+            "motion",
+            "battle",
+            "many",
+            "force",
+            "crowd",
+            "festival",
+            "parade",
+            "rally",
+            "picket",
+            "man"
+          ],
+          "probabilities": [
+            0.9811264276504517,
+            0.9809220433235168,
+            0.9640718698501587,
+            0.9614202976226807,
+            0.961111307144165,
+            0.9588875770568848,
+            0.9429869651794434,
+            0.9336302280426025,
+            0.9304193258285522,
+            0.9261637926101685,
+            0.9228229522705078,
+            0.9173510074615479,
+            0.9160380363464355,
+            0.9127619862556458,
+            0.9008039236068726,
+            0.8931732177734375,
+            0.8600049018859863,
+            0.8526099920272827,
+            0.824581503868103,
+            0.8226412534713745
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "a95599a7-9bf5-4a71-ad14-348f5f13b1e4",
+      "state": "published",
+      "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "a95599a7-9bf5-4a71-ad14-348f5f13b1e4",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498043494,
+        "description": "demonstration",
+        "location": {
+          "coordinates": [
+            4.3603933,
+            50.8562334,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "2e6b2973-0dfb-46a9-a1d5-5798f3509402",
+        "type": "unknown",
+        "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "2e6b2973-0dfb-46a9-a1d5-5798f3509402",
+        "description": {
+          "value": "demonstration"
+        },
+        "status": "OK"
+      },
+      "id": "2e6b2973-0dfb-46a9-a1d5-5798f3509402",
+      "state": "published",
+      "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "2e6b2973-0dfb-46a9-a1d5-5798f3509402",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498043532,
+        "description": "violent people around",
+        "location": {
+          "coordinates": [
+            4.3603933,
+            50.8562334,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "3b0f513d-2462-4ec6-ae74-8f181e0a77f0",
+        "type": "unknown",
+        "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "3b0f513d-2462-4ec6-ae74-8f181e0a77f0",
+        "description": {
+          "value": "violent people around"
+        },
+        "status": "OK"
+      },
+      "id": "3b0f513d-2462-4ec6-ae74-8f181e0a77f0",
+      "state": "published",
+      "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "3b0f513d-2462-4ec6-ae74-8f181e0a77f0",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498043764,
+        "description": "still working",
+        "location": {
+          "coordinates": [
+            4.3603933,
+            50.8562334,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "bfaf5f41-7aa3-472d-be15-8930fd4eb05a",
+        "type": "unknown",
+        "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "bfaf5f41-7aa3-472d-be15-8930fd4eb05a",
+        "description": {
+          "value": "still working"
+        },
+        "status": "OK"
+      },
+      "id": "bfaf5f41-7aa3-472d-be15-8930fd4eb05a",
+      "state": "published",
+      "incident": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "bfaf5f41-7aa3-472d-be15-8930fd4eb05a",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 5.252548222555786,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 4.4464077230399806,
+      "type": "Riot"
+    },
+    {
+      "confidence": 2.6601886469351204,
+      "type": "Protest"
+    },
+    {
+      "confidence": 0.29425072743920344,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.06035533995869201,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.464Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3603933,
+      50.8562334,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "49ba47b8-ed19-4fb6-93b1-7ceceda97bb0",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293503,
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "e359a625-2f0f-418a-86c9-bb1ed5c5bced",
+        "state": "active",
+        "incident": "cab3b50d-1b7a-4a20-a4f5-468fff829a6b",
+        "lastTimeSeen": 1500293503
+      },
+      "id": "e359a625-2f0f-418a-86c9-bb1ed5c5bced",
+      "state": "restricted",
+      "incident": "cab3b50d-1b7a-4a20-a4f5-468fff829a6b"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.451Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "cab3b50d-1b7a-4a20-a4f5-468fff829a6b",
+  "state": "open"
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498022398,
+        "description": "Something's going on just outside Starbuck's here",
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "3e02db4c-0273-4bd7-a919-4d5d02e23a23",
+        "type": "unknown",
+        "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "3e02db4c-0273-4bd7-a919-4d5d02e23a23",
+        "description": {
+          "value": "Something's going on just outside Starbuck's here"
+        },
+        "status": "OK"
+      },
+      "id": "3e02db4c-0273-4bd7-a919-4d5d02e23a23",
+      "state": "published",
+      "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "3e02db4c-0273-4bd7-a919-4d5d02e23a23",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498022441,
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "f543d6a5-6402-4c45-a29c-f18f1e07c3e7",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://www.smithsdaily.com/wp-content/uploads/2016/06/Soccer-Euro-2016-England-Russia-fans-riot-672x372.jpg"
+        },
+        "type": "unknown",
+        "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "f543d6a5-6402-4c45-a29c-f18f1e07c3e7",
+        "media": {
+          "terms": [
+            "street",
+            "people",
+            "city",
+            "crowd",
+            "many",
+            "festival",
+            "group",
+            "road",
+            "rally",
+            "police",
+            "action",
+            "parade",
+            "motion",
+            "competition",
+            "race",
+            "shopping",
+            "battle",
+            "demonstration",
+            "commerce",
+            "man"
+          ],
+          "probabilities": [
+            0.9878053665161133,
+            0.9844951629638672,
+            0.9779996871948242,
+            0.9765301942825317,
+            0.9764848947525024,
+            0.9695518612861633,
+            0.9668759107589722,
+            0.9621144533157349,
+            0.9548026323318481,
+            0.9501454830169678,
+            0.9252557754516602,
+            0.9154601097106934,
+            0.8885319232940674,
+            0.8839553594589233,
+            0.8815202713012695,
+            0.8734890222549438,
+            0.8707611560821533,
+            0.847123384475708,
+            0.8412735462188721,
+            0.8389824032783508
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "f543d6a5-6402-4c45-a29c-f18f1e07c3e7",
+      "state": "published",
+      "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "f543d6a5-6402-4c45-a29c-f18f1e07c3e7",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498022460,
+        "description": "Looks like the football idiots are out of control",
+        "location": {
+          "coordinates": [
+            4.362504,
+            50.856073
+          ],
+          "type": "Point"
+        },
+        "id": "8ebcfdfa-690e-4977-b308-c96150f40e94",
+        "type": "unknown",
+        "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "8ebcfdfa-690e-4977-b308-c96150f40e94",
+        "description": {
+          "value": "Looks like the football idiots are out of control"
+        },
+        "status": "OK"
+      },
+      "id": "8ebcfdfa-690e-4977-b308-c96150f40e94",
+      "state": "published",
+      "incident": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "8ebcfdfa-690e-4977-b308-c96150f40e94",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 9.523809552192688,
+      "type": "Riot"
+    },
+    {
+      "confidence": 2.571428596973419,
+      "type": "Protest"
+    },
+    {
+      "confidence": 2.4827587008476257,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.40000002086162567,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.11538461968302727,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.452Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.362504,
+      50.856073
+    ],
+    "type": "Point"
+  },
+  "id": "60edd3db-b4ee-481a-8759-7ab912c6902a",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498036946,
+        "location": {
+          "coordinates": [
+            4.366562,
+            50.853716
+          ],
+          "type": "Point"
+        },
+        "id": "a0791db6-7e8f-4785-98c9-c85803ec0541",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://3.bp.blogspot.com/-vBuWW07XNLQ/UwtIb-ZUn8I/AAAAAAAAEy4/mI45Rno5LMU/s1600/melted_boi_graffiti_by_one_zork-d4g6hp5.jpg"
+        },
+        "type": "unknown",
+        "incident": "63b63806-b526-4488-9961-687c65412d4a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "a0791db6-7e8f-4785-98c9-c85803ec0541",
+        "status": "OK"
+      },
+      "id": "a0791db6-7e8f-4785-98c9-c85803ec0541",
+      "state": "published",
+      "incident": "63b63806-b526-4488-9961-687c65412d4a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "a0791db6-7e8f-4785-98c9-c85803ec0541",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498037085,
+        "description": "Don't know! Can't see anything but street art",
+        "location": {
+          "coordinates": [
+            4.366562,
+            50.853716
+          ],
+          "type": "Point"
+        },
+        "id": "78b345a5-2ade-45cc-976d-04ecc3efbfd7",
+        "type": "unknown",
+        "incident": "63b63806-b526-4488-9961-687c65412d4a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "78b345a5-2ade-45cc-976d-04ecc3efbfd7",
+        "description": {
+          "value": "Don't know! Can't see anything but street art"
+        },
+        "status": "OK"
+      },
+      "id": "78b345a5-2ade-45cc-976d-04ecc3efbfd7",
+      "state": "published",
+      "incident": "63b63806-b526-4488-9961-687c65412d4a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "78b345a5-2ade-45cc-976d-04ecc3efbfd7",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.453Z",
+  "flags": 1,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.366562,
+      50.853716
+    ],
+    "type": "Point"
+  },
+  "id": "63b63806-b526-4488-9961-687c65412d4a",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293460,
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "5d077529-acfa-4c87-90b7-ce1edeab230e",
+        "state": "active",
+        "incident": "4a075154-ee66-4028-b574-dafc73c68f8b",
+        "lastTimeSeen": 1500293460
+      },
+      "id": "5d077529-acfa-4c87-90b7-ce1edeab230e",
+      "state": "restricted",
+      "incident": "4a075154-ee66-4028-b574-dafc73c68f8b"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.453Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "4a075154-ee66-4028-b574-dafc73c68f8b",
+  "state": "open"
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497958123,
+        "description": "demonstration",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "ddd53f30-dc7d-4458-8e66-185f8f69e575",
+        "type": "unknown",
+        "incident": "e2fda494-aa26-49b9-8530-0be4ff48472a",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "ddd53f30-dc7d-4458-8e66-185f8f69e575",
+        "description": {
+          "value": "demonstration"
+        },
+        "status": "OK"
+      },
+      "id": "ddd53f30-dc7d-4458-8e66-185f8f69e575",
+      "state": "published",
+      "incident": "e2fda494-aa26-49b9-8530-0be4ff48472a",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "ddd53f30-dc7d-4458-8e66-185f8f69e575",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.02500000037252903,
+      "type": "Protest"
+    },
+    {
+      "confidence": 0.02380952425301075,
+      "type": "Riot"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.453Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3388018,
+      50.8350204,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "e2fda494-aa26-49b9-8530-0be4ff48472a",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293474,
+        "description": "th",
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "1a26dc56-5a00-41fa-b53e-32850546f088",
+        "state": "active",
+        "incident": "5bea51cd-094c-4241-8c7d-e8f27c222a75",
+        "lastTimeSeen": 1500293474
+      },
+      "id": "1a26dc56-5a00-41fa-b53e-32850546f088",
+      "state": "restricted",
+      "incident": "5bea51cd-094c-4241-8c7d-e8f27c222a75"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.454Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "5bea51cd-094c-4241-8c7d-e8f27c222a75",
+  "state": "open"
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498125463,
+        "description": "inget",
+        "location": {
+          "coordinates": [
+            12.9900928,
+            55.6074767,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "1a2ad939-bb9d-43d1-8519-881f1cddb4cc",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/e33eb462-f1aa-4f26-9446-11204e88dbd1/download"
+        },
+        "type": "unknown",
+        "incident": "e40220a9-e668-4258-9ab0-7b5598380f92",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "1a2ad939-bb9d-43d1-8519-881f1cddb4cc",
+        "description": {
+          "value": "inget"
+        },
+        "media": {
+          "terms": [
+            "abstract",
+            "texture",
+            "paper",
+            "old",
+            "empty",
+            "no person",
+            "art",
+            "wallpaper",
+            "desktop",
+            "cardboard",
+            "vintage",
+            "pattern",
+            "dirty",
+            "square",
+            "retro",
+            "page",
+            "color",
+            "people",
+            "wall",
+            "background"
+          ],
+          "probabilities": [
+            0.9578772187232971,
+            0.9434412717819214,
+            0.9240865111351013,
+            0.9185314178466797,
+            0.9111534953117371,
+            0.9014577865600586,
+            0.8930307626724243,
+            0.8902120590209961,
+            0.8785632848739624,
+            0.8737440705299377,
+            0.8580313324928284,
+            0.856906533241272,
+            0.8504550457000732,
+            0.8481561541557312,
+            0.8361237049102783,
+            0.8354595899581909,
+            0.8225117325782776,
+            0.8017252683639526,
+            0.7992077469825745,
+            0.7922953963279724
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "1a2ad939-bb9d-43d1-8519-881f1cddb4cc",
+      "state": "published",
+      "incident": "e40220a9-e668-4258-9ab0-7b5598380f92",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "1a2ad939-bb9d-43d1-8519-881f1cddb4cc",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.040816325694322586,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.012820512987673283,
+      "type": "Protest"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Riot"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.454Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      12.9900928,
+      55.6074767,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "e40220a9-e668-4258-9ab0-7b5598380f92",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498554418,
+        "description": "my cup is empty",
+        "location": {
+          "coordinates": [
+            13.3144421,
+            52.5262396,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "9fd8c0df-229b-430d-9c9c-76b0869fc584",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/dc282665-a4e4-43e8-b927-371562951f21/download"
+        },
+        "type": "unknown",
+        "incident": "57cfd30c-ad85-4fee-979a-2a6517848002",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "9fd8c0df-229b-430d-9c9c-76b0869fc584",
+        "description": {
+          "value": "my cup is empty"
+        },
+        "media": {
+          "terms": [
+            "no person",
+            "coffee",
+            "business",
+            "cup",
+            "drink",
+            "indoors",
+            "still life",
+            "tea",
+            "espresso",
+            "breakfast",
+            "dawn",
+            "paper",
+            "container",
+            "travel",
+            "commerce",
+            "porcelain",
+            "competition",
+            "milk",
+            "food",
+            "museum"
+          ],
+          "probabilities": [
+            0.9868837594985962,
+            0.9868243932723999,
+            0.9638749361038208,
+            0.9389767050743103,
+            0.9356367588043213,
+            0.926465630531311,
+            0.9094418287277222,
+            0.8927205801010132,
+            0.8889797925949097,
+            0.8767039775848389,
+            0.87608802318573,
+            0.863930881023407,
+            0.8472285270690918,
+            0.8382437229156494,
+            0.8359560966491699,
+            0.8354623913764954,
+            0.8228262662887573,
+            0.8085289001464844,
+            0.7957631945610046,
+            0.795130729675293
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "9fd8c0df-229b-430d-9c9c-76b0869fc584",
+      "state": "published",
+      "incident": "57cfd30c-ad85-4fee-979a-2a6517848002",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "9fd8c0df-229b-430d-9c9c-76b0869fc584",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.1666666716337204,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.05000000074505806,
+      "type": "Riot"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Business crime"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.043478261679410934,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.012195121496915817,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.011904762126505375,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.455Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      13.3144421,
+      52.5262396,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "57cfd30c-ad85-4fee-979a-2a6517848002",
+  "state": "open",
+  "theft": false
+}{
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "@class": "TheftReport",
+        "address": "EE:04:D4:1A:9C:16",
+        "created": 1500293901,
+        "description": "bicycle ",
+        "location": {
+          "coordinates": [
+            23.8048961,
+            38.0081015
+          ],
+          "type": "Point"
+        },
+        "id": "65d01502-3286-4ccd-ab2a-5f6016534384",
+        "state": "active",
+        "incident": "cbbea29d-2fd5-47d4-9e08-fac3d46ab6e1",
+        "lastTimeSeen": 1500293901
+      },
+      "id": "65d01502-3286-4ccd-ab2a-5f6016534384",
+      "state": "restricted",
+      "incident": "cbbea29d-2fd5-47d4-9e08-fac3d46ab6e1"
+    }
+  ],
+  "types": [
+    {
+      "confidence": 1.0,
+      "type": "theft"
+    }
+  ],
+  "@class": "Incident",
+  "flags": 0,
+  "sightings": [],
+  "theft": true,
+  "token": "EE:04:D4:1A:9C:16",
+  "alerts": [],
+  "@timestamp": "2017-07-17T13:32:00.455Z",
+  "@version": "1",
+  "location": {
+    "coordinates": [
+      23.8048961,
+      38.0081015
+    ],
+    "type": "Point"
+  },
+  "id": "cbbea29d-2fd5-47d4-9e08-fac3d46ab6e1",
+  "state": "open"
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497967069,
+        "description": "",
+        "location": {
+          "coordinates": [
+            4.3387912,
+            50.835031,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "8460bdcc-4bda-4bb2-a372-84187a9124aa",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/7dfd37d3-9590-4c16-90e4-b537d045664c/download"
+        },
+        "type": "unknown",
+        "incident": "50c8715f-19ee-4dd0-b9d4-fd5af77c198c",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "8460bdcc-4bda-4bb2-a372-84187a9124aa",
+        "media": {
+          "terms": [
+            "room",
+            "table",
+            "people",
+            "indoors",
+            "furniture",
+            "education",
+            "adult",
+            "school",
+            "chair",
+            "group",
+            "desk",
+            "league",
+            "exhibition",
+            "woman",
+            "meeting",
+            "election",
+            "university",
+            "business",
+            "home",
+            "classroom"
+          ],
+          "probabilities": [
+            0.9842351078987122,
+            0.9807348251342773,
+            0.9758538007736206,
+            0.9742860794067383,
+            0.9711567163467407,
+            0.9689831733703613,
+            0.9558085203170776,
+            0.9513672590255737,
+            0.9417240619659424,
+            0.9406867027282715,
+            0.9248868227005005,
+            0.9145321846008301,
+            0.9104690551757812,
+            0.9042778015136719,
+            0.8988443613052368,
+            0.892585039138794,
+            0.881855309009552,
+            0.8800978660583496,
+            0.8773755431175232,
+            0.875531792640686
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "8460bdcc-4bda-4bb2-a372-84187a9124aa",
+      "state": "published",
+      "incident": "50c8715f-19ee-4dd0-b9d4-fd5af77c198c",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "8460bdcc-4bda-4bb2-a372-84187a9124aa",
+        "confidence": 0.0476190485060215,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.357142873108387,
+      "type": "Protest"
+    },
+    {
+      "confidence": 0.21621622145175934,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.05128205195069313,
+      "type": "Riot"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Business crime"
+    },
+    {
+      "confidence": 0.040816325694322586,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.02083333395421505,
+      "type": "Artifice"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.456Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3387912,
+      50.835031,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "50c8715f-19ee-4dd0-b9d4-fd5af77c198c",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1498561813,
+        "description": "windows are open",
+        "location": {
+          "coordinates": [
+            16.3498271,
+            48.1951349,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "25fd6360-cbd4-4d1d-98c6-5f58130be7ac",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/ae9fa50e-cdd4-4210-86ac-d7b30ab55847/download"
+        },
+        "type": "unknown",
+        "incident": "9f5fafc6-1116-4460-82f4-8b8314192e2f",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "25fd6360-cbd4-4d1d-98c6-5f58130be7ac",
+        "description": {
+          "value": "windows are open"
+        },
+        "media": {
+          "terms": [
+            "architecture",
+            "building",
+            "window",
+            "house",
+            "city",
+            "no person",
+            "facade",
+            "urban",
+            "apartment",
+            "outdoors",
+            "exterior",
+            "street",
+            "family",
+            "home",
+            "old",
+            "travel",
+            "balcony",
+            "town",
+            "modern",
+            "glass"
+          ],
+          "probabilities": [
+            0.9974915385246277,
+            0.989599347114563,
+            0.9860312938690186,
+            0.9839035868644714,
+            0.9775069952011108,
+            0.9758748412132263,
+            0.9758238792419434,
+            0.9614304304122925,
+            0.960513710975647,
+            0.9508102536201477,
+            0.945141613483429,
+            0.9384735822677612,
+            0.9266616106033325,
+            0.925317645072937,
+            0.9199669361114502,
+            0.9096602201461792,
+            0.9078813791275024,
+            0.8961483240127563,
+            0.8890026807785034,
+            0.880832850933075
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "25fd6360-cbd4-4d1d-98c6-5f58130be7ac",
+      "state": "published",
+      "incident": "9f5fafc6-1116-4460-82f4-8b8314192e2f",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "25fd6360-cbd4-4d1d-98c6-5f58130be7ac",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 0.9642857238650322,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.05128205195069313,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.05128205195069313,
+      "type": "Riot"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.012820512987673283,
+      "type": "Protest"
+    },
+    {
+      "confidence": 0.012500000186264515,
+      "type": "Fire"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.457Z",
+  "flags": 1,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      16.3498271,
+      48.1951349,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "9f5fafc6-1116-4460-82f4-8b8314192e2f",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497960993,
+        "description": "",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "65a2d2ef-13ac-4e51-ae7f-9e38b4ea3b58",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/b58113f3-1965-46df-9726-090bd772ef10/download"
+        },
+        "type": "unknown",
+        "incident": "8f44b5c9-f411-4386-9e11-8b0be0e88cb9",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "65a2d2ef-13ac-4e51-ae7f-9e38b4ea3b58",
+        "media": {
+          "terms": [
+            "people",
+            "rally",
+            "rally",
+            "crowd",
+            "woman",
+            "many",
+            "group",
+            "flag",
+            "education",
+            "adult",
+            "action",
+            "man",
+            "police",
+            "street",
+            "bill",
+            "competition",
+            "motion",
+            "democracy",
+            "festival",
+            "administration"
+          ],
+          "probabilities": [
+            0.9644086360931396,
+            0.940552830696106,
+            0.917319118976593,
+            0.9129626750946045,
+            0.8916546106338501,
+            0.8790565729141235,
+            0.8717247247695923,
+            0.8692530393600464,
+            0.8619976043701172,
+            0.8530460596084595,
+            0.8508310914039612,
+            0.8473764657974243,
+            0.8422509431838989,
+            0.8345931768417358,
+            0.8311290144920349,
+            0.827970027923584,
+            0.8228377103805542,
+            0.8118294477462769,
+            0.8068029880523682,
+            0.8026613593101501
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "65a2d2ef-13ac-4e51-ae7f-9e38b4ea3b58",
+      "state": "published",
+      "incident": "8f44b5c9-f411-4386-9e11-8b0be0e88cb9",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "65a2d2ef-13ac-4e51-ae7f-9e38b4ea3b58",
+        "confidence": 0.05000000074505806,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.0,
+        "@class": "UserReport",
+        "created": 1497961114,
+        "description": "looks like a peaceful protest to me",
+        "location": {
+          "coordinates": [
+            4.3388018,
+            50.8350204,
+            0.0
+          ],
+          "type": "Point"
+        },
+        "id": "b9540483-d40d-404c-97c2-4b022723fb97",
+        "media": {
+          "heading": [
+            0.0
+          ],
+          "type": "image/jpeg",
+          "url": "http://core.cityrisks.eu/cityrisks/api/medias/6b7f4714-966d-434d-aa1a-5e8fb6ce208c/download"
+        },
+        "type": "unknown",
+        "incident": "8f44b5c9-f411-4386-9e11-8b0be0e88cb9",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "b9540483-d40d-404c-97c2-4b022723fb97",
+        "description": {
+          "value": "looks like a peaceful protest to me"
+        },
+        "media": {
+          "terms": [
+            "rally",
+            "police",
+            "people",
+            "many",
+            "offense",
+            "law enforcement",
+            "rally",
+            "festival",
+            "action",
+            "street",
+            "battle",
+            "road",
+            "motion",
+            "city",
+            "group",
+            "military",
+            "education",
+            "crowd",
+            "force",
+            "religion"
+          ],
+          "probabilities": [
+            0.9754143953323364,
+            0.974090576171875,
+            0.9727020859718323,
+            0.9361400604248047,
+            0.9352732300758362,
+            0.9351006746292114,
+            0.9181720018386841,
+            0.9160455465316772,
+            0.9118310213088989,
+            0.9073812365531921,
+            0.901168704032898,
+            0.8881814479827881,
+            0.8856348991394043,
+            0.8852318525314331,
+            0.8712621927261353,
+            0.8659546375274658,
+            0.861501932144165,
+            0.849940299987793,
+            0.8498847484588623,
+            0.8197310566902161
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "b9540483-d40d-404c-97c2-4b022723fb97",
+      "state": "published",
+      "incident": "8f44b5c9-f411-4386-9e11-8b0be0e88cb9",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "b9540483-d40d-404c-97c2-4b022723fb97",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 2.6601886469351204,
+      "type": "Riot"
+    },
+    {
+      "confidence": 2.242077615441848,
+      "type": "Protest"
+    },
+    {
+      "confidence": 1.3665793473591776,
+      "type": "Police operation"
+    },
+    {
+      "confidence": 0.10896426235831289,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.0476190485060215,
+      "type": "Street drinking"
+    },
+    {
+      "confidence": 0.021739130839705467,
+      "type": "Artifice"
+    },
+    {
+      "confidence": 0.017677669793081493,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.458Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.3388018,
+      50.8350204,
+      0.0
+    ],
+    "type": "Point"
+  },
+  "id": "8f44b5c9-f411-4386-9e11-8b0be0e88cb9",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497958639,
+        "location": {
+          "coordinates": [
+            4.360721,
+            50.854919
+          ],
+          "type": "Point"
+        },
+        "id": "2d2aa858-11e0-4fb1-88f1-d7f0059f5f33",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://pbs.twimg.com/media/Cp6QOCiUIAA6tax.jpg"
+        },
+        "type": "unknown",
+        "incident": "a31d2345-f86f-4cc7-b5b5-a48896a353d9",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "2d2aa858-11e0-4fb1-88f1-d7f0059f5f33",
+        "media": {
+          "terms": [
+            "flame",
+            "smoke",
+            "calamity",
+            "no person",
+            "burn",
+            "vehicle",
+            "ash",
+            "coal",
+            "wildfire",
+            "arson",
+            "bonfire",
+            "accident",
+            "danger",
+            "fuel",
+            "campfire",
+            "blaze",
+            "explosion",
+            "battle",
+            "heat",
+            "hot"
+          ],
+          "probabilities": [
+            0.9996950030326843,
+            0.9976637363433838,
+            0.9922327399253845,
+            0.9845938682556152,
+            0.9810171127319336,
+            0.9801163673400879,
+            0.9775171875953674,
+            0.977077841758728,
+            0.9752362370491028,
+            0.9723693132400513,
+            0.9618723392486572,
+            0.9594401121139526,
+            0.9512131810188293,
+            0.9381164312362671,
+            0.9220194816589355,
+            0.9190276265144348,
+            0.9099008440971375,
+            0.9062560200691223,
+            0.9039176106452942,
+            0.8923252820968628
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "2d2aa858-11e0-4fb1-88f1-d7f0059f5f33",
+      "state": "published",
+      "incident": "a31d2345-f86f-4cc7-b5b5-a48896a353d9",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "2d2aa858-11e0-4fb1-88f1-d7f0059f5f33",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1497958683,
+        "description": "Two cars have been set on fire, no sight of the fire fighters yet 😳",
+        "location": {
+          "coordinates": [
+            4.360721,
+            50.854919
+          ],
+          "type": "Point"
+        },
+        "id": "157192c8-6c9e-4634-b85f-43bf11bcc529",
+        "type": "unknown",
+        "incident": "a31d2345-f86f-4cc7-b5b5-a48896a353d9",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "157192c8-6c9e-4634-b85f-43bf11bcc529",
+        "description": {
+          "value": "Two cars have been set on fire, no sight of the fire fighters yet 😳"
+        },
+        "status": "OK"
+      },
+      "id": "157192c8-6c9e-4634-b85f-43bf11bcc529",
+      "state": "published",
+      "incident": "a31d2345-f86f-4cc7-b5b5-a48896a353d9",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "157192c8-6c9e-4634-b85f-43bf11bcc529",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 9.523809552192688,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.05000000074505806,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.0476190485060215,
+      "type": "Arson"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Vehicle crime"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Theft from vehicle"
+    },
+    {
+      "confidence": 0.040816325694322586,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.459Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.360721,
+      50.854919
+    ],
+    "type": "Point"
+  },
+  "id": "a31d2345-f86f-4cc7-b5b5-a48896a353d9",
+  "state": "open",
+  "theft": false
+}{
+  "alerts": [],
+  "reports": [
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498022509,
+        "location": {
+          "coordinates": [
+            4.360721,
+            50.854919
+          ],
+          "type": "Point"
+        },
+        "id": "a5c69bd1-6ed6-44bc-a3b5-1a219b87a5a6",
+        "media": {
+          "heading": [
+            123.34
+          ],
+          "type": "image/png",
+          "url": "http://pbs.twimg.com/media/Cp6QOCiUIAA6tax.jpg"
+        },
+        "type": "unknown",
+        "incident": "e944084f-56b0-4f50-b6bb-7d560f1d57be",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "a5c69bd1-6ed6-44bc-a3b5-1a219b87a5a6",
+        "media": {
+          "terms": [
+            "flame",
+            "smoke",
+            "calamity",
+            "no person",
+            "burn",
+            "vehicle",
+            "ash",
+            "coal",
+            "wildfire",
+            "arson",
+            "bonfire",
+            "accident",
+            "danger",
+            "fuel",
+            "campfire",
+            "blaze",
+            "explosion",
+            "battle",
+            "heat",
+            "hot"
+          ],
+          "probabilities": [
+            0.9996950030326843,
+            0.9976637363433838,
+            0.9922327399253845,
+            0.9845938682556152,
+            0.9810171127319336,
+            0.9801163673400879,
+            0.9775171875953674,
+            0.977077841758728,
+            0.9752362370491028,
+            0.9723693132400513,
+            0.9618723392486572,
+            0.9594401121139526,
+            0.9512131810188293,
+            0.9381164312362671,
+            0.9220194816589355,
+            0.9190276265144348,
+            0.9099008440971375,
+            0.9062560200691223,
+            0.9039176106452942,
+            0.8923252820968628
+          ]
+        },
+        "status": "OK"
+      },
+      "id": "a5c69bd1-6ed6-44bc-a3b5-1a219b87a5a6",
+      "state": "published",
+      "incident": "e944084f-56b0-4f50-b6bb-7d560f1d57be",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "a5c69bd1-6ed6-44bc-a3b5-1a219b87a5a6",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    },
+    {
+      "@class": "Report",
+      "src": {
+        "anxiety": 0.8,
+        "@class": "UserReport",
+        "created": 1498022582,
+        "description": "Two cars have been set on fire, no sight of the fire fighters yet 😳",
+        "location": {
+          "coordinates": [
+            4.360721,
+            50.854919
+          ],
+          "type": "Point"
+        },
+        "id": "6e452761-f012-41f4-ac25-3a0830add3c0",
+        "type": "unknown",
+        "incident": "e944084f-56b0-4f50-b6bb-7d560f1d57be",
+        "flagging": false
+      },
+      "translation": {
+        "@class": "Translation",
+        "code": 200,
+        "report_id": "6e452761-f012-41f4-ac25-3a0830add3c0",
+        "description": {
+          "value": "Two cars have been set on fire, no sight of the fire fighters yet 😳"
+        },
+        "status": "OK"
+      },
+      "id": "6e452761-f012-41f4-ac25-3a0830add3c0",
+      "state": "published",
+      "incident": "e944084f-56b0-4f50-b6bb-7d560f1d57be",
+      "relevance": {
+        "@class": "Relevance",
+        "code": 200,
+        "report_id": "6e452761-f012-41f4-ac25-3a0830add3c0",
+        "confidence": 0.0,
+        "value": 0.0,
+        "status": "OK"
+      }
+    }
+  ],
+  "types": [
+    {
+      "confidence": 9.523809552192688,
+      "type": "Fire"
+    },
+    {
+      "confidence": 0.05000000074505806,
+      "type": "Graffiti"
+    },
+    {
+      "confidence": 0.0476190485060215,
+      "type": "Arson"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Drunken person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Vehicle crime"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Homeless person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Suspicious person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Violence against person"
+    },
+    {
+      "confidence": 0.04545454680919647,
+      "type": "Theft from vehicle"
+    },
+    {
+      "confidence": 0.040816325694322586,
+      "type": "Graffiti"
+    }
+  ],
+  "@class": "Incident",
+  "@timestamp": "2017-07-17T13:32:00.460Z",
+  "flags": 0,
+  "@version": "1",
+  "sightings": [],
+  "location": {
+    "coordinates": [
+      4.360721,
+      50.854919
+    ],
+    "type": "Point"
+  },
+  "id": "e944084f-56b0-4f50-b6bb-7d560f1d57be",
+  "state": "open",
+  "theft": false
+}
