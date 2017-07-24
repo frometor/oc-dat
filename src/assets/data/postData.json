@@ -1,0 +1,43 @@
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "nested": {
+                "path": "reports",
+                "query": {
+                  "bool": {
+                    "must": [
+                      {
+                        "range": {
+                          "reports.src.created": {
+                            "gt": 1496008800,
+                            "lte": 1497996000
+                          }}}]}}}},
+            {
+              "nested": {
+                "path": "types",
+                "query": {
+                  "bool": {
+                    "must": [
+                      {
+                        "match": {
+                          "types.type": "fire"
+                        }}]}}}},
+            {
+              "nested": {
+                "path": "types",
+                "query": {
+                  "bool": {
+                    "must": [
+                      {
+                        "match": {
+                          "types.type": "theft"
+                        }}]}}}}]}},
+      "must": {
+        "query_string": {
+          "query": "cars~ fire~"
+        }}}}
+}

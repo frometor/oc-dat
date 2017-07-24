@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
           this.incidentService.sendMessageInputSearch(this.inputValue);
 
         }
-        console.log("SEARCH COMPONENT", incidents)
+      //  console.log("SEARCH COMPONENT", incidents)
       }
     );
 
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
   onKeyUp() {
     this.data.push({id: "sth", text: "sth"});
 
-    console.log("Changed", this.data);
+    //console.log("Changed", this.data);
 
   }
 

@@ -1,7 +1,7 @@
 <div>
-  <app-search class="col-md-12"></app-search>
-  <app-datepicker class="col-md-12"></app-datepicker>
   <app-incident-type class="col-md-12" (typeOfIncidentChanged)="parentFunction($event)"></app-incident-type>
+  <app-datepicker class="col-md-12"></app-datepicker>
+  <app-search class="col-md-12"></app-search>
   <button class="btn btn-success col-xs-3 col-md-5" (click)="searchIncidents()" style="margin:0 15px !important;">Search</button>
   <button class="btn btn-danger col-xs-3 col-md-5" (click)="resetSearch()">Reset</button>
 </div>

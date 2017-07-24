@@ -1,45 +1,52 @@
-<p>
-  Filter chart works!
-</p>
-<div>
-  {{allIncidents.hits.hits.length}} Incidents found
-</div>
-<div *ngIf="toggleMonthDayBool; else elseBlock">
-  <div style="height: 300px;">
-    <ngx-charts-bar-vertical
-      [view]="mview"
-      [scheme]="mcolorScheme"
-      [results]="monthValues"
-      [gradient]="mgradient"
-      [xAxis]="mshowXAxis"
-      [yAxis]="mshowYAxis"
-      [legend]="mshowLegend"
-      [showXAxisLabel]="mshowXAxisLabel"
-      [showYAxisLabel]="mshowYAxisLabel"
-      [xAxisLabel]="mxAxisLabel"
-      [yAxisLabel]="myAxisLabel"
-      (select)="onSelectMonth($event)">
-    </ngx-charts-bar-vertical>
-  </div>
-</div>
-<button class="btn btn-info" (click)="toggleMonthDay()">toggle Month/Day</button>
 
 
-<ng-template #elseBlock>
-  <div style="height: 300px;">
-    <ngx-charts-bar-vertical
-      [view]="dview"
-      [scheme]="dcolorScheme"
-      [results]="dayValues"
-      [gradient]="dgradient"
-      [xAxis]="dshowXAxis"
-      [yAxis]="dshowYAxis"
-      [legend]="dshowLegend"
-      [showXAxisLabel]="dshowXAxisLabel"
-      [showYAxisLabel]="dshowYAxisLabel"
-      [xAxisLabel]="dxAxisLabel"
-      [yAxisLabel]="dyAxisLabel"
-      (select)="onSelectDay($event)">
-    </ngx-charts-bar-vertical>
+<div *ngIf="showChart; else elseShowBlock">
+  <h3>Filter</h3>
+  <div>
+    {{allIncidents.hits.hits.length}} Incidents found
   </div>
+
+  <div *ngIf="toggleMonthDayBool; else elseBlock">
+    <div style="height: 300px;">
+      <ngx-charts-bar-vertical
+        [view]="mview"
+        [scheme]="mcolorScheme"
+        [results]="monthValues"
+        [gradient]="mgradient"
+        [xAxis]="mshowXAxis"
+        [yAxis]="mshowYAxis"
+        [legend]="mshowLegend"
+        [showXAxisLabel]="mshowXAxisLabel"
+        [showYAxisLabel]="mshowYAxisLabel"
+        [xAxisLabel]="mxAxisLabel"
+        [yAxisLabel]="myAxisLabel"
+        (select)="onSelectMonth($event)">
+      </ngx-charts-bar-vertical>
+    </div>
+  </div>
+  <button class="btn btn-info" (click)="toggleMonthDay()">toggle Month/Day</button>
+  <button class="btn btn-info" (click)="showAllIncidents()">Show all Incidents</button>
+
+
+  <ng-template #elseBlock>
+    <div style="height: 300px;">
+      <ngx-charts-bar-vertical
+        [view]="dview"
+        [scheme]="dcolorScheme"
+        [results]="dayValues"
+        [gradient]="dgradient"
+        [xAxis]="dshowXAxis"
+        [yAxis]="dshowYAxis"
+        [legend]="dshowLegend"
+        [showXAxisLabel]="dshowXAxisLabel"
+        [showYAxisLabel]="dshowYAxisLabel"
+        [xAxisLabel]="dxAxisLabel"
+        [yAxisLabel]="dyAxisLabel"
+        (select)="onSelectDay($event)">
+      </ngx-charts-bar-vertical>
+    </div>
+  </ng-template>
+</div>
+<ng-template #elseShowBlock>
+Use the input fields to search for Incidents
 </ng-template>

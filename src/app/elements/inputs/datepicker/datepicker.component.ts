@@ -45,7 +45,7 @@ export class DatepickerComponent implements OnInit {
           this.clearDateRange();
         }
 
-        console.log("DATEPICKER COMPONENT", incidents)
+      //  console.log("DATEPICKER COMPONENT", incidents)
       }
     );
   }
@@ -83,12 +83,11 @@ export class DatepickerComponent implements OnInit {
   }
 
   clearDateRange(): void {
-    console.log("RESET DATERANGE");
     // Clear the date range using the setValue function
     this.myForm.setValue({myDateRange: ''});
     this.startDate = null;
     this.endDate = null;
-    this.incidentService.sendMessageStartEndDate(this.startDate, this.endDate);
+    this.incidentService.sendMessageStartEndDate((this.startDate), (this.endDate));
 
     this.cd.markForCheck(); // forces redraw
   }
@@ -97,15 +96,12 @@ export class DatepickerComponent implements OnInit {
   // mandatory callback in this option. There are also optional inputFieldChanged and
   // calendarViewChanged callbacks.
   onDateRangeChanged(event: IMyDateRangeModel) {
-    this.startDate = ((event.beginEpoc ) * 1000);
-    this.endDate = ((event.endEpoc ) * 1000);
+    this.startDate = (event.beginEpoc);
+    this.endDate = (event.endEpoc);
 
-    //console.log("beginDate",event.beginDate);
-    // console.log(event.endDate);
-    // console.log(event.formatted);
-    console.log("START", this.startDate);
+   // console.log("START", this.startDate);
     //console.log( "START",new Date(this.startDate));
-    console.log("END", this.endDate);
+   // console.log("END", this.endDate);
     // console.log("END",new Date(this.endDate));
 
     // event properties are: event.beginDate, event.endDate, event.formatted,

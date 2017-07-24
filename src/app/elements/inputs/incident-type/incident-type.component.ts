@@ -66,7 +66,7 @@ export class IncidentTypeComponent implements OnInit {
           this.clearTypesOfIncident();
         }
 
-        console.log("DATEPICKER COMPONENT", incidents)
+       // console.log("DATEPICKER COMPONENT", incidents)
       }
     );
   }
@@ -89,18 +89,18 @@ export class IncidentTypeComponent implements OnInit {
   }
 
   public selected(value: any) {
-    console.log('Selected value is: ', value);
+  //  console.log('Selected value is: ', value);
     //this.eventInChild.emit(value);
   }
 
 
   public removed(value: any): void {
-    console.log('Removed value is: ', value);
+   // console.log('Removed value is: ', value);
   }
 
   public refreshValue(value: any): void {
     this.value = value;
-    console.log("refreshValue: ", value);
+   // console.log("refreshValue: ", value);
     this.typeOfIncidentChanged.emit(value);
   }
 
@@ -113,7 +113,7 @@ export class IncidentTypeComponent implements OnInit {
 
   private clearTypesOfIncident() {
     // this.select1.remove( this.value);
-    console.log("this.select1.selected",this.select1);
+   // console.log("this.select1.selected",this.select1);
 
     this.select1.active=[];
     // this.items = null;

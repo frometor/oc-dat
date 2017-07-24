@@ -22,6 +22,9 @@ export class ResultTableComponent implements OnInit {
 //communication between map and table
   message: any;
   subscription: Subscription;
+  subscriptionMonthly: Subscription;
+
+  showChart: any = false;
 
   rows;
   expanded: any = {};
@@ -36,7 +39,6 @@ export class ResultTableComponent implements OnInit {
   ];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
-    //  this.singleSelectCheck = this.singleSelectCheck.bind(this);
     // this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => { this.message = message; console.log("message",message)});
     this.singleSelectCheck = this.singleSelectCheck.bind(this);
   }
@@ -46,23 +48,33 @@ export class ResultTableComponent implements OnInit {
     // subscribe to home component messages
     this.subscription = this.incidentService.getMessageFromMap2Table().subscribe(message => {
       this.message = message;
+
       //console.log("RESULT TABLE: GET MESSAGE", this.message);
 
     });
 
     this.incidentService.incidents$.subscribe(
       incidents => {
+        // EMPTY_SEARCH has a "reset" value
+        if (incidents.hasOwnProperty("reset")) {
+          this.showChart = false;
+        } else {
+          this.showChart = true;
+        }
         this.allIncidents = incidents;
-        this.fillColums(incidents);
+        this.fillColums(incidents,{"name":"all"});
         //this.cd.markForCheck(); // marks path
       }
     );
-    /*
-     //this.allIncidents$ = this.incidentService.incidents$.map(data => this.allIncidents = data);
-     this.allIncidents$ = this.incidentService.incidents$.map(data => {
-     this.fillColums(data);
-     this.rows = data
-     });*/
+
+    this.subscriptionMonthly = this.incidentService.getMessageFromFilter2Table().subscribe(messageMonth => {
+      console.log("messageMonth", messageMonth);
+      if (messageMonth.name != "all") {
+        console.log("SHOW SOMETHING", messageMonth);
+      } else {
+        console.log("SHOW EVERYTHING", messageMonth);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -70,7 +82,7 @@ export class ResultTableComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  private fillColums(mAllIncidents: any) {
+  private fillColums(mAllIncidents: any, filterObject) {
 
     let incidentTypes;
     let incidentReports;
@@ -82,6 +94,16 @@ export class ResultTableComponent implements OnInit {
 
     for (let incidentRow of this.allIncidents.hits.hits) {
 
+
+      /* TODO: show all or show specified month/day from filterObject
+      switch(filterObject.name) {
+        case "all":
+          code block
+          break;
+        default:
+        {console.log("ERROR")}
+      }
+      */
       rowReports = [];
       rowAlerts = [];
 
@@ -102,7 +124,7 @@ export class ResultTableComponent implements OnInit {
       }
 
 
-      let incidentDate = new Date(incidentRow._source.reports[0].src.created)
+      let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
       //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
 
       this.rows.push({

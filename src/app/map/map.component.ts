@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 //import {incidents} from '../elements/data/incident';
@@ -17,6 +17,8 @@ import {Subscription} from "rxjs";
 })
 export class MapComponent implements OnInit {
 
+  height:number=400;
+  bounds;
 
   message: any;
   subscription: Subscription;
@@ -96,33 +98,36 @@ export class MapComponent implements OnInit {
   private typesArray: any[];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
-    // Object.assign(this, {incidents});
   }
 
   onMapReady(map: L.Map) {
 
     let self = this;
     map.on("click", function (event) {
-      // console.log("CLICKED ON MAP1");
-      //console.log("CLICKED ON MAP2", self.reportsMarkerLayerGroup);
-
       if (self.reportsMarkerLayerGroup != null) {
 
         map.removeLayer(self.reportsMarkerLayerGroup);
         self.cd.markForCheck(); // forces redraw
-        //    console.log("CLICKED ON MAP#########", self.reportsMarkerLayerGroup);
 
       }
-      // console.log("CLICKED ON MAP3", self.reportsMarkerLayerGroup);
     });
-
 
     this.incidentService.incidents$.subscribe(
       data => {
+        // EMPTY_SEARCH has a "reset" value
+        if (data.hasOwnProperty("reset")) {
+          this.height=700;
+          map.invalidateSize();
+          this.cd.markForCheck(); // forces redraw
+
+        } else {
+          this.height=400;
+          map.invalidateSize();
+          this.cd.markForCheck(); // forces redraw
+        }
         // console.log("data:", data);
         if (this.markerLayerGroup != null) {
           map.removeLayer(this.markerLayerGroup);
-          //   console.log("##################################################");
           //map.removeLayer(this.markerClusterGroup);
           this.cd.markForCheck(); // forces redraw
         }
@@ -148,7 +153,7 @@ export class MapComponent implements OnInit {
           let reportsPointsMarker: any[] = [];
           let clickedMarker = event.layer;
           //   console.log("Clicked", clickedMarker);
-          map.setView(clickedMarker._latlng, map.getZoom());
+          map.setView(clickedMarker._latlng, map.getZoom(), true);
           for (let i = 0; i < self.incidents.length; i++) {
             if (self.incidents[i]._id == clickedMarker.options.title) {
               //  console.log("FOUNDFOUND", self.incidents[i]._source.reports);
@@ -169,7 +174,7 @@ export class MapComponent implements OnInit {
           }
           self.incidentService.sendMessageFromMap2Table(clickedMarker);
           self.cd.markForCheck(); // forces redraw
-
+          map.invalidateSize();
         });
       }
     );
@@ -183,7 +188,7 @@ export class MapComponent implements OnInit {
           if (layer.options.title == self.message.selected[0].id) {
             //   console.log(layer);
             layer.openPopup();
-            map.setView(layer._latlng, map.getZoom());
+            map.setView(layer._latlng, map.getZoom(), true);
           }
         });
       } else {
@@ -203,20 +208,17 @@ export class MapComponent implements OnInit {
       let reportText: String = "";
 
       this.messageReports = message;
-      console.log("##########", this.messageReports);
-      console.log("##########", this.incidents);
       for (let i = 0; i < this.incidents.length; i++) {
         if (this.incidents[i]._id == message) {
-          console.log("FOUND!",this.incidents[i]._source.reports);
+          console.log("FOUND!", this.incidents[i]._source.reports);
           for (let j = 0; j < this.incidents[i]._source.reports.length; j++) {
-            console.log("FOUND!",this.incidents[i]._source.reports[j]);
+            console.log("FOUND!", this.incidents[i]._source.reports[j]);
 
             reportText = this.incidents[i]._source.reports[j].src.description;
 
             reportsPointsMarker.push(L.marker([this.incidents[i]._source.reports[j].src.location.coordinates[1], this.incidents[i]._source.reports[j].src.location.coordinates[0]], {
               icon: self.customIcon2,
             }).bindPopup("Report: " + reportText));
-            console.log("reportsPointsMarker",reportsPointsMarker);
           }
         }
       }
@@ -227,8 +229,8 @@ export class MapComponent implements OnInit {
         }).addTo(map);
 
       map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
-   //   this.incidentService.sendMessageFromMap2Table(clickedMarker);
-      this.cd.markForCheck(); // forces redraw
+      //   this.incidentService.sendMessageFromMap2Table(clickedMarker);
+      //this.cd.markForCheck(); // forces redraw
     });
   }
 
@@ -247,6 +249,8 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.height=400;
+
   }
 
   private drawMarker(incidents: any, map: L.Map) {
@@ -322,31 +326,20 @@ export class MapComponent implements OnInit {
     this.markerLayerGroup = L.featureGroup(dataPointsMarker).addTo(map);
     this.polygonLayerGroup = L.featureGroup(dataPointsPolygon).addTo(map);
 
-    //marker
-    /* this.markerLayerGroup.on("click", function (event) {
-     let clickedMarker = event.layer;
-     console.log("Clicked", clickedMarker);
-     map.setView(clickedMarker._latlng, map.getZoom());
-
-     this.cd.markForCheck(); // forces redraw
-     //this.incidentService.sendCommunicateMapTable(clickedMarker);
-
-
-     });*/
-
     // Polygons
     this.polygonLayerGroup.on("click", function (event) {
       let clickedMarker = event.layer;
       // console.log("Clicked", clickedMarker);
-      map.setView(clickedMarker._latlngs[0][0], map.getZoom());
-      // this.incidentService.sendCommunicateMapTable(clickedMarker);
+      map.setView(clickedMarker._latlngs[0][0], map.getZoom(), true);
     });
 
 //    map.addLayer(new L.LayerGroup(dataPoints));
     //this.markerClusterData = dataPoints;
     this.cd.markForCheck(); // forces redraw
-
+    map.invalidateSize();
 
   }
+
+
 
 }

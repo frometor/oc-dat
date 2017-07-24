@@ -38,7 +38,7 @@ export class IncidentsService {
   };
 
   EMPTY_SEARCH: any = {
-    "reset":true,
+    "reset": true,
     "took": 3,
     "timed_out": false,
     "_shards": {
@@ -69,6 +69,7 @@ export class IncidentsService {
   private subjectfromMap2Table = new Subject<any>();
   private subjectfromMap2Table4Reports = new Subject<any>();
   private subjectfromTable2LineChart = new Subject<any>();
+  private subjectfromFilter2Table = new Subject<any>();
   private subjectOnInitTypesOfIncident = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
@@ -96,7 +97,7 @@ export class IncidentsService {
       .do(res => {
         // console.log("Filtered HTTP_REQUEST_FAILURE")
       });
-
+//postDataType.query.bool.filter.bool.must[1].nested.query.bool.should.push({"match":{"types.type.keyword":incidentType}})
     let postDataType: any = {
       "size": 10000,
       "query": {
@@ -113,8 +114,8 @@ export class IncidentsService {
                           {
                             "range": {
                               "reports.src.created": {
-                                /*"gt": 100000000000*/
-                                /*"lte":1000000*/
+                                /*  "gt": 1493589600,
+                                 "lte": 1559167200*/
                               }
                             }
                           }
@@ -122,9 +123,30 @@ export class IncidentsService {
                       }
                     }
                   }
-                }
+                }/*,
+                 {
+                 "nested": {
+                 "path": "types",
+                 "query": {
+                 "bool": {
+                 "must": [
+                 {
+                 "match": {
+                 "types.type.keyword": "Fire"
+                 }
+                 }
+                 ]
+                 }
+                 }
+                 }
+                 } */
               ]
             }
+          },
+          "must": {
+            // "query_string": {
+            // "query": "car~"
+            //}
           }
         }
       },
@@ -322,76 +344,70 @@ export class IncidentsService {
     if ((this.dateObject.endDate != null) && (this.dateObject.endDate != 0) && (this.dateObject.endDate != "0")) {
       console.log("DATEOBJECT != NULL", this.dateObject.endDate);
       postDataType.query.bool.filter.bool.must["0"].nested.query.bool.must["0"].range["reports.src.created"].lte = this.dateObject.endDate;
-      /*
-       GET incidents/incident/_search
-       {
-       "query": {
-       "nested" : {
-       "path" : "reports",
-       "query" : {
-       "bool" : {
-       "must" : [
-       { "range" : {"reports.src.created": {"gt" : 10000000000}} }
-       ]
-       }
-       }
-       }
-       }
-       }
-       */
+
     }
     //search term from searchInput is not empty or undefined
     if ((this.searchTerm != "") && (this.searchTerm != null)) {
-      //search term from searchInput AND typesOfIncident are not empty or undefined
-      if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
-        incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
-        incidentTypeString += "~ " + this.searchTerm + "~";
-        //   console.log("2B:", incidentTypeString);
-        //postDataType.query.bool.must.query_string.query = (incidentTypeString);
-        postDataType.query.bool.must = {
-          "query_string": {
-            "query": incidentTypeString
-          }
 
-        };
+      //searchTerm is not empty
+      let searchtermArray = this.searchTerm.split(" ").filter(String);
+      let searchTermString = searchtermArray.join("~ ");
+      searchTermString += "~";
+      console.log("searchTermString", searchTermString);
+      //incidentTypeString = _.map(searchtermArray, 'text').join('~ ');
 
-      } else {
-        //searchTerm is not empty BUT typesOf Incidents is
-        let searchtermArray = this.searchTerm.split(" ");
-        let searchTermString = searchtermArray.join("~ ");
-        searchTermString += "~";
-        //incidentTypeString = _.map(searchtermArray, 'text').join('~ ');
-
-        //postDataType.query.bool.must.query_string.query = searchTermString;
-        postDataType.query.bool.must = {
-
-          "query_string": {
-            "query": searchTermString
-          }
-
-        };
-        //  console.log("2A:", searchTermString);
-      }
-    }
-    //ST == null but ToI != null
-    else if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
-
-      incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
-      //postDataType.query.bool.must.query_string.query = (incidentTypeString);
-      // postDataType.query.bool.must.query_string.query = (incidentTypeString);
+      //postDataType.query.bool.must.query_string.query = searchTermString;
       postDataType.query.bool.must = {
         "query_string": {
-          "query": incidentTypeString
+          "query": searchTermString
         }
+
       };
+      //  console.log("2A:", searchTermString);
+
+    }
+    //ST == null but ToI != null
+    if (payload.typesOfIncident != null && payload.typesOfIncident[0] != null) {
+
+      //query.bool.filter.must[1].nested.query.bool.should.push({"match":{"types.type.keyword":incidentType}})
+      for (let i = 0; i < payload.typesOfIncident.length; i++) {
+        console.log("payload.typesOfIncident[i]", payload.typesOfIncident[i]);
+        // postDataType.query.bool.filter.bool.must[1].nested.query.bool.must.push({"match": {"types.type": payload.typesOfIncident[i].text}})
+        postDataType.query.bool.filter.bool.must.push({
+          "nested": {
+            "path": "types",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "match": {
+                      "types.type": payload.typesOfIncident[i].text
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        })
+      }
+
+      /* incidentTypeString = _.map(payload.typesOfIncident, 'text').join('~ ');
+       //postDataType.query.bool.must.query_string.query = (incidentTypeString);
+       // postDataType.query.bool.must.query_string.query = (incidentTypeString);
+       postDataType.query.bool.must = {
+       "query_string": {
+       "query": incidentTypeString
+       }
+       };*/
       //  console.log("1B:", incidentTypeString);
 
     } else {
       // BOTH Values are null or undefined
-      //Returns an empty saerch result from Elasticsearch
+      //Returns an empty search result from Elasticsearch
       //   console.log("1A:");
     }
-      console.log("TO ES: postDataType: ", postDataType);
+
+    console.log("TO ES: postDataType: ", postDataType);
     return this.http.post(this.url, postDataType, headers)
       .map(res => res.json())
       .do(res => {
@@ -439,6 +455,7 @@ export class IncidentsService {
   getMessageFromMap2Table(): Observable<any> {
     return this.subjectfromMap2Table.asObservable();
   }
+
   sendMessagefromTable2Map4Reports(id: any) {
     this.subjectfromMap2Table4Reports.next(id);
   }
@@ -447,6 +464,13 @@ export class IncidentsService {
     return this.subjectfromMap2Table4Reports.asObservable();
   }
 
+  /*========================================================*/
+  sendMessageFromFilter2Table(event: any) {
+    this.subjectfromFilter2Table.next(event);
+  }
+  getMessageFromFilter2Table():Observable<any> {
+    return this.subjectfromFilter2Table.asObservable();
+  }
   /*===================================================*/
   /*Input of search field*/
   sendMessageInputSearch(message: any): void {
@@ -464,8 +488,8 @@ export class IncidentsService {
       "endDate": null
     };
 
-    console.log("startDate", startDate);
-    console.log("endDate", endDate);
+ //   console.log("startDate", startDate);
+  //  console.log("endDate", endDate);
     this.startDate = startDate;
     this.endDate = endDate;
     if ((startDate != null || startDate != 0) && (endDate != null || endDate != 0)) {

@@ -1,3 +1,10 @@
 md-grid-tile {
   background: lightblue;
 }
+#nav-img{
+  height:50px;
+}
+
+.navbar-brand{
+  padding:0 15px;
+}

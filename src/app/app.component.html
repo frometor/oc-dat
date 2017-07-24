@@ -1,19 +1,22 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img id="nav-img" alt="Brand" src="../assets/img/logo-menu-simple-u.png">
+      </a>
+    </div>
+  </div>
+</nav>
 <div class="container-fluid">
 
   <div class="row">
     <div class="col-md-3">
-        <h3>Input</h3>
+        <h3>Search</h3>
         <app-inputs>
         </app-inputs>
       <div class="col-md-12">
-        <h3>Filter</h3>
         <app-monthly-filter>
         </app-monthly-filter>
-        <!--<app-filter>
-        </app-filter>-->
       </div>
 
     </div>
@@ -38,81 +41,3 @@
     </div>
   </div>
 </div>
-
-<!--
-<ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
-  <li>
-    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-  </li>
-</ul>
--->
-<!--
-<form materialize class="col s3">
-  <div class="row">
-    <div class="input-field col s12">
-      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-      <label for="first_name">First Name</label>
-    </div>
-    <div class="col s12">
-      <label for="startDate">Startdate {{startDate}}</label>
-      <input id="startDate" [(ngModel)]="startDate" name="birthdate" (ngModelChange)="modelChanged($event)"
-             materialize="pickadate"
-             [materializeParams]="[{format: 'dd/mm/yyyy'}]"
-             type="text"/>
-    </div>
-  </div>
-</form>
-
-<form materialize class="col s3">
-  <div class="row">
-    <div class="col s12">
-      <label for="endDate">Startdate {{endDate}}</label>
-      <input id="endDate" [(ngModel)]="endDate" name="birthdate" (ngModelChange)="modelChanged($event)"
-             materialize="pickadate"
-             [materializeParams]="[{format: 'dd/mm/yyyy'}]"
-             type="text"/>
-    </div>
-  </div>
-</form>
--->
-<!--
-<button md-icon-button [mdMenuTriggerFor]="menu">
-  <md-icon>menu</md-icon>
-</button>
-<md-menu #menu="mdMenu">
-  <button md-menu-item>
-    <md-icon>dialpad</md-icon>
-    <span>Redial</span>
-  </button>
-  <button md-menu-item disabled>
-    <md-icon>voicemail</md-icon>
-    <span>Check voicemail</span>
-  </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
-    <span>Disable alerts</span>
-  </button>
-</md-menu>-->
-<!--
-
-<md-grid-list cols="4" rowHeight="200px">
-  <md-grid-tile colspan="1" rowspan="4">
-    <app-inputs></app-inputs>
-  </md-grid-tile>
-  <md-grid-tile colspan="2" rowspan="3">
-    <app-map></app-map>
-  </md-grid-tile>
-  <md-grid-tile colspan="1" rowspan="4">visuals</md-grid-tile>
-  <md-grid-tile colspan="2" rowspan="1">TABLE</md-grid-tile>
-</md-grid-list>
-
--->
