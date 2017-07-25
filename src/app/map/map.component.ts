@@ -146,7 +146,7 @@ export class MapComponent implements OnInit {
         let self = this;
 
         //marker on click handler that shows reports
-        this.markerLayerGroup.on("click", function (event) {
+   /*     this.markerLayerGroup.on("click", function (event) {
 
           if (self.reportsMarkerLayerGroup != null) {
             map.removeLayer(self.reportsMarkerLayerGroup);
@@ -185,23 +185,22 @@ export class MapComponent implements OnInit {
               for (let k = 0; k < self.incidents[i]._source.alerts.length; k++) {
                 for (let h = 0; h < self.incidents[i]._source.alerts[k].geometry.coordinates.length; h++) {
                   alertText = self.incidents[i]._source.alerts[k].event_type;
-                  swappedPolyCoords = self.swapPolyCoords(self.incidents[i]._source.alerts[k].geometry.coordinates);
+                  // swappedPolyCoords = self.swapPolyCoords(self.incidents[i]._source.alerts[k].geometry.coordinates);
                   console.log("self.incidents[i]._source.alerts[k].geometry.coordinates", self.incidents[i]._source.alerts[k].geometry.coordinates);
+                  // for (let m = 0; m < self.incidents[i]._source.alerts[k].geometry.coordinates.length; m++) {
+                  //    swappedPolyCoords.push([self.incidents[i]._source.alerts[k].geometry.coordinates[h][1], self.incidents[i]._source.alerts[k].geometry.coordinates[h][0]]);
+                  // }
+
                   //alertsPolygonMarker.push(L.polygon([self.incidents[i]._source.alerts[k].geometry.coordinates]).bindPopup("alert: " + alertText))
-                  alertsPolygonMarker.push(L.polygon(swappedPolyCoords).bindPopup("alert: " + alertText))
+                  //  alertsPolygonMarker.push(L.polygon(swappedPolyCoords).bindPopup("alert: " + alertText))
                 }
-                /*  var polygon = L.polygon([
-                 [51.509, -0.08],
-                 [51.503, -0.06],
-                 [51.51, -0.047]
-                 ]).addTo(map);*/
 
                 console.log("FOUND ALERTS!", self.incidents[i]._source.alerts[k]);
 
-                /*  reportText = self.incidents[i]._source.reports[j].src.description;
-                 reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
-                 icon: self.customIcon2,
-                 }).bindPopup("Report: " + reportText));*/
+                //  reportText = self.incidents[i]._source.reports[j].src.description;
+                // reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
+                // icon: self.customIcon2,
+              //   }).bindPopup("Report: " + reportText));
               }
 
 
@@ -221,8 +220,9 @@ export class MapComponent implements OnInit {
           self.incidentService.sendMessageFromMap2Table(clickedMarker);
           self.cd.markForCheck(); // forces redraw
           map.invalidateSize();
-        });
 
+        });
+*/
         //Polygon
         this.polygonLayerGroup.on("click", function (event) {
           console.log("CLICKED POLYGON")
@@ -280,7 +280,7 @@ export class MapComponent implements OnInit {
       map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
     });
 
-    // Show Alerts on click from table
+    // Show Alerts on click from table button
     this.subscriptionReports = this.incidentService.getMessagefromTable2Map4Alerts().subscribe(message => {
       let swappedPolyCoords2 = [];
 
@@ -298,12 +298,26 @@ export class MapComponent implements OnInit {
           console.log("FOUND!", this.incidents[i]._source.alerts);
           for (let j = 0; j < this.incidents[i]._source.alerts.length; j++) {
             console.log("FOUND!", this.incidents[i]._source.alerts[j]);
-
+            let swappedPolyCoords2 = [];
             alertText = self.incidents[i]._source.alerts[j].event_type;
+            for (let m = 0; m < self.incidents[i]._source.alerts[j].geometry.coordinates[0].length; m++) {
+              console.log([self.incidents[i]._source.alerts[j].geometry.coordinates[0][m][1], self.incidents[i]._source.alerts[j].geometry.coordinates[0][m][0]]);
 
-            swappedPolyCoords2 = self.swapPolyCoords(self.incidents[i]._source.alerts[j].geometry.coordinates);
+              swappedPolyCoords2.push([self.incidents[i]._source.alerts[j].geometry.coordinates[0][m][1], self.incidents[i]._source.alerts[j].geometry.coordinates[0][m][0]]);
+
+            }
             alertsPolygonMarker.push(L.polygon(swappedPolyCoords2).bindPopup("alert: " + alertText));
           }
+          /*
+           var polygon = L.polygon([
+           [50.83564690862127, 4.335785508155824],
+           [50.83564690862127, 4.337180256843568],
+           [50.83504724959291, 4.337180256843568],
+           [50.83504724959291, 4.335785508155824],
+           [50.83564690862127, 4.335785508155824]
+           ]).addTo(map);
+           */
+
         }
       }
       this.alertsPolygonLayerGroup = L.featureGroup(alertsPolygonMarker).on('click',
