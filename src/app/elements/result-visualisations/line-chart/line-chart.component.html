@@ -1,4 +1,20 @@
-<p>
+<div style="height: 250px;">
+  <ngx-charts-bar-vertical
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="buckets"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
+</div>
+<!--<p>
   line-chart works!
 </p>
 <div style="height: 250px;">
@@ -18,3 +34,4 @@
     (select)="onSelect($event)">
   </ngx-charts-line-chart>
 </div>
+-->

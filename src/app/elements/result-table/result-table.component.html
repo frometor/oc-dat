@@ -33,7 +33,11 @@
 
             </div>
             <div *ngFor="let report of row.reports">{{report.report}}</div>
-            <div *ngIf="row.alerts.length>0"><strong>Alerts</strong></div>
+            <div *ngIf="row.alerts.length>0"><strong>Alerts</strong>
+
+              <button class="btn-sm btn-info" (click)="showAlerts(row.id)">Show</button>
+
+            </div>
             <div *ngFor="let alert of row.alerts">{{alert.alert}}</div>
           </div>
         </ng-template>

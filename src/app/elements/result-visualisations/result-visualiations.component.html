@@ -1,11 +1,19 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-bar-chart></app-bar-chart>
+<!--<div *ngIf="showChart; else elseShowBlock">-->
+  <h3>Result Visualizations</h3>
+  <button class="btn btn-info" (click)="toggleshowChart()">Hide Visualizations</button>
+  <div class="row">
+    <div class="col-md-12">
+      <app-bar-chart></app-bar-chart>
+    </div>
+    <div class="col-md-12">
+      <app-line-chart></app-line-chart>
+    </div>
+    <!--<div class="col-md-12">
+      <app-pie-chart></app-pie-chart>
+    </div>-->
   </div>
-  <div class="col-md-12">
-    <app-line-chart></app-line-chart>
-  </div>
-  <div class="col-md-12">
-    <app-pie-chart></app-pie-chart>
-  </div>
-</div>
+<!--</div>
+<ng-template #elseShowBlock>
+  <button class="btn btn-info" (click)="toggleshowChart()">Show Visualizations</button>
+</ng-template>
+-->

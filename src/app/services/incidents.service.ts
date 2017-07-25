@@ -9,6 +9,7 @@ import * as _ from "lodash";
 export class IncidentsService {
 
   url: string = 'http://localhost:9200/incidents/incident/_search';
+  postDataLinechart: any;
 
   postData: any = {
     "size": 10000,
@@ -68,11 +69,13 @@ export class IncidentsService {
   private subjectfromTable2Map = new Subject<any>();
   private subjectfromMap2Table = new Subject<any>();
   private subjectfromMap2Table4Reports = new Subject<any>();
-  private subjectfromTable2LineChart = new Subject<any>();
+  private subjectfromMap2Table4Alerts = new Subject<any>();
+  private subjectfromTable2LineChart = new BehaviorSubject<any>({"empty": "empty"});
   private subjectfromFilter2Table = new Subject<any>();
   private subjectOnInitTypesOfIncident = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
+  incidentLineChart$: Observable<any> = this.subjectfromTable2LineChart.asObservable();
   mapTableCommunication$: Observable<any> = this.subjectMapTable.asObservable();
   private searchTerm: String = null;
   private startDate: number = null;
@@ -463,14 +466,23 @@ export class IncidentsService {
   getMessagefromTable2Map4Reports(): Observable<any> {
     return this.subjectfromMap2Table4Reports.asObservable();
   }
+  sendMessagefromTable2Map4Alerts(id: any) {
+    this.subjectfromMap2Table4Alerts.next(id);
+  }
+
+  getMessagefromTable2Map4Alerts(): Observable<any> {
+    return this.subjectfromMap2Table4Alerts.asObservable();
+  }
 
   /*========================================================*/
   sendMessageFromFilter2Table(event: any) {
     this.subjectfromFilter2Table.next(event);
   }
-  getMessageFromFilter2Table():Observable<any> {
+
+  getMessageFromFilter2Table(): Observable<any> {
     return this.subjectfromFilter2Table.asObservable();
   }
+
   /*===================================================*/
   /*Input of search field*/
   sendMessageInputSearch(message: any): void {
@@ -488,8 +500,8 @@ export class IncidentsService {
       "endDate": null
     };
 
- //   console.log("startDate", startDate);
-  //  console.log("endDate", endDate);
+    //   console.log("startDate", startDate);
+    //  console.log("endDate", endDate);
     this.startDate = startDate;
     this.endDate = endDate;
     if ((startDate != null || startDate != 0) && (endDate != null || endDate != 0)) {
@@ -506,16 +518,31 @@ export class IncidentsService {
 
   /*===================================================*/
   /*Communication from table to linechart*/
-  sendMessageFromTable2lineChart(hit: any): Observable<any> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
 
-    let postDataLinechart = {
+  sendMessageFromTable2lineChart(hit: any) {
+   // console.log("sendMessageFromTable2lineChart", hit);
+    this.subjectfromTable2LineChart.next(hit);
+
+  }
+
+  getMessageFromTable2lineChart2(): Observable<any> {
+    return this.subjectfromTable2LineChart.asObservable();
+  }
+
+  getMessageFromTable2lineChart(hit: any): Observable<any> {
+  //  console.log("HIT:", hit);
+    // let headersLine = new Headers();
+    // headersLine.append('Content-Type', 'application/json');
+
+    let headersLine = new Headers({'Content-Type': 'application/json'}); // ... Set content type to JSON
+    let options = new RequestOptions({headers: headersLine}); // Create a request option
+
+
+    this.postDataLinechart = {
       "query": {
         "match": {
-          "id": hit._id
+          "_id": hit._id
         }
-
       },
       "aggs": {
         "incidents_per_month": {
@@ -526,6 +553,12 @@ export class IncidentsService {
             "incident_month": {
               "date_histogram": {
                 "field": "reports.src.created",
+                "interval": "month"
+              }
+            },
+            "incident_day": {
+              "date_histogram": {
+                "field": "reports.src.created",
                 "interval": "day"
               }
             }
@@ -534,20 +567,28 @@ export class IncidentsService {
       }
     };
 
-    return this.http.post(this.url, postDataLinechart, headers)
+   // console.log("postDataLinechart: ", this.postDataLinechart);
+
+    return this.http.post("http://localhost:9200/incidents/_search", JSON.stringify(this.postDataLinechart), options)
       .map(res => res.json())
-      .do(res => {
-      })
-      .do(res => {
-        // console.log("POST for Linechart ", res)
-      })
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error')) //...errors if
+      /*.do(res => {
+        console.log("POST for Linechart ", res);
+      })*/
       .do(incident => this.subjectfromTable2LineChart.next(incident));
+
   }
 
-  getMessageFromTable2LineChart(): Observable<any> {
-    return this.subjectfromTable2LineChart.asObservable();
-  }
-
+  /*
+   return this.http.post(this.url, postDataType, headers)
+   .map(res => res.json())
+   .do(res => {
+   console.log("from elasticsearch: ", res)
+   })
+   .do(incident => this.subject.next(incident));
+   // return this.subjectfromTable2LineChart.asObservable();
+   }
+   */
   onInitGetTypesOfIncident(postDataTypes) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

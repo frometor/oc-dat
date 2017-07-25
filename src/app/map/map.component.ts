@@ -17,7 +17,7 @@ import {Subscription} from "rxjs";
 })
 export class MapComponent implements OnInit {
 
-  height:number=400;
+  height: number = 400;
   bounds;
 
   message: any;
@@ -30,6 +30,7 @@ export class MapComponent implements OnInit {
   markerLayer;
   markerLayerGroup;
   reportsMarkerLayerGroup;
+  alertsPolygonLayerGroup;
   polygonLayerGroup;
   clickedMarker: any;
 
@@ -108,7 +109,11 @@ export class MapComponent implements OnInit {
 
         map.removeLayer(self.reportsMarkerLayerGroup);
         self.cd.markForCheck(); // forces redraw
+      }
+      if (self.alertsPolygonLayerGroup != null) {
 
+        map.removeLayer(self.alertsPolygonLayerGroup);
+        self.cd.markForCheck(); // forces redraw
       }
     });
 
@@ -116,12 +121,12 @@ export class MapComponent implements OnInit {
       data => {
         // EMPTY_SEARCH has a "reset" value
         if (data.hasOwnProperty("reset")) {
-          this.height=700;
+          this.height = 700;
           map.invalidateSize();
           this.cd.markForCheck(); // forces redraw
 
         } else {
-          this.height=400;
+          this.height = 400;
           map.invalidateSize();
           this.cd.markForCheck(); // forces redraw
         }
@@ -140,42 +145,88 @@ export class MapComponent implements OnInit {
         //this.cd.markForCheck(); // marks path
         let self = this;
 
-        //marker
+        //marker on click handler that shows reports
         this.markerLayerGroup.on("click", function (event) {
 
           if (self.reportsMarkerLayerGroup != null) {
             map.removeLayer(self.reportsMarkerLayerGroup);
-            // console.log("========================0");
-            //map.removeLayer(this.markerClusterGroup);
             self.cd.markForCheck(); // forces redraw
           }
+          if (self.alertsPolygonLayerGroup != null) {
+            map.removeLayer(self.alertsPolygonLayerGroup);
+            self.cd.markForCheck(); // forces redraw
+          }
+
           let reportText: String = "";
+          let alertText: String = "";
+          let swappedPolyCoords = [];
           let reportsPointsMarker: any[] = [];
+          let alertsPolygonMarker: any[] = [];
+
           let clickedMarker = event.layer;
           //   console.log("Clicked", clickedMarker);
+
           map.setView(clickedMarker._latlng, map.getZoom(), true);
+
+          //all incidents
           for (let i = 0; i < self.incidents.length; i++) {
+
+            //the clicked incident
             if (self.incidents[i]._id == clickedMarker.options.title) {
-              //  console.log("FOUNDFOUND", self.incidents[i]._source.reports);
+
+              //add marker for the reports to the map
               for (let j = 0; j < self.incidents[i]._source.reports.length; j++) {
-                // console.log("REPORTS!!!!!!!!", self.incidents[i]._source.reports[j]);
-                //  console.log("self.incidents[i]._source.reports[j].src.description", self.incidents[i]._source.reports[j].src.description);
                 reportText = self.incidents[i]._source.reports[j].src.description;
                 reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
                   icon: self.customIcon2,
                 }).bindPopup("Report: " + reportText));
-
               }
+
+              for (let k = 0; k < self.incidents[i]._source.alerts.length; k++) {
+                for (let h = 0; h < self.incidents[i]._source.alerts[k].geometry.coordinates.length; h++) {
+                  alertText = self.incidents[i]._source.alerts[k].event_type;
+                  swappedPolyCoords = self.swapPolyCoords(self.incidents[i]._source.alerts[k].geometry.coordinates);
+                  console.log("self.incidents[i]._source.alerts[k].geometry.coordinates", self.incidents[i]._source.alerts[k].geometry.coordinates);
+                  //alertsPolygonMarker.push(L.polygon([self.incidents[i]._source.alerts[k].geometry.coordinates]).bindPopup("alert: " + alertText))
+                  alertsPolygonMarker.push(L.polygon(swappedPolyCoords).bindPopup("alert: " + alertText))
+                }
+                /*  var polygon = L.polygon([
+                 [51.509, -0.08],
+                 [51.503, -0.06],
+                 [51.51, -0.047]
+                 ]).addTo(map);*/
+
+                console.log("FOUND ALERTS!", self.incidents[i]._source.alerts[k]);
+
+                /*  reportText = self.incidents[i]._source.reports[j].src.description;
+                 reportsPointsMarker.push(L.marker([self.incidents[i]._source.reports[j].src.location.coordinates[1], self.incidents[i]._source.reports[j].src.location.coordinates[0]], {
+                 icon: self.customIcon2,
+                 }).bindPopup("Report: " + reportText));*/
+              }
+
+
               self.reportsMarkerLayerGroup = L.featureGroup(reportsPointsMarker).on('click',
                 (data) => {
                   map.fitBounds(self.reportsMarkerLayerGroup.getBounds());
                 }).addTo(map);
+
+              self.alertsPolygonLayerGroup = L.featureGroup(alertsPolygonMarker).on('click',
+                (data) => {
+                  map.fitBounds(self.alertsPolygonLayerGroup.getBounds());
+                }).addTo(map);
+
             }
           }
+
           self.incidentService.sendMessageFromMap2Table(clickedMarker);
           self.cd.markForCheck(); // forces redraw
           map.invalidateSize();
         });
+
+        //Polygon
+        this.polygonLayerGroup.on("click", function (event) {
+          console.log("CLICKED POLYGON")
+        })
       }
     );
 
@@ -196,11 +247,11 @@ export class MapComponent implements OnInit {
       }
     });
 
+    // Show Reports on click from table
     this.subscriptionReports = this.incidentService.getMessagefromTable2Map4Reports().subscribe(message => {
 
       if (this.reportsMarkerLayerGroup != null) {
         map.removeLayer(this.reportsMarkerLayerGroup);
-        //map.removeLayer(this.markerClusterGroup);
         self.cd.markForCheck(); // forces redraw
       }
 
@@ -222,16 +273,63 @@ export class MapComponent implements OnInit {
           }
         }
       }
-
       this.reportsMarkerLayerGroup = L.featureGroup(reportsPointsMarker).on('click',
         (data) => {
           map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
         }).addTo(map);
-
       map.fitBounds(this.reportsMarkerLayerGroup.getBounds());
-      //   this.incidentService.sendMessageFromMap2Table(clickedMarker);
-      //this.cd.markForCheck(); // forces redraw
     });
+
+    // Show Alerts on click from table
+    this.subscriptionReports = this.incidentService.getMessagefromTable2Map4Alerts().subscribe(message => {
+      let swappedPolyCoords2 = [];
+
+      if (this.alertsPolygonLayerGroup != null) {
+        map.removeLayer(this.alertsPolygonLayerGroup);
+        self.cd.markForCheck(); // forces redraw
+      }
+
+      let alertsPolygonMarker: any[] = [];
+      let alertText: String = "";
+
+      this.messageReports = message;
+      for (let i = 0; i < this.incidents.length; i++) {
+        if (this.incidents[i]._id == message) {
+          console.log("FOUND!", this.incidents[i]._source.alerts);
+          for (let j = 0; j < this.incidents[i]._source.alerts.length; j++) {
+            console.log("FOUND!", this.incidents[i]._source.alerts[j]);
+
+            alertText = self.incidents[i]._source.alerts[j].event_type;
+
+            swappedPolyCoords2 = self.swapPolyCoords(self.incidents[i]._source.alerts[j].geometry.coordinates);
+            alertsPolygonMarker.push(L.polygon(swappedPolyCoords2).bindPopup("alert: " + alertText));
+          }
+        }
+      }
+      this.alertsPolygonLayerGroup = L.featureGroup(alertsPolygonMarker).on('click',
+        (data) => {
+          map.fitBounds(this.alertsPolygonLayerGroup.getBounds());
+        }).addTo(map);
+      map.fitBounds(this.alertsPolygonLayerGroup.getBounds());
+    });
+
+  }
+
+  private swapPolyCoords(coordinates) {
+    console.log("coordinates");
+
+    for (let m = 0; m < coordinates.length; m++) {
+      console.log("m:", coordinates[m]);
+      //points of polyline
+      for (let k = 0; k < coordinates[m].length; k++) {
+        console.log("m k:", coordinates[m][k]);
+        let tmp = coordinates[m][k][0];
+        coordinates[m][k][0] = coordinates[m][k][1];
+        coordinates[m][k][1] = tmp;
+      }
+
+    }
+    return coordinates;
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
@@ -249,7 +347,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.height=400;
+    this.height = 400;
 
   }
 
@@ -305,7 +403,6 @@ export class MapComponent implements OnInit {
 
       let thelatlong = {lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
 
-
       dataPointsMarker.push(L.marker(thelatlong, {
         icon: this.customIcon,
         title: incident.id
@@ -339,7 +436,6 @@ export class MapComponent implements OnInit {
     map.invalidateSize();
 
   }
-
 
 
 }

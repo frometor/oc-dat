@@ -5,6 +5,7 @@ import {
 import {Observable, Observer, Subscription} from "rxjs";
 import * as _ from "lodash";
 import {IncidentsService} from "../../services/incidents.service";
+import {RequestOptions, Headers, Http} from "@angular/http";
 
 @Component({
   selector: 'app-result-table',
@@ -62,7 +63,7 @@ export class ResultTableComponent implements OnInit {
           this.showChart = true;
         }
         this.allIncidents = incidents;
-        this.fillColums(incidents,{"name":"all"});
+        this.fillColums(incidents, {"name": "all"});
         //this.cd.markForCheck(); // marks path
       }
     );
@@ -96,14 +97,14 @@ export class ResultTableComponent implements OnInit {
 
 
       /* TODO: show all or show specified month/day from filterObject
-      switch(filterObject.name) {
-        case "all":
-          code block
-          break;
-        default:
-        {console.log("ERROR")}
-      }
-      */
+       switch(filterObject.name) {
+       case "all":
+       code block
+       break;
+       default:
+       {console.log("ERROR")}
+       }
+       */
       rowReports = [];
       rowAlerts = [];
 
@@ -111,8 +112,13 @@ export class ResultTableComponent implements OnInit {
 
       //REPORTS
       for (let i = 0; i < incidentRow._source.reports.length; i++) {
-        if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
-          rowReports.push({"report": incidentRow._source.reports[i].src.description});
+        //if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
+        if ((incidentRow._source.reports[i].src.description != null)) {
+          if (incidentRow._source.reports[i].src.description == "") {
+            rowReports.push({"report": "no description"});
+          } else {
+            rowReports.push({"report": incidentRow._source.reports[i].src.description});
+          }
         }
       }
 
@@ -122,7 +128,6 @@ export class ResultTableComponent implements OnInit {
           rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + "| Note: " + incidentRow._source.alerts[i].note});
         }
       }
-
 
       let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
       //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
@@ -136,7 +141,8 @@ export class ResultTableComponent implements OnInit {
         "alerts": rowAlerts,
         "numberOfReports": rowReports.length,
         "numberOfAlerts": rowAlerts.length,
-        "theft": incidentRow._source.theft
+        "theft": incidentRow._source.theft,
+        //"score"
       });
 
       // console.log("REPORTS", this.rows);
@@ -148,19 +154,16 @@ export class ResultTableComponent implements OnInit {
   }
 
   onSelect(event) {
-    //console.log('Event: select', event, this.selected);
+
+    console.log('Event: select', event, this.selected);
     this.incidentService.sendMessageFromTable2Map(event);
-    // console.log("RESULT TABLE: SEND MESSAGE", event);
-    //   console.log("RESULT TABLE: this.allIncidents[i]", this.allIncidents);
     if ((event.selected.length != 0) && (event.selected != 0)) {
       for (let i = 0; i < this.allIncidents.hits.hits.length; i++) {
         if (event.selected[0].id == this.allIncidents.hits.hits[i]._id) {
-          this.incidentService.sendMessageFromTable2lineChart(this.allIncidents.hits.hits[i])
-            .subscribe((data) => {
-
-              //     console.log("FOUND!");
+          this.incidentService.getMessageFromTable2lineChart(this.allIncidents.hits.hits[i]).subscribe(
+            data => {
+              this.incidentService.sendMessageFromTable2lineChart(data);
             });
-
         }
       }
     } else {
@@ -180,6 +183,10 @@ export class ResultTableComponent implements OnInit {
   showReports(id) {
     console.log("ID:", id);
     this.incidentService.sendMessagefromTable2Map4Reports(id);
+  }
+  showAlerts(id) {
+    console.log("ID:", id);
+    this.incidentService.sendMessagefromTable2Map4Alerts(id);
   }
 
   onPage(event) {

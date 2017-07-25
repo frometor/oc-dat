@@ -1,7 +1,7 @@
 import {Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
-//import {single, multi} from '../../data/result-data';
 import {IncidentsService} from "../../../services/incidents.service";
 import {Subscription} from "rxjs";
+
 
 @Component({
   selector: 'app-line-chart',
@@ -12,12 +12,9 @@ import {Subscription} from "rxjs";
 })
 export class LineChartComponent implements OnInit {
 
-  message: any;
-  subscription: Subscription;
-  multi: any = [];
+  buckets: any = [];
+  incidentValues: any = [];
 
-
-  single: any[];
   view: any[];
 
   // options
@@ -26,95 +23,47 @@ export class LineChartComponent implements OnInit {
   gradient = false;
   showLegend = false;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Date';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'Number of Reports';
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  // line, area
-  autoScale = true;
-
-  constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
-    // Object.assign(this, {single, multi});
+   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
   }
+
 
   ngOnInit(): void {
-    this.subscription = this.incidentService.getMessageFromTable2LineChart().subscribe(message => {
-      this.multi = [{
-        "name": "Reports",
-        "series": []
-      }];
-      this.message = message;
-      /*console.log("Line Chart: GET MESSAGE", this.message);
-      for (let i = 0; i < this.message._source.reports.length; i++) {*/
-      /*  console.log("Reports: ", this.message._source.reports[i]);
-        let theData = new Date(this.message._source.reports[i].src.created);
-        this.multi[0].series.push({
-          "name": theData,
-          "value":1000
-        })*/
-    /*  }
-      //._source.reports["0"].src.created
-      this.cd.markForCheck(); // marks path
-      console.log("multi", this.multi);
-      */
-    });
+    this.incidentService.getMessageFromTable2lineChart2().subscribe(
+      data => {
+        // console.log("LINECHART", data);
+        if (!data.hasOwnProperty("empty") && data != null) {
+          // console.log("HEJA", data);
+          this.fillColums(data);
+        } else {
+         // console.log("empty");
+        }
+
+      }
+    )
   }
-
-  /*
-   [
-   {
-   "name": "Germany",
-   "series": [
-   {
-   "name": "2010",
-   "value": 7300000
-   },
-   {
-   "name": "2011",
-   "value": 8940000
-   }
-   ]
-   },
-
-   {
-   "name": "USA",
-   "series": [
-   {
-   "name": "2010",
-   "value": 7870000
-   },
-   {
-   "name": "2011",
-   "value": 8270000
-   }
-   ]
-   },
-
-   {
-   "name": "France",
-   "series": [
-   {
-   "name": "2010",
-   "value": 5000002
-   },
-   {
-   "name": "2011",
-   "value": 5800000
-   }
-   ]
-   }
-   ];
-   * */
-
 
   onSelect(event) {
     console.log(event);
-
-
   }
 
+  private fillColums(incidents: any) {
+    this.buckets = [];
+    //console.log("incidents: ", incidents.aggregations.incidents_per_month.incident_day.buckets);
+    for (let i = 0; i < incidents.aggregations.incidents_per_month.incident_day.buckets.length; i++) {
+      this.buckets.push({
+        "name": new Date(incidents.aggregations.incidents_per_month.incident_day.buckets[i].key * 1000),
+        "value": incidents.aggregations.incidents_per_month.incident_day.buckets[i].doc_count
+      })
+    }
+  //  console.log("buckets", this.buckets);
+    this.cd.markForCheck(); // marks path
+  }
 }
