@@ -35,7 +35,7 @@ export class BarChartComponent implements OnInit {
   showLegend = false;
   showXAxisLabel = true;
   xAxisLabel = 'Type of Incident';
-  showYAxisLabel = true;
+  showYAxisLabel = false;
   yAxisLabel = 'Amount';
 
   colorScheme = {

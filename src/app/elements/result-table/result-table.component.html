@@ -1,4 +1,6 @@
 <div *ngIf="showChart; else elseShowBlock">
+  <button class="btn btn-info" (click)="toggleShowtable()">Hide Table</button>
+  <button class="btn btn-info" (click)="selectARow()">Select Row</button>
   <div>
     <small>
       <a href="#" (click)="table.rowDetail.expandAllRows()">Expand All</a> |
@@ -89,5 +91,6 @@
 
 </div>
 <ng-template #elseShowBlock>
+  <button class="btn btn-info" (click)="toggleShowtable()">Show Table</button>
 
 </ng-template>

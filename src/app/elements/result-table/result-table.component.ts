@@ -5,7 +5,6 @@ import {
 import {Observable, Observer, Subscription} from "rxjs";
 import * as _ from "lodash";
 import {IncidentsService} from "../../services/incidents.service";
-import {RequestOptions, Headers, Http} from "@angular/http";
 
 @Component({
   selector: 'app-result-table',
@@ -33,11 +32,7 @@ export class ResultTableComponent implements OnInit {
   allIncidents: any;
   allIncidents$: Observable<any>;
   selected: any[] = [];
-  columns: any[] = [
-    {prop: 'state'},
-    {prop: 'types'},
-    {prop: 'id'}
-  ];
+
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
     // this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => { this.message = message; console.log("message",message)});
@@ -72,6 +67,8 @@ export class ResultTableComponent implements OnInit {
       console.log("messageMonth", messageMonth);
       if (messageMonth.name != "all") {
         console.log("SHOW SOMETHING", messageMonth);
+        let messageM = _.cloneDeep(messageMonth);
+        this.fillColums(this.allIncidents, messageM);
       } else {
         console.log("SHOW EVERYTHING", messageMonth);
       }
@@ -84,69 +81,134 @@ export class ResultTableComponent implements OnInit {
   }
 
   private fillColums(mAllIncidents: any, filterObject) {
-
+    console.log("fillColums", filterObject);
     let incidentTypes;
-    let incidentReports;
     let rowReports;
     let rowAlerts;
-
+    let filteredValue;
     this.allIncidents = mAllIncidents;
     this.rows = [];
 
     for (let incidentRow of this.allIncidents.hits.hits) {
 
+      if (filterObject.name == "all") {
+        console.log("NAME == ALL");
+        /* TODO: show all or show specified month/day from filterObject  */
+        rowReports = [];
+        rowAlerts = [];
 
-      /* TODO: show all or show specified month/day from filterObject
-       switch(filterObject.name) {
-       case "all":
-       code block
-       break;
-       default:
-       {console.log("ERROR")}
-       }
-       */
-      rowReports = [];
-      rowAlerts = [];
+        incidentTypes = _.map(incidentRow._source.types, 'type').join(', ');
 
-      incidentTypes = _.map(incidentRow._source.types, 'type').join(', ');
-
-      //REPORTS
-      for (let i = 0; i < incidentRow._source.reports.length; i++) {
-        //if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
-        if ((incidentRow._source.reports[i].src.description != null)) {
-          if (incidentRow._source.reports[i].src.description == "") {
-            rowReports.push({"report": "no description"});
-          } else {
-            rowReports.push({"report": incidentRow._source.reports[i].src.description});
+        //REPORTS
+        for (let i = 0; i < incidentRow._source.reports.length; i++) {
+          //if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
+          if ((incidentRow._source.reports[i].src.description != null)) {
+            if (incidentRow._source.reports[i].src.description == "") {
+              rowReports.push({"report": "no description"});
+            } else {
+              rowReports.push({"report": incidentRow._source.reports[i].src.description});
+            }
           }
         }
-      }
 
-      //ALERTS
-      for (let i = 0; i < incidentRow._source.alerts.length; i++) {
-        if ((incidentRow._source.alerts[i] != null) && (incidentRow._source.reports[i] != "")) {
-          rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + "| Note: " + incidentRow._source.alerts[i].note});
+        //ALERTS
+        for (let i = 0; i < incidentRow._source.alerts.length; i++) {
+          if ((incidentRow._source.alerts[i] != null) && (incidentRow._source.reports[i] != "")) {
+            rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + " | Note: " + incidentRow._source.alerts[i].note});
+          }
         }
+
+        let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
+        //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+
+        this.rows.push({
+          "state": incidentRow._source.state,
+          "types": incidentTypes,
+          "date": incidentDate,
+          "id": incidentRow._source.id,
+          "reports": rowReports,
+          "alerts": rowAlerts,
+          "numberOfReports": rowReports.length,
+          "numberOfAlerts": rowAlerts.length,
+          "theft": incidentRow._source.theft,
+          //"score"
+        });
+
+        // console.log("REPORTS", this.rows);
+
+      } else {
+        //console.log("filterObject", filterObject);
+
+        switch (filterObject.name) {
+          case "Sunday":
+            filteredValue = 0;
+            break;
+          case "Monday":
+            filteredValue = 1;
+            break;
+          case "Tuesday":
+            filteredValue = 2;
+            break;
+          case "Wednesday":
+            filteredValue = 3;
+            break;
+          case "Thursday":
+            filteredValue = 4;
+            break;
+          case "Friday":
+            filteredValue = 5;
+            break;
+          case "Saturday":
+            filteredValue = 6;
+            break;
+          default:
+        }
+        let incidentDateFilter = new Date(incidentRow._source.reports[0].src.created * 1000).getDay();
+        if (incidentDateFilter == filteredValue) {
+          console.log("YEAH", incidentDateFilter);
+          rowReports = [];
+          rowAlerts = [];
+
+          incidentTypes = _.map(incidentRow._source.types, 'type').join(', ');
+
+          //REPORTS
+          for (let i = 0; i < incidentRow._source.reports.length; i++) {
+            //if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
+            if ((incidentRow._source.reports[i].src.description != null)) {
+              if (incidentRow._source.reports[i].src.description == "") {
+                rowReports.push({"report": "no description"});
+              } else {
+                rowReports.push({"report": incidentRow._source.reports[i].src.description});
+              }
+            }
+          }
+
+          //ALERTS
+          for (let i = 0; i < incidentRow._source.alerts.length; i++) {
+            if ((incidentRow._source.alerts[i] != null) && (incidentRow._source.reports[i] != "")) {
+              rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + " | Note: " + incidentRow._source.alerts[i].note});
+            }
+          }
+
+          let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
+          //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+
+          this.rows.push({
+            "state": incidentRow._source.state,
+            "types": incidentTypes,
+            "date": incidentDate,
+            "id": incidentRow._source.id,
+            "reports": rowReports,
+            "alerts": rowAlerts,
+            "numberOfReports": rowReports.length,
+            "numberOfAlerts": rowAlerts.length,
+            "theft": incidentRow._source.theft,
+            //"score"
+          });
+
+        }
+
       }
-
-      let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
-      //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
-
-      this.rows.push({
-        "state": incidentRow._source.state,
-        "types": incidentTypes,
-        "date": incidentDate,
-        "id": incidentRow._source.id,
-        "reports": rowReports,
-        "alerts": rowAlerts,
-        "numberOfReports": rowReports.length,
-        "numberOfAlerts": rowAlerts.length,
-        "theft": incidentRow._source.theft,
-        //"score"
-      });
-
-      // console.log("REPORTS", this.rows);
-
     }
 
     this.cd.markForCheck(); // marks path
@@ -173,17 +235,19 @@ export class ResultTableComponent implements OnInit {
   }
 
   singleSelectCheck(row: any) {
+    console.log("ROW", row);
     return this.selected.indexOf(row) === -1;
   }
 
   onActivate(event) {
-    //  console.log('Event: activate', event);
+    console.log('Event: activate', event);
   }
 
   showReports(id) {
     console.log("ID:", id);
     this.incidentService.sendMessagefromTable2Map4Reports(id);
   }
+
   showAlerts(id) {
     console.log("ID:", id);
     this.incidentService.sendMessagefromTable2Map4Alerts(id);
@@ -196,14 +260,40 @@ export class ResultTableComponent implements OnInit {
     }, 100);
   }
 
+  toggleShowtable() {
+    this.showChart = !this.showChart;
+  }
+
   toggleExpandRow(row) {
     //  console.log('Toggled Expand Row!', row);
     this.table.rowDetail.toggleExpandRow(row);
+  }
+
+  getSelectedIx() {
+    // selected: any[] = [];
+    return this.selected[0]['$$index'];
   }
 
   onDetailToggle(event) {
     //  console.log('Detail Toggled', event);
   }
 
+  getRowClass(row) {
+    console.log("getRowClass", row);
+    // return { 'important-row': "background-color",};
+  }
+
+  selectARow() {
+    this.selected = [{"$$index": 0}];
+    //this.onSelect({"$$index": 0});
+    this.onPage([{"$$index": 0}]);
+    this.onActivate([{"$$index": 0}]);
+    this.singleSelectCheck([{"$$index": 0}]);
+    // return this.selected.indexOf(row) === -1;
+    // this.singleSelectCheck({"$$index": 0});
+    this.cd.markForCheck(); // marks path
+    // this.table.refresh();
+    console.log("selectARow");
+  }
 
 }

@@ -6,3 +6,11 @@
   width: 100% !important;
 }
 
+.ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-left, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-skip, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-right, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-prev {
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0 3px;
+}
+.col-md-2{
+  padding:0;
+}
