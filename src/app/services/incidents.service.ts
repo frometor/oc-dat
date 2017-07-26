@@ -72,6 +72,7 @@ export class IncidentsService {
   private subjectfromMap2Table4Alerts = new Subject<any>();
   private subjectfromTable2LineChart = new BehaviorSubject<any>({"empty": "empty"});
   private subjectfromFilter2Table = new Subject<any>();
+  private subjectfromFilter2Map = new Subject<any>();
   private subjectOnInitTypesOfIncident = new Subject<any>();
 
   incidents$: Observable<any> = this.subject.asObservable();
@@ -466,6 +467,7 @@ export class IncidentsService {
   getMessagefromTable2Map4Reports(): Observable<any> {
     return this.subjectfromMap2Table4Reports.asObservable();
   }
+
   sendMessagefromTable2Map4Alerts(id: any) {
     this.subjectfromMap2Table4Alerts.next(id);
   }
@@ -481,6 +483,15 @@ export class IncidentsService {
 
   getMessageFromFilter2Table(): Observable<any> {
     return this.subjectfromFilter2Table.asObservable();
+  }
+
+  // sendMessageFromFilter2Map(param: [any, {name: string}]) {
+  sendMessageFromFilter2Map(event: any) {
+    this.subjectfromFilter2Map.next(event);
+  }
+
+  getMessageFromFilter2Map(): Observable<any> {
+    return this.subjectfromFilter2Map.asObservable();
   }
 
   /*===================================================*/
@@ -520,7 +531,7 @@ export class IncidentsService {
   /*Communication from table to linechart*/
 
   sendMessageFromTable2lineChart(hit: any) {
-   // console.log("sendMessageFromTable2lineChart", hit);
+    // console.log("sendMessageFromTable2lineChart", hit);
     this.subjectfromTable2LineChart.next(hit);
 
   }
@@ -530,7 +541,7 @@ export class IncidentsService {
   }
 
   getMessageFromTable2lineChart(hit: any): Observable<any> {
-  //  console.log("HIT:", hit);
+    //  console.log("HIT:", hit);
     // let headersLine = new Headers();
     // headersLine.append('Content-Type', 'application/json');
 
@@ -567,14 +578,14 @@ export class IncidentsService {
       }
     };
 
-   // console.log("postDataLinechart: ", this.postDataLinechart);
+    // console.log("postDataLinechart: ", this.postDataLinechart);
 
     return this.http.post("http://localhost:9200/incidents/_search", JSON.stringify(this.postDataLinechart), options)
       .map(res => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error')) //...errors if
       /*.do(res => {
-        console.log("POST for Linechart ", res);
-      })*/
+       console.log("POST for Linechart ", res);
+       })*/
       .do(incident => this.subjectfromTable2LineChart.next(incident));
 
   }
@@ -602,5 +613,4 @@ export class IncidentsService {
       })
       .do(incident => this.subjectOnInitTypesOfIncident.next(incident));
   }
-
 }

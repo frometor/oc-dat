@@ -71,12 +71,12 @@
           <strong>{{row.date | date: 'MM/dd/yyyy' }}</strong>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="#Reports" width="80">
+      <ngx-datatable-column name="#Reports" width="50">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <strong>{{row.numberOfReports }}</strong>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="#Alerts" width="80">
+      <ngx-datatable-column name="#Alerts" width="50">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <strong>{{row.numberOfAlerts }}</strong>
         </ng-template>
@@ -86,6 +86,16 @@
           <strong>{{row.theft }}</strong>
         </ng-template>
       </ngx-datatable-column>
+      <ngx-datatable-column name="Score" width="50">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <strong>{{row.score}}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+      <!--<ngx-datatable-column name="Score" width="80">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <strong>{{row.theft }}</strong>
+        </ng-template>
+      </ngx-datatable-column>-->
     </ngx-datatable>
   </div>
 

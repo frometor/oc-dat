@@ -58,19 +58,25 @@ export class ResultTableComponent implements OnInit {
           this.showChart = true;
         }
         this.allIncidents = incidents;
-        this.fillColums(incidents, {"name": "all"});
+        this.fillColums(incidents, [{"name": "all"}]);
         //this.cd.markForCheck(); // marks path
       }
     );
 
     this.subscriptionMonthly = this.incidentService.getMessageFromFilter2Table().subscribe(messageMonth => {
       console.log("messageMonth", messageMonth);
-      if (messageMonth.name != "all") {
-        console.log("SHOW SOMETHING", messageMonth);
+      if (messageMonth[1].name == "day") {
+        //console.log("SHOW daily", messageMonth);
+        let messageM = _.cloneDeep(messageMonth);
+        this.fillColums(this.allIncidents, messageM);
+      } else if (messageMonth[1].name == "month") {
+        // console.log("SHOW monthly", messageMonth);
         let messageM = _.cloneDeep(messageMonth);
         this.fillColums(this.allIncidents, messageM);
       } else {
-        console.log("SHOW EVERYTHING", messageMonth);
+        //  console.log("SHOW EVERYTHING", messageMonth);
+        let messageM = _.cloneDeep(messageMonth);
+        this.fillColums(this.allIncidents, messageM);
       }
     });
   }
@@ -81,7 +87,7 @@ export class ResultTableComponent implements OnInit {
   }
 
   private fillColums(mAllIncidents: any, filterObject) {
-    console.log("fillColums", filterObject);
+    // console.log("fillColums", filterObject);
     let incidentTypes;
     let rowReports;
     let rowAlerts;
@@ -91,9 +97,8 @@ export class ResultTableComponent implements OnInit {
 
     for (let incidentRow of this.allIncidents.hits.hits) {
 
-      if (filterObject.name == "all") {
-        console.log("NAME == ALL");
-        /* TODO: show all or show specified month/day from filterObject  */
+      if (filterObject[0].name == "all") {
+        //   console.log("NAME == ALL");
         rowReports = [];
         rowAlerts = [];
 
@@ -120,6 +125,7 @@ export class ResultTableComponent implements OnInit {
 
         let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
         //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+        console.log("incidentRow", incidentRow);
 
         this.rows.push({
           "state": incidentRow._source.state,
@@ -131,15 +137,15 @@ export class ResultTableComponent implements OnInit {
           "numberOfReports": rowReports.length,
           "numberOfAlerts": rowAlerts.length,
           "theft": incidentRow._source.theft,
-          //"score"
+          "score": incidentRow._score
         });
 
         // console.log("REPORTS", this.rows);
 
-      } else {
+      } else if (filterObject[1].name == "day") {
         //console.log("filterObject", filterObject);
 
-        switch (filterObject.name) {
+        switch (filterObject[0].name) {
           case "Sunday":
             filteredValue = 0;
             break;
@@ -165,7 +171,7 @@ export class ResultTableComponent implements OnInit {
         }
         let incidentDateFilter = new Date(incidentRow._source.reports[0].src.created * 1000).getDay();
         if (incidentDateFilter == filteredValue) {
-          console.log("YEAH", incidentDateFilter);
+          // console.log("YEAH", incidentDateFilter);
           rowReports = [];
           rowAlerts = [];
 
@@ -192,6 +198,95 @@ export class ResultTableComponent implements OnInit {
 
           let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
           //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+          console.log("incidentRow", incidentRow);
+          this.rows.push({
+            "state": incidentRow._source.state,
+            "types": incidentTypes,
+            "date": incidentDate,
+            "id": incidentRow._source.id,
+            "reports": rowReports,
+            "alerts": rowAlerts,
+            "numberOfReports": rowReports.length,
+            "numberOfAlerts": rowAlerts.length,
+            "theft": incidentRow._source.theft,
+            "score": incidentRow._score
+          });
+
+        }
+
+      } else if (filterObject[1].name == "month") {
+
+        //console.log("filterObject", filterObject);
+
+        switch (filterObject[0].name) {
+          case "January":
+            filteredValue = 0;
+            break;
+          case "February":
+            filteredValue = 1;
+            break;
+          case "March":
+            filteredValue = 2;
+            break;
+          case "April":
+            filteredValue = 3;
+            break;
+          case "May":
+            filteredValue = 4;
+            break;
+          case "June":
+            filteredValue = 5;
+            break;
+          case "July":
+            filteredValue = 6;
+            break;
+          case "August":
+            filteredValue = 7;
+            break;
+          case "September":
+            filteredValue = 8;
+            break;
+          case "October":
+            filteredValue = 9;
+            break;
+          case "November":
+            filteredValue = 10;
+            break;
+          case "December":
+            filteredValue = 11;
+            break;
+          default:
+        }
+        let incidentDateFilter = new Date(incidentRow._source.reports[0].src.created * 1000).getMonth();
+        if (incidentDateFilter == filteredValue) {
+          // console.log("YEAH", incidentDateFilter);
+          rowReports = [];
+          rowAlerts = [];
+
+          incidentTypes = _.map(incidentRow._source.types, 'type').join(', ');
+
+          //REPORTS
+          for (let i = 0; i < incidentRow._source.reports.length; i++) {
+            //if ((incidentRow._source.reports[i].src.description != null) && (incidentRow._source.reports[i].src.description != "")) {
+            if ((incidentRow._source.reports[i].src.description != null)) {
+              if (incidentRow._source.reports[i].src.description == "") {
+                rowReports.push({"report": "no description"});
+              } else {
+                rowReports.push({"report": incidentRow._source.reports[i].src.description});
+              }
+            }
+          }
+
+          //ALERTS
+          for (let i = 0; i < incidentRow._source.alerts.length; i++) {
+            if ((incidentRow._source.alerts[i] != null) && (incidentRow._source.reports[i] != "")) {
+              rowAlerts.push({"alert": "Event Type: " + incidentRow._source.alerts[i].event_type + " | Note: " + incidentRow._source.alerts[i].note});
+            }
+          }
+
+          let incidentDate = new Date(incidentRow._source.reports[0].src.created * 1000);
+          //  let incidentDataString = incidentDate.getDate() + "." + (incidentDate.getMonth() + 1) + "." + incidentDate.getFullYear();
+          console.log("incidentRow", incidentRow);
 
           this.rows.push({
             "state": incidentRow._source.state,
@@ -203,12 +298,13 @@ export class ResultTableComponent implements OnInit {
             "numberOfReports": rowReports.length,
             "numberOfAlerts": rowAlerts.length,
             "theft": incidentRow._source.theft,
-            //"score"
+            "score": incidentRow._score
           });
 
         }
 
       }
+
     }
 
     this.cd.markForCheck(); // marks path

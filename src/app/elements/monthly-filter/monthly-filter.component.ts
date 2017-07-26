@@ -206,21 +206,14 @@ export class MonthlyFilterComponent implements OnInit {
     }
     // console.log("this.monthValues ",this.monthValues );
     this.cd.markForCheck(); // forces redraw of component
-
   }
 
   fillColumsDaily(incidents: any) {
-// console.log("fillCOlumns Monthly filter", incidents);
     this.dayValues = _.cloneDeep(this.EMPTY_DAY_VALUES);
     let incidentDate;
     for (let i = 0; i < incidents.length; i++) {
       if (incidents[i]._source.reports[0] != null && incidents[i]._source.reports[0].src.created != null) {
-        //console.log("Single incident", incidents[i]._source.reports[0]);
-        //console.log("Single incident", incidents[i]._source.reports[0].src.created);
-        incidentDate = new Date(incidents[i]._source.reports[0].src.created * 1000).getDay();
-
-        //  console.log("1 incidentDate: ",  new Date(incidents[i]._source.reports[0].src.created));
-        // console.log("2 incidentDate: ", incidentDate);
+              incidentDate = new Date(incidents[i]._source.reports[0].src.created * 1000).getDay();
 
         switch (incidentDate) {
           case 0:
@@ -262,20 +255,25 @@ export class MonthlyFilterComponent implements OnInit {
   }
 
   showAllIncidents() {
-    this.incidentService.sendMessageFromFilter2Table({"name": "all"});
-
-    //this.incidentService.sendALLIncidentsFromFilterToTable();
+    this.incidentService.sendMessageFromFilter2Table([{"name": "all"}, {"name": "all"}]);
   }
 
   onSelectMonth(event) {
     console.log(event);
-    this.incidentService.sendMessageFromFilter2Table(event);
+    this.incidentService.sendMessageFromFilter2Table([event, {"name": "month"}]);
+    this.incidentService.sendMessageFromFilter2Map([event, {"name": "month"}]);
+   /*this.mcolorScheme = {
+      domain: ['#ffffff', '#A10A28', '#C7B42C', '#AAAAAA']
+    };*/
   }
 
   onSelectDay(event) {
     console.log(event);
-    this.incidentService.sendMessageFromFilter2Table(event);
-
+    this.incidentService.sendMessageFromFilter2Table([event, {"name": "day"}]);
+    this.incidentService.sendMessageFromFilter2Map([event, {"name": "day"}]);
+    /*this.dcolorScheme = {
+      domain: ['#000000', '#A10A28', '#C7B42C', '#AAAAAA']
+    };*/
   }
 
 }

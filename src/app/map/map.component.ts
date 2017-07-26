@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
   subscription: Subscription;
   messageReports: any;
   subscriptionReports: Subscription;
+  subscriptionMonthly: Subscription;
 
   communicationTableMap: any;
   //markerGroup
@@ -33,6 +34,8 @@ export class MapComponent implements OnInit {
   reportsMarkerLayerGroup;
   alertsPolygonLayerGroup;
   polygonLayerGroup;
+  filteredValue:any;
+  filteredIncidents:any[] = [];
   clickedMarker: any;
 
   // Marker cluster stuff
@@ -135,7 +138,7 @@ export class MapComponent implements OnInit {
         } else {
           //this.height = 1000;
           map.invalidateSize();
-         // this.cd.markForCheck(); // forces redraw
+          // this.cd.markForCheck(); // forces redraw
         }
         if (this.reportsMarkerLayerGroup != null) {
           map.removeLayer(this.reportsMarkerLayerGroup);
@@ -143,11 +146,11 @@ export class MapComponent implements OnInit {
         }
         if (this.singleMarkerLayerGroup != null) {
           map.removeLayer(this.singleMarkerLayerGroup);
-         // this.cd.markForCheck(); // forces redraw
+          // this.cd.markForCheck(); // forces redraw
         }
         if (this.alertsPolygonLayerGroup != null) {
           map.removeLayer(this.alertsPolygonLayerGroup);
-       //   this.cd.markForCheck(); // forces redraw
+          //   this.cd.markForCheck(); // forces redraw
         }
         // console.log("data:", data);
         if (this.markerLayerGroup != null) {
@@ -407,6 +410,118 @@ export class MapComponent implements OnInit {
       map.fitBounds(this.alertsPolygonLayerGroup.getBounds());
     });
 
+    this.subscriptionMonthly = this.incidentService.getMessageFromFilter2Map().subscribe(messageMonth => {
+     // console.log("messageMonth", messageMonth);
+     // console.log("INCIDENTS", this.incidents);
+      let messageM = _.cloneDeep(messageMonth);
+
+
+      if (messageM[1].name == "day") {
+        this.filteredValue=-1;
+        this.filteredIncidents = [];
+        switch (messageM[0].name) {
+          case "Sunday":
+            this.filteredValue = 0;
+            break;
+          case "Monday":
+            this.filteredValue = 1;
+            break;
+          case "Tuesday":
+            this.filteredValue = 2;
+            break;
+          case "Wednesday":
+            this.filteredValue = 3;
+            break;
+          case "Thursday":
+            this.filteredValue = 4;
+            break;
+          case "Friday":
+            this.filteredValue = 5;
+            break;
+          case "Saturday":
+            this.filteredValue = 6;
+            break;
+          default:
+        }
+      //  console.log("filteredValue:", filteredValue);
+        for (let i = 0; i < this.incidents.length; i++) {
+        //  console.log(this.incidents[i]._source.reports["0"].src.created);
+        //  console.log(new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay());
+          if (new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay() == this.filteredValue) {
+         //   console.log("SAME DAY");
+            this.filteredIncidents.push(this.incidents[i]);
+          }
+        }
+       // console.log("filteredIncidents", filteredIncidents);
+        //["0"]._source.reports["0"].src.created
+     //   console.log("SHOW daily", messageMonth);
+        //let messageM = _.cloneDeep(messageMonth);
+        this.drawMarker(this.filteredIncidents, map);
+
+      } else if (messageM[1].name == "month") {
+
+        switch (messageM[0].name) {
+          case "January":
+            this.filteredValue = 0;
+            break;
+          case "February":
+            this.filteredValue = 1;
+            break;
+          case "March":
+            this.filteredValue = 2;
+            break;
+          case "April":
+            this.filteredValue = 3;
+            break;
+          case "May":
+            this.filteredValue = 4;
+            break;
+          case "June":
+            this.filteredValue = 5;
+            break;
+          case "July":
+            this.filteredValue = 6;
+            break;
+          case "August":
+            this.filteredValue = 7;
+            break;
+          case "September":
+            this.filteredValue = 8;
+            break;
+          case "October":
+            this.filteredValue = 9;
+            break;
+          case "November":
+            this.filteredValue = 10;
+            break;
+          case "December":
+            this.filteredValue = 11;
+            break;
+          default:
+        }
+
+      //  console.log("filteredValue:", filteredValue);
+        for (let i = 0; i < this.incidents.length; i++) {
+      //    console.log(this.incidents[i]._source.reports["0"].src.created);
+        //  console.log(new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay());
+          if (new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getMonth() == this.filteredValue) {
+      //      console.log("SAME DAY");
+            this.filteredIncidents.push(this.incidents[i]);
+          }
+        }
+
+       // console.log("SHOW monthly", messageMonth);
+        // let messageM = _.cloneDeep(messageMonth);
+        this.drawMarker(this.filteredIncidents, map);
+
+      } else {
+      //  console.log("SHOW EVERYTHING", messageMonth);
+       // let messageM = _.cloneDeep(messageMonth);
+        this.drawMarker(this.incidents, map);
+        // this.fillColums(this.allIncidents, messageM);
+      }
+    });
+
   }
 
   private swapPolyCoords(coordinates) {
@@ -421,7 +536,6 @@ export class MapComponent implements OnInit {
         coordinates[m][k][0] = coordinates[m][k][1];
         coordinates[m][k][1] = tmp;
       }
-
     }
     return coordinates;
   }
@@ -450,6 +564,29 @@ export class MapComponent implements OnInit {
     this.incidentPoints = [];
     this.incidentPolygons = [];
 
+    if (this.reportsMarkerLayerGroup != null) {
+      map.removeLayer(this.reportsMarkerLayerGroup);
+      this.cd.markForCheck(); // forces redraw
+    }
+    if (this.singleMarkerLayerGroup != null) {
+      map.removeLayer(this.singleMarkerLayerGroup);
+      // this.cd.markForCheck(); // forces redraw
+    }
+    if (this.alertsPolygonLayerGroup != null) {
+      map.removeLayer(this.alertsPolygonLayerGroup);
+      //   this.cd.markForCheck(); // forces redraw
+    }
+    // console.log("data:", data);
+    if (this.markerLayerGroup != null) {
+      map.removeLayer(this.markerLayerGroup);
+      //map.removeLayer(this.markerClusterGroup);
+      this.cd.markForCheck(); // forces redraw
+    }
+    if (this.polygonLayerGroup != null) {
+      map.removeLayer(this.polygonLayerGroup);
+      //this.cd.markForCheck(); // forces redraw
+    }
+
     for (let incidentP of incidents) {
       //console.log("incidentP: ", incidentP);
       //filter out points
@@ -459,6 +596,7 @@ export class MapComponent implements OnInit {
       else if (!(incidentP._source.hasOwnProperty("types"))) {
         // console.log("type is missing");
       }
+      //checks whether the incidentP is a point or a polygon
       else if (incidentP._source.location.type == "Point" && incidentP._source.types[0] != null) {
         this.incidentPoints.push(incidentP._source);
       }
@@ -497,6 +635,93 @@ export class MapComponent implements OnInit {
 
       let thelatlong = {lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
 
+      dataPointsMarker.push(L.marker(thelatlong, {
+        icon: this.customIcon,
+        title: incident.id
+      }).on('click',
+        (data) => {
+          // console.log("I have a click.")
+        }).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+
+
+      //this.markerClusterGroup.addLayer(L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray));
+      /// L.marker(thelatlong, {icon: this.customIcon}).bindPopup("Lat:" + incident.location.coordinates[1] + " | Lng: " + incident.location.coordinates[0] + "<br>Types:" + this.typesArray).addTo(map);
+      //L.marker({"lat":incident.location.coordinates[1],"lng": incident.location.coordinates[0]}, {icon: this.customIcon}).bindPopup("Types:" +  this.typesArray).addTo(map)
+
+      // }
+
+    }
+    //this.markerClusterGroup.addTo(map);
+    this.markerLayerGroup = L.featureGroup(dataPointsMarker).addTo(map);
+    this.polygonLayerGroup = L.featureGroup(dataPointsPolygon).addTo(map);
+
+    // Polygons
+    this.polygonLayerGroup.on("click", function (event) {
+      let clickedMarker = event.layer;
+      // console.log("Clicked", clickedMarker);
+      map.setView(clickedMarker._latlngs[0][0], map.getZoom(), true);
+    });
+
+//    map.addLayer(new L.LayerGroup(dataPoints));
+    //this.markerClusterData = dataPoints;
+    this.cd.markForCheck(); // forces redraw
+    map.invalidateSize();
+
+  }
+
+
+  private drawMarkerWithFilter(incidents: any, map: L.Map, filterObject) {
+
+    this.incidentPoints = [];
+    this.incidentPolygons = [];
+
+    for (let incidentP of incidents) {
+      //console.log("incidentP: ", incidentP);
+      //filter out points
+      if (!(incidentP._source.hasOwnProperty("location"))) {
+        //console.log("theft")
+      }
+      else if (!(incidentP._source.hasOwnProperty("types"))) {
+        // console.log("type is missing");
+      }
+      //checks whether the incidentP is a point or a polygon
+      else if (incidentP._source.location.type == "Point" && incidentP._source.types[0] != null) {
+        this.incidentPoints.push(incidentP._source);
+      }
+      else if (incidentP._source.location.type == "Polygon" && incidentP._source.types[0] != null) {
+        this.incidentPolygons.push(incidentP._source);
+      }
+    }
+
+    // var markers=L.markerClusterGroup();
+
+    this.typesArray = [];
+    let dataPointsPolygon: any[] = [];
+
+    for (let incidentPol of this.incidentPolygons) {
+      //console.log("incident polygons:",incidentPol.location.coordinates[0][0]);
+      //swaps lat with lng because leaflet is other way round than normal
+      this.swapLatLng(incidentPol);
+
+      this.typesArray = [];
+      for (let incidentType of incidentPol.types) {
+        this.typesArray.push(incidentType.type);
+      }
+      ///  L.polygon(incidentPol.location.coordinates[0]).bindPopup("Types:" + this.typesArray).addTo(map);
+
+      dataPointsPolygon.push(L.polygon(incidentPol.location.coordinates[0]).bindPopup("Types:" + this.typesArray));
+    }
+    let dataPointsMarker: any[] = [];
+
+    for (let incident of this.incidentPoints) {
+
+      this.typesArray = [];
+
+      for (let incidentType of incident.types) {
+        this.typesArray.push(incidentType.type);
+      }
+
+      let thelatlong = {lat: incident.location.coordinates[1], lng: incident.location.coordinates[0]};
 
       dataPointsMarker.push(L.marker(thelatlong, {
         icon: this.customIcon,

@@ -1,9 +1,7 @@
-
-
 <div *ngIf="showChart; else elseShowBlock">
   <h3>Filter</h3>
   <div>
-    {{allIncidents.hits.hits.length}} Incidents found
+     Total Incidents found: {{allIncidents.hits.hits.length}}
   </div>
 
   <div *ngIf="toggleMonthDayBool; else elseBlock">
@@ -23,9 +21,9 @@
         (select)="onSelectMonth($event)">
       </ngx-charts-bar-vertical>
     </div>
+      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="toggleMonthDay()">Month/Day</button>
+      <button class="btn btn-info col-sm- col-md-5" style="margin: 0 10px !important;" (click)="showAllIncidents()">Reset Filter</button>
   </div>
-  <button class="btn btn-info" (click)="toggleMonthDay()">Month/Day</button>
-  <button class="btn btn-info" (click)="showAllIncidents()">reset filter</button>
 
 
   <ng-template #elseBlock>
@@ -45,8 +43,14 @@
         (select)="onSelectDay($event)">
       </ngx-charts-bar-vertical>
     </div>
+      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="toggleMonthDay()">Month/Day</button>
+      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="showAllIncidents()">Reset Filter</button>
+
   </ng-template>
 </div>
 <ng-template #elseShowBlock>
-Use the input fields to search for Incidents
+  <div style="margin-top:20px;">
+    Use the input fields to search for Incidents
+  </div>
+
 </ng-template>
