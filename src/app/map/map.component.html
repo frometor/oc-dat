@@ -1,7 +1,8 @@
 <!--<div leaflet class="map" [style.height]="height+'px'" style="height: 700px; z-index:1;"-->
-<div leaflet class="map" [style.height]="height+'px'" style="height: 900px; z-index:1;"
+<div leaflet class="map" style="z-index:1;"
      [leafletOptions]="mapOptions"
      [leafletZoom]="zoom"
+     [leafletZoomOptions]="zoomOptions"
      [leafletCenter]="center"
      [leafletFitBounds]="fitBounds"
      [leafletBaseLayers]="baseLayers"
@@ -10,5 +11,8 @@
      [leafletMarkerCluster]="markerClusterData"
      [leafletMarkerClusterOptions]="markerClusterOptions"
      (leafletMarkerClusterReady)="markerClusterReady($event)">
+</div>
+<div (window:resize)="onResize($event)">
+
 </div>
 

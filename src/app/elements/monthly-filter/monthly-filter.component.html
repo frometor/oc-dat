@@ -1,10 +1,12 @@
 <div *ngIf="showChart; else elseShowBlock">
   <h3>Filter</h3>
   <div>
-     Total Incidents found: {{allIncidents.hits.hits.length}}
+    Total Incidents found: {{allIncidents.hits.hits.length}}
   </div>
 
   <div *ngIf="toggleMonthDayBool; else elseBlock">
+    <!-- <div class="row">-->
+
     <div style="height: 300px;">
       <ngx-charts-bar-vertical
         [view]="mview"
@@ -21,8 +23,15 @@
         (select)="onSelectMonth($event)">
       </ngx-charts-bar-vertical>
     </div>
-      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="toggleMonthDay()">Month/Day</button>
-      <button class="btn btn-info col-sm- col-md-5" style="margin: 0 10px !important;" (click)="showAllIncidents()">Reset Filter</button>
+    <!-- <div class="col-sm-3 col-md-5">-->
+    <button class="btn btn-info col-xs-3 col-md-5" style="margin: 10px 15px !important;" (click)="toggleMonthDay()">
+      Month/Day
+    </button>
+    <!-- </div>
+    <div class="col-sm-3 col-md-5"> -->
+    <button class="btn btn-info col-xs-3 col-md-5" style="margin: 10px 0 !important;" (click)="showAllIncidents()">Reset Filter</button>
+    <!-- </div> -->
+    <!-- </div>-->
   </div>
 
 
@@ -43,14 +52,17 @@
         (select)="onSelectDay($event)">
       </ngx-charts-bar-vertical>
     </div>
-      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="toggleMonthDay()">Month/Day</button>
-      <button class="btn btn-info col-sm-3 col-md-5" style="margin: 0 10px !important;" (click)="showAllIncidents()">Reset Filter</button>
-
+    <button class="btn btn-info col-xs-3 col-md-5" style="margin: 10px 15px !important;" (click)="toggleMonthDay()">
+      Month/Day
+    </button>
+    <button class="btn btn-info col-xs-3 col-md-5" style="margin: 10px 0 !important;" (click)="showAllIncidents()">Reset Filter</button>
   </ng-template>
 </div>
 <ng-template #elseShowBlock>
-  <div style="margin-top:20px;">
-    Use the input fields to search for Incidents
+  <div class="row" style="margin-top:20px;">
+    <div class="col-md-12" style="margin: 15px;">
+      Use the input fields to search for Incidents
+    </div>
   </div>
 
 </ng-template>

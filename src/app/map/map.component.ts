@@ -17,7 +17,6 @@ import {Subscription} from "rxjs";
 })
 export class MapComponent implements OnInit {
 
-  height: number = 900;
   bounds;
 
   message: any;
@@ -34,8 +33,8 @@ export class MapComponent implements OnInit {
   reportsMarkerLayerGroup;
   alertsPolygonLayerGroup;
   polygonLayerGroup;
-  filteredValue:any;
-  filteredIncidents:any[] = [];
+  filteredValue: any;
+  filteredIncidents: any[] = [];
   clickedMarker: any;
 
   // Marker cluster stuff
@@ -77,8 +76,11 @@ export class MapComponent implements OnInit {
   };
   mapOptions = {
     zoom: 10,
-    center: L.latLng([50.83, 4.33])
+    center: L.latLng([50.83, 4.33]),
+    zoomControl:false
   };
+
+  zoomOptions = {position: 'bottomright'};
 
   customIcon = L.icon({
     iconUrl: 'assets/marker-icon.png',
@@ -103,6 +105,9 @@ export class MapComponent implements OnInit {
   private typesArray: any[];
 
   constructor(private incidentService: IncidentsService, private cd: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
   }
 
   onMapReady(map: L.Map) {
@@ -255,18 +260,15 @@ export class MapComponent implements OnInit {
 
     this.subscription = this.incidentService.getMessageFromTable2Map().subscribe(message => {
       this.message = message;
-      // console.log("MAP:Getmessage:", this.message);
       if (this.message.selected.length > 0) {
         // own scope >> eachlayer
         this.markerLayerGroup.eachLayer(function (layer) {
           if (layer.options.title == self.message.selected[0].id) {
-            //   console.log(layer);
             layer.openPopup();
             map.setView(layer._latlng, map.getZoom(), true);
           }
         });
       } else {
-
       }
     });
 
@@ -411,13 +413,11 @@ export class MapComponent implements OnInit {
     });
 
     this.subscriptionMonthly = this.incidentService.getMessageFromFilter2Map().subscribe(messageMonth => {
-     // console.log("messageMonth", messageMonth);
-     // console.log("INCIDENTS", this.incidents);
       let messageM = _.cloneDeep(messageMonth);
 
-
       if (messageM[1].name == "day") {
-        this.filteredValue=-1;
+
+        this.filteredValue = -1;
         this.filteredIncidents = [];
         switch (messageM[0].name) {
           case "Sunday":
@@ -443,23 +443,16 @@ export class MapComponent implements OnInit {
             break;
           default:
         }
-      //  console.log("filteredValue:", filteredValue);
         for (let i = 0; i < this.incidents.length; i++) {
-        //  console.log(this.incidents[i]._source.reports["0"].src.created);
-        //  console.log(new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay());
-          if (new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay() == this.filteredValue) {
-         //   console.log("SAME DAY");
+         if (new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay() == this.filteredValue) {
             this.filteredIncidents.push(this.incidents[i]);
           }
         }
-       // console.log("filteredIncidents", filteredIncidents);
-        //["0"]._source.reports["0"].src.created
-     //   console.log("SHOW daily", messageMonth);
-        //let messageM = _.cloneDeep(messageMonth);
         this.drawMarker(this.filteredIncidents, map);
 
       } else if (messageM[1].name == "month") {
-
+        this.filteredValue = -1;
+        this.filteredIncidents = [];
         switch (messageM[0].name) {
           case "January":
             this.filteredValue = 0;
@@ -500,25 +493,17 @@ export class MapComponent implements OnInit {
           default:
         }
 
-      //  console.log("filteredValue:", filteredValue);
         for (let i = 0; i < this.incidents.length; i++) {
-      //    console.log(this.incidents[i]._source.reports["0"].src.created);
-        //  console.log(new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getDay());
           if (new Date(this.incidents[i]._source.reports["0"].src.created * 1000).getMonth() == this.filteredValue) {
-      //      console.log("SAME DAY");
             this.filteredIncidents.push(this.incidents[i]);
           }
         }
 
-       // console.log("SHOW monthly", messageMonth);
-        // let messageM = _.cloneDeep(messageMonth);
         this.drawMarker(this.filteredIncidents, map);
 
       } else {
-      //  console.log("SHOW EVERYTHING", messageMonth);
-       // let messageM = _.cloneDeep(messageMonth);
+        console.log("ELSE");
         this.drawMarker(this.incidents, map);
-        // this.fillColums(this.allIncidents, messageM);
       }
     });
 
@@ -554,11 +539,6 @@ export class MapComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    // this.height = 400;
-
-  }
-
   private drawMarker(incidents: any, map: L.Map) {
 
     this.incidentPoints = [];
@@ -570,7 +550,7 @@ export class MapComponent implements OnInit {
     }
     if (this.singleMarkerLayerGroup != null) {
       map.removeLayer(this.singleMarkerLayerGroup);
-      // this.cd.markForCheck(); // forces redraw
+       this.cd.markForCheck(); // forces redraw
     }
     if (this.alertsPolygonLayerGroup != null) {
       map.removeLayer(this.alertsPolygonLayerGroup);
@@ -586,6 +566,7 @@ export class MapComponent implements OnInit {
       map.removeLayer(this.polygonLayerGroup);
       //this.cd.markForCheck(); // forces redraw
     }
+    this.cd.markForCheck(); // forces redraw
 
     for (let incidentP of incidents) {
       //console.log("incidentP: ", incidentP);
@@ -668,7 +649,6 @@ export class MapComponent implements OnInit {
     map.invalidateSize();
 
   }
-
 
   private drawMarkerWithFilter(incidents: any, map: L.Map, filterObject) {
 
@@ -757,5 +737,8 @@ export class MapComponent implements OnInit {
 
   }
 
+  onResize(event) {
+    console.log("RESIZE", event);
+  }
 
 }

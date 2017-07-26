@@ -10,30 +10,38 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div id="input-component" class="col-md-2">
-      <h3>Search</h3>
-      <app-inputs>
-      </app-inputs>
-      <div class="col-md-12">
-        <app-monthly-filter>
-        </app-monthly-filter>
-      </div>
-
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="col-md-12">
         <app-map>
         </app-map>
       </div>
-
-      <div class="col-md-6" style="position:absolute;z-index: 100;top: 0;right: 0; height: 0;">
-        <app-result-table >
+      <div *ngIf="showInput; else elseShowBlock">
+        <div id="input-component" class="col-md-3 col-sm-4"
+             style="position:absolute;z-index: 100;top:0;left:30px; background-color:white;">
+          <button class="btn btn-primary" (click)="toggleShowInput()" style="margin-top:15px;">Hide Input</button>
+          <app-inputs>
+          </app-inputs>
+          <app-monthly-filter>
+          </app-monthly-filter>
+        </div>
+      </div>
+      <div class="col-md-5" style="position:absolute;z-index: 100;top: 10px;right: 15px; height: 0;">
+        <app-result-table>
         </app-result-table>
       </div>
     </div>
+
     <div class="col-md-2">
       <app-result-visualiations>
       </app-result-visualiations>
     </div>
   </div>
 </div>
+
+<ng-template #elseShowBlock>
+  <div class="col-md-3"
+       style="position:absolute;z-index: 100;top:0;left:30px; background-color: transparent;">
+    <button class="btn btn-primary" (click)="toggleShowInput()" style="margin-top:15px;">Show Input</button>
+  </div>
+
+</ng-template>

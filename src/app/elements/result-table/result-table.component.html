@@ -30,15 +30,13 @@
             <div><strong>Types</strong></div>
             <div>{{row.types}}</div>
             <div *ngIf="row.reports.length>0"><strong>Reports</strong>
-
-              <button class="btn-sm btn-info" (click)="showReports(row.id)">Show</button>
-
+              <button class="btn btn-info btn-xs" style="margin-left: 50px;" (click)="showReports(row.id)">Show on Map
+              </button>
             </div>
             <div *ngFor="let report of row.reports">{{report.report}}</div>
             <div *ngIf="row.alerts.length>0"><strong>Alerts</strong>
-
-              <button class="btn-sm btn-info" (click)="showAlerts(row.id)">Show</button>
-
+              <button class="btn btn-info btn-xs" style="margin-left: 50px;" (click)="showAlerts(row.id)">Show on Map
+              </button>
             </div>
             <div *ngFor="let alert of row.alerts">{{alert.alert}}</div>
           </div>
@@ -61,7 +59,7 @@
           </a>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Status" width="80">
+      <ngx-datatable-column name="Status" width="50">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <strong>{{row.state}}</strong>
         </ng-template>
@@ -81,7 +79,7 @@
           <strong>{{row.numberOfAlerts }}</strong>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Theft" width="80">
+      <ngx-datatable-column name="Theft" width="60">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <strong>{{row.theft }}</strong>
         </ng-template>

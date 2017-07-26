@@ -38,7 +38,9 @@ export class InputsComponent {
   }
 
   parentFunction(event) {
-  //  console.log("event", event);
+    //  console.log("event", event);
     this.typeofIncidents = event;
   }
+
+
 }
