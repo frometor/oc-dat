@@ -16,18 +16,15 @@ export class ResultVisualiationsComponent implements OnInit {
 
   }
 
-
   ngOnInit(): void {
     this.incidentService.incidents$.subscribe(
       incidents => {
         // EMPTY_SEARCH has a "reset" value
         if (incidents.hasOwnProperty("reset")) {
-          console.log("1", this.showChart);
           this.showChart = false;
           this.cd.markForCheck(); // marks path
 
         } else {
-          console.log("2", this.showChart);
           this.showChart = true;
           this.cd.markForCheck(); // marks path
 

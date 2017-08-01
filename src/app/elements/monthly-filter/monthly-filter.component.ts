@@ -108,11 +108,7 @@ export class MonthlyFilterComponent implements OnInit {
       }
     );
   }
-
-
-  months: any[];
-  single: any[];
-
+  
   mview: any[];
   // options
   mshowXAxis = true;
